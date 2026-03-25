@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letramento.Tech | Ecossistema de Educação Tecnológica</title>
+    
+    <!-- Tailwind CSS Core -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons Premium -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Plus Jakarta Sans for UI, Roboto Mono for Code/Data -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Custom Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Roboto Mono"', 'monospace']
+                    },
+                    colors: {
+                        brand: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a', 950: '#042f2e' },
+                        surface: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                        accent: { 500: '#8b5cf6', 600: '#7c3aed' },
+                        danger: { 500: '#ef4444', 600: '#dc2626' },
+                        warning: { 500: '#f59e0b', 600: '#d97706' }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 40px -10px rgba(20, 184, 166, 0.4)',
+                        'glow-sm': '0 0 20px -5px rgba(20, 184, 166, 0.3)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- CSS Arquitetural de Alto Nível -->
+    <style>
+        /* Base (Forced Dark Mode) */
+        body { background-color: #020617; color: #f8fafc; }
+        
+        /* O FUNDO (Mesh Gradient Premium Dark) */
+        .bg-mesh { 
+            background-color: #020617; 
+            background-image: 
+                radial-gradient(at 10% 20%, hsla(173, 80%, 10%, 0.5) 0px, transparent 50%),
+                radial-gradient(at 90% 10%, hsla(210, 100%, 10%, 0.5) 0px, transparent 50%);
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        /* Utilitários Glassmorphism Dark */
+        .glass { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .glass-card { background: rgba(30, 41, 59, 0.75); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+        
+        /* Navegação Lateral */
+        .nav-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 4px solid transparent; position: relative; overflow: hidden; }
+        .nav-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.1), transparent); transition: left 0.5s ease; }
+        .nav-item:hover::before { left: 100%; }
+        .nav-item:hover { background-color: #1e293b; color: #2dd4bf; }
+        .nav-item.active { background-color: #134e4a; color: #2dd4bf; border-left: 4px solid #2dd4bf; font-weight: 700; }
+        
+        /* Efeitos de Interação nos Posts do Simulador */
+        .post-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: center; }
+        .post-card:hover { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); transform: translateY(-2px); z-index: 10; }
+        .post-active { background-color: #042f2e !important; box-shadow: 0 0 0 2px #2dd4bf, 0 10px 25px -5px rgba(45, 212, 191, 0.2) !important; transform: scale(1.02); z-index: 20; border-color: #0d9488 !important; }
+        
+        /* Switch Toggle Styles */
+        .toggle-checkbox:checked { right: 0; border-color: #14b8a6; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #14b8a6; }
+
+        /* Estilos Premium das Conquistas (Tiers Metálicos) */
+        .badge-bronze { background: linear-gradient(135deg, #cd7f32 0%, #8b5a2b 100%); color: #fff; border: 2px solid #e8bc96; box-shadow: 0 0 15px rgba(205,127,50,0.4); }
+        .badge-silver { background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%); color: #0f172a; border: 2px solid #f8fafc; box-shadow: 0 0 15px rgba(148,163,184,0.4); }
+        .badge-gold { background: linear-gradient(135deg, #ca8a04 0%, #fef08a 100%); color: #713f12; border: 2px solid #fef9c3; box-shadow: 0 0 20px rgba(234,179,8,0.5); }
+        .badge-diamond { background: linear-gradient(135deg, #0d9488 0%, #5eead4 100%); color: #042f2e; border: 2px solid #ccfbf1; box-shadow: 0 0 25px rgba(20,184,166,0.6); }
+        
+        /* Efeito Holográfico (Shine) para Conquistas Desbloqueadas */
+        .shine-effect { position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-20deg); animation: shine 3s infinite; z-index: 20; pointer-events: none; }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        /* Animações Premium */
+        .pulse-pointer { animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.85); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        
+        .highlight-box { border: 2px dashed #EF4444; background-color: rgba(239, 68, 68, 0.1); position: relative; border-radius: 1rem; }
+        .animate-fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .confetti-anim { animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .shake-anim { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        .pulse-glow { animation: pulseGlow 2s infinite; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5) rotate(-5deg); } 70% { transform: scale(1.05) rotate(2deg); } 100% { opacity: 1; transform: scale(1) rotate(0); } }
+        @keyframes shake { 10%, 90% { transform: translate3d(-2px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 40%, 60% { transform: translate3d(6px, 0, 0); } }
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(20, 184, 166, 0); } 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); } }
+        
+        /* Tooltips Inteligentes (Dicas do Manual) */
+        .tooltip .tooltip-text {
+            visibility: hidden; width: 300px; background-color: #0f172a; color: #f8fafc; text-align: left;
+            border-radius: 12px; padding: 16px; position: absolute; z-index: 50; bottom: calc(100% + 15px);
+            left: 50%; transform: translateX(-50%) translateY(10px); opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.85rem; font-weight: 500;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.1); line-height: 1.6; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .tooltip .tooltip-text::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -8px; border-width: 8px; border-style: solid; border-color: #0f172a transparent transparent transparent; }
+        .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* Scrollbar Premium Dark */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 9999px; border: 2px solid transparent; background-clip: padding-box; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; border: 2px solid transparent; background-clip: padding-box; }
+        
+        /* Estilização Acadêmica dos Textos (Módulos) */
+        .academic-content p { margin-bottom: 1.25rem; line-height: 1.8; color: #cbd5e1; font-weight: 400; }
+        .academic-content h3 { font-size: 1.25rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; color: #f8fafc; tracking: -0.02em; }
+        .academic-content blockquote { border-left: 4px solid #14b8a6; padding-left: 1.25rem; font-style: italic; color: #94a3b8; margin: 1.5rem 0; background: rgba(45, 212, 191, 0.05); padding: 1.25rem; border-radius: 0 12px 12px 0; }
+
+        /* ========================================================= */
+        /* MOTOR DE IMPRESSÃO EDITORIAL DARK (PDF PERFEITO E ELEGANTE)*/
+        /* ========================================================= */
+        @media print {
+            @page { size: A4 portrait; margin: 12mm 15mm; }
+            
+            /* FORÇAR MODO ESCURO E CORES NO PDF */
+            html, body, .flex-1, main, #view-manual { 
+                background: none !important; background-color: #020617 !important; color: #f8fafc !important;
+                -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; 
+                font-size: 11pt !important; line-height: 1.5 !important;
+                height: auto !important; min-height: auto !important; max-height: none !important;
+                overflow: visible !important; position: static !important; display: block !important;
+            }
+            
+            /* OCULTAR INTERFACE DO SISTEMA OPERACIONAL */
+            #sidebar, #global-header, .mobile-menu-btn, .no-print, .tooltip .tooltip-text,
+            #view-dashboard, #view-feed, #view-modulos, #view-conquistas, #boot-overlay { 
+                display: none !important; 
+            }
+            
+            /* GARANTIR QUE APENAS O MANUAL SEJA IMPRESSO */
+            .view-section { display: none !important; }
+            #view-manual { display: block !important; opacity: 1 !important; visibility: visible !important; padding: 0 !important; margin: 0 !important;}
+            
+            /* QUEBRAS DE PÁGINA (PAGINAÇÃO A4) */
+            .page-break { page-break-before: always !important; break-before: page !important; }
+            .print-break-inside-avoid { page-break-inside: avoid !important; break-inside: avoid !important; }
+            
+            /* A MAGIA CONTRA O ESMAGAMENTO: TRANSFORMAR GRIDS EM COLUNAS (STACK) */
+            .grid { display: flex !important; flex-direction: column !important; gap: 2rem !important; }
+            .lg\:col-span-3, .lg\:col-span-2 { width: 100% !important; max-width: 100% !important; }
+            
+            /* AJUSTES VISUAIS PARA O PDF DARK */
+            .shadow-2xl, .shadow-xl, .shadow-glow, .glass-card, .glass { box-shadow: none !important; border: 1px solid #1e293b !important; background: #0f172a !important; }
+            .bg-mesh { background-image: none !important; }
+            
+            /* PRESERVAR MOCKUPS E CORES DA MARCA */
+            .mockup-dark, .bg-surface-900, .bg-surface-950, .bg-surface-800 { background-color: #0f172a !important; color: #fff !important; border-radius: 12px !important; border: 1px solid #1e293b !important; }
+            .text-brand-400 { color: #2dd4bf !important; }
+            .text-brand-600 { color: #0d9488 !important; }
+            .bg-brand-500 { background-color: #14b8a6 !important; color: white !important;}
+            .bg-brand-50, .bg-brand-900\/30 { background-color: #134e4a !important; }
+            
+            /* REMOVER ANIMAÇÕES E FIXAR BORDAS */
+            .pulse-pointer, .shine-effect { animation: none !important; box-shadow: none !important; border: 2px solid #EF4444 !important; }
+            
+            /* ESPAÇAMENTOS COMPACTOS PARA PAPEL A4 */
+            .max-w-4xl, .max-w-5xl { max-width: 100% !important; width: 100% !important; margin: 0 !important; }
+            .mb-16 { margin-bottom: 2rem !important; }
+            .p-8 { padding: 1.5rem !important; }
+            .mt-4 { margin-top: 0 !important; }
+        }
+    </style>
+</head>
+<body class="bg-mesh antialiased h-screen flex flex-col overflow-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- 1. TELA DE CARREGAMENTO (BOOT SEQUENCE) -->
+    <div id="boot-overlay" class="fixed inset-0 bg-surface-950 z-[100] flex flex-col items-center justify-center text-white transition-opacity duration-1000 no-print">
+        <div class="w-24 h-24 mb-8 relative">
+            <div class="absolute inset-0 border-4 border-brand-500/30 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-brand-400 rounded-full border-t-transparent animate-spin"></div>
+            <i class="fa-solid fa-microchip absolute inset-0 flex items-center justify-center text-3xl text-brand-300"></i>
+        </div>
+        <h1 class="text-3xl font-extrabold tracking-widest uppercase mb-2">Letramento<span class="text-brand-400">.Tech</span></h1>
+        <p class="text-surface-400 font-mono text-sm mb-8 animate-pulse">Iniciando Kernel de Auditoria Sociotécnica v2.0...</p>
+        <div class="w-64 bg-surface-800 rounded-full h-1.5 overflow-hidden">
+            <div id="boot-progress" class="bg-gradient-to-r from-brand-600 to-brand-300 h-full w-0 transition-all duration-[2000ms] ease-out"></div>
+        </div>
+        <div class="mt-4 font-mono text-[10px] text-brand-500/50 flex flex-col items-center">
+            <span>[OK] Carregando Banco de Dados do ECA Digital</span>
+            <span>[OK] Inicializando Heurística Foucaultiana</span>
+            <span>[WAIT] Descriptografando Dark Patterns...</span>
+        </div>
+    </div>
+
+    <!-- 2. CABEÇALHO GLOBAL DO SISTEMA (HEADER) -->
+    <header id="global-header" class="bg-surface-900/90 backdrop-blur-md border-b border-surface-800 h-16 flex items-center justify-between px-4 lg:px-6 z-40 shrink-0 transition-colors duration-300 no-print">
+        <!-- Logo -->
+        <div class="flex items-center gap-3 md:gap-4">
+            <button id="mobile-menu-btn" class="lg:hidden text-surface-500 hover:text-brand-400 focus:outline-none mobile-menu-btn">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center shadow-lg shadow-brand-500/20 text-brand-400 border border-slate-700">
+                <i class="fa-solid fa-layer-group text-lg"></i>
+            </div>
+            <div class="hidden sm:block">
+                <h1 class="font-extrabold text-base tracking-wide text-white leading-tight">Letramento<span class="text-brand-400">.Tech</span></h1>
+                <p class="text-[10px] text-surface-400 font-bold tracking-widest uppercase">Laboratório PPGET</p>
+            </div>
+        </div>
+        
+        <!-- Ferramentas e Perfil -->
+        <div class="flex items-center gap-4 md:gap-6">
+            <!-- Botão de Limpar Progresso -->
+            <button onclick="resetGame()" class="w-10 h-10 rounded-full bg-surface-800 text-surface-300 flex items-center justify-center hover:bg-danger-900/50 hover:text-danger-400 transition border border-surface-700" title="Reiniciar Progresso e Testes">
+                <i class="fa-solid fa-arrow-rotate-left"></i>
+            </button>
+            
+            <!-- Mini Dashboard no Header -->
+            <div class="hidden md:flex items-center gap-5 bg-surface-950 px-5 py-2 rounded-full border border-surface-800 shadow-inner">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <svg class="w-8 h-8 transform -rotate-90">
+                            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="3" fill="transparent" class="text-surface-800" />
+                            <circle id="xp-circle" cx="16" cy="16" r="14" stroke="currentColor" stroke-width="3" fill="transparent" stroke-dasharray="88" stroke-dashoffset="88" class="text-brand-500 transition-all duration-1000 ease-out" />
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-surface-200" id="level-display-mini">1</div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[9px] uppercase tracking-widest text-surface-400 font-bold">Patente</span>
+                        <span id="rank-display" class="text-xs font-extrabold text-brand-400">Iniciante</span>
+                    </div>
+                </div>
+                <div class="w-px h-6 bg-surface-700"></div>
+                <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full bg-warning-900/30 flex items-center justify-center text-warning-400">
+                        <i class="fa-solid fa-bolt text-xs"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-[9px] uppercase tracking-widest text-surface-400 font-bold">Score</span>
+                        <div class="flex items-baseline gap-1">
+                            <span id="score-display" class="font-extrabold text-sm text-white leading-none">0</span>
+                            <span class="text-[10px] text-surface-400 font-mono">/ 600 XP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Avatar do Aluno/Pesquisador -->
+            <div class="w-10 h-10 rounded-full border-2 border-surface-700 overflow-hidden shadow-sm">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jean&backgroundColor=14b8a6" alt="Avatar" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. ÁREA PRINCIPAL (DIVISÃO LATERAL E CONTEÚDO) -->
+    <div class="flex-1 flex overflow-hidden w-full relative">
+        
+        <!-- MENU LATERAL (SIDEBAR) -->
+        <aside id="sidebar" class="w-64 bg-surface-900/95 backdrop-blur-xl border-r border-surface-800 flex flex-col justify-between hidden lg:flex z-30 transition-colors duration-300 absolute lg:relative h-full shadow-2xl lg:shadow-none no-print">
+            <div class="overflow-y-auto py-6">
+                
+                <div class="px-6 mb-4 flex lg:hidden justify-between items-center">
+                    <span class="font-bold text-white">Menu Principal</span>
+                    <button onclick="document.getElementById('sidebar').classList.add('hidden')" class="text-surface-500 hover:text-danger-500"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+
+                <div class="px-4 mb-6">
+                    <p class="px-4 text-[10px] font-extrabold text-brand-400 uppercase tracking-widest mb-2">Documentação</p>
+                    <nav class="space-y-1">
+                        <!-- Botão que ativa o Manual -->
+                        <button onclick="navTo('manual')" id="nav-manual" class="nav-item active w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-book-open-reader w-5 text-center"></i> Manual do Educador
+                        </button>
+                    </nav>
+                </div>
+
+                <div class="px-4 mb-6">
+                    <p class="px-4 text-[10px] font-extrabold text-surface-400 uppercase tracking-widest mb-2">Avaliação</p>
+                    <nav class="space-y-1">
+                        <button onclick="navTo('dashboard')" id="nav-dashboard" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-chart-pie w-5 text-center"></i> Meu Desempenho
+                        </button>
+                        <button onclick="navTo('conquistas')" id="nav-conquistas" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-medal w-5 text-center"></i> Galeria de Conquistas
+                        </button>
+                    </nav>
+                </div>
+
+                <div class="px-4 mb-6">
+                    <p class="px-4 text-[10px] font-extrabold text-surface-400 uppercase tracking-widest mb-2">Laboratório Prático</p>
+                    <nav class="space-y-1">
+                        <button onclick="navTo('feed')" id="nav-feed" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-mobile-screen w-5 text-center"></i> Simulador de Feed
+                            <span class="ml-auto flex h-2 w-2 relative">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                            </span>
+                        </button>
+                    </nav>
+                </div>
+
+                <div class="px-4">
+                    <p class="px-4 text-[10px] font-extrabold text-surface-400 uppercase tracking-widest mb-2">Biblioteca Teórica</p>
+                    <nav class="space-y-1">
+                        <button onclick="navTo('mod1')" id="nav-mod1" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-book-bookmark w-5 text-center text-surface-400"></i> 1. O Panóptico Digital
+                        </button>
+                        <button onclick="navTo('mod2')" id="nav-mod2" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-book-bookmark w-5 text-center text-surface-400"></i> 2. A Novilíngua
+                        </button>
+                        <button onclick="navTo('mod3')" id="nav-mod3" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-book-bookmark w-5 text-center text-surface-400"></i> 3. Dark Patterns
+                        </button>
+                        <button onclick="navTo('mod4')" id="nav-mod4" class="nav-item w-full text-left px-4 py-2.5 rounded-xl text-sm text-surface-300 flex items-center gap-3 font-medium">
+                            <i class="fa-solid fa-book-bookmark w-5 text-center text-surface-400"></i> 4. ECA Digital
+                        </button>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Assinatura Institucional -->
+            <div class="p-6 border-t border-surface-800 bg-surface-900/30">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-surface-800 flex items-center justify-center text-surface-500 shadow-sm border border-surface-700">
+                        <i class="fa-solid fa-graduation-cap text-xl text-brand-400"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-white">PPGET / CEFET-MG</p>
+                        <p class="text-[10px] text-surface-500 font-mono">v2.0 - Master Build</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ESPAÇO DE TRABALHO DAS TELAS -->
+        <main class="flex-1 h-full overflow-hidden relative w-full bg-transparent">
+            
+            <!-- ========================================================================= -->
+            <!-- VISTA 1: O MANUAL DO EDUCADOR (DOCUMENTAÇÃO QUE VIRA PDF NA IMPRESSÃO)    -->
+            <!-- ========================================================================= -->
+            <div id="view-manual" class="view-section block h-full overflow-y-auto animate-fade-in relative w-full">
+                
+                <!-- Barra flutuante de Imprimir apenas no Manual -->
+                <div class="sticky top-0 z-40 bg-surface-900/80 backdrop-blur-md border-b border-surface-800 p-4 flex justify-between items-center transition-all no-print shadow-sm">
+                    <div>
+                        <span class="font-extrabold text-lg text-white block leading-tight">Apostila Pedagógica</span>
+                        <span class="text-xs text-surface-400 font-medium">Como operar a plataforma com a sua turma</span>
+                    </div>
+                    <button onclick="window.print()" class="bg-brand-600 text-white px-5 py-2 rounded-xl shadow-md hover:bg-brand-500 transition-colors duration-300 flex items-center gap-2 font-bold text-sm border border-brand-500 hover:scale-105 transform">
+                        <i class="fa-solid fa-print"></i> Imprimir Apostila (PDF)
+                    </button>
+                </div>
+
+                <div class="max-w-4xl mx-auto p-4 md:p-8 mt-4 pb-24">
+                    
+                    <!-- PÁGINA 1: CABEÇALHO -->
+                    <header class="text-center mb-16 print-break-inside-avoid relative">
+                        <div class="inline-flex items-center justify-center px-3 py-1 rounded-full bg-brand-900/30 border border-brand-800/50 text-brand-300 text-xs font-bold uppercase tracking-widest mb-6 shadow-sm">
+                            Tutorial
+                        </div>
+                        
+                        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tighter leading-tight">
+                            Como operar o Simulador <br class="hidden md:block">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-400 to-brand-300 drop-shadow-sm">Letramento.Tech</span>
+                        </h1>
+                        
+                        <p class="text-lg text-surface-300 max-w-2xl mx-auto leading-relaxed font-medium">
+                            Um guia estruturado, passo a passo, para apoiar educadores na formação de alunos como auditores de algoritmos, utilizando a legislação do ECA Digital para a análise crítica do discurso de ódio e de práticas manipulativas.
+                        </p>
+                    </header>
+
+                    <!-- SEÇÃO 1: BOOT -->
+                    <section class="mb-16 print-break-inside-avoid">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="bg-brand-500/20 text-brand-300 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-glow-sm border border-brand-500/30">1</div>
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-white tracking-tight">O Acesso ao Sistema (Boot Sequence)</h2>
+                                <p class="text-sm text-surface-400 font-medium">A primeira impressão pedagógica.</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-surface-300 mb-6 leading-relaxed">Ao abrir a aplicação, o utilizador não entra num site comum. Ele é recebido por uma tela de inicialização que simula o carregamento de um terminal de cibersegurança. Esta escolha de <i>design</i> visa romper a passividade, instaurando imediatamente o <strong>Modo de Auditoria</strong>.</p>
+
+                        <div class="mockup-dark rounded-3xl p-8 md:p-12 flex flex-col items-center justify-center shadow-2xl relative overflow-hidden mb-4">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.1)_0,transparent_50%)]"></div>
+                            
+                            <div class="w-20 h-20 mb-6 relative z-10 tooltip highlight-box">
+                                <div class="absolute -left-6 -top-4 bg-danger-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none pulse-pointer whitespace-nowrap">
+                                    Animação CSS Nativa
+                                </div>
+                                <div class="absolute inset-0 border-4 border-brand-500/20 rounded-full"></div>
+                                <div class="absolute inset-0 border-4 border-brand-400 rounded-full border-t-transparent" style="transform: rotate(45deg);"></div>
+                                <i class="fa-solid fa-microchip absolute inset-0 flex items-center justify-center text-2xl text-brand-300"></i>
+                                <span class="tooltip-text text-center"><strong>Engenharia Reversa:</strong> A animação rodopiante não é um GIF, é código puro que prepara o aluno para a "descriptografia" do algoritmo.</span>
+                            </div>
+                            
+                            <h3 class="text-2xl font-extrabold tracking-widest uppercase mb-2 text-white relative z-10">Letramento<span class="text-brand-400">.Tech</span></h3>
+                            <p class="text-slate-400 font-mono text-xs mb-8 relative z-10">Iniciando Kernel de Auditoria Sociotécnica v2.0...</p>
+                        </div>
+                    </section>
+
+                    <!-- SEÇÃO 2: DASHBOARD -->
+                    <section class="mb-16 page-break">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="bg-brand-500/20 text-brand-300 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-glow-sm border border-brand-500/30">2</div>
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-white tracking-tight">Entendendo o Centro de Comando</h2>
+                                <p class="text-sm text-surface-400 font-medium">Rastreabilidade e Avaliação Formativa.</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-surface-300 mb-8 leading-relaxed">Acessível via menu lateral, a <strong>Visão Geral (Dashboard)</strong> contabiliza o aprendizado em tempo real, utilizando a mecânica de gamificação para incentivar o progresso através de Pontos de Experiência (XP).</p>
+
+                        <div class="bg-surface-800 p-6 md:p-8 rounded-3xl shadow-xl border border-surface-700 print-break-inside-avoid">
+                            <div class="grid md:grid-cols-3 gap-6 relative">
+                                
+                                <div class="border border-surface-700 p-5 rounded-2xl bg-surface-900 relative overflow-hidden">
+                                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-brand-500/10 rounded-full blur-xl"></div>
+                                    <p class="text-[10px] uppercase font-bold tracking-widest text-surface-400 mb-1">Auditorias</p>
+                                    <h3 class="text-4xl font-black text-white">2<span class="text-base text-surface-400 font-medium ml-1">/6</span></h3>
+                                    <div class="w-full bg-surface-800 rounded-full h-1.5 mt-4 overflow-hidden">
+                                        <div class="bg-brand-500 h-1.5 rounded-full" style="width: 33%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="border border-brand-800 p-5 rounded-2xl bg-brand-900/20 highlight-box tooltip cursor-pointer relative overflow-hidden">
+                                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-accent-500/10 rounded-full blur-xl"></div>
+                                    <div class="absolute -top-3 -right-2 bg-danger-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none pulse-pointer whitespace-nowrap z-10">Métrica Real</div>
+                                    <p class="text-[10px] uppercase font-bold tracking-widest text-brand-300 mb-1">Precisão Analítica</p>
+                                    <h3 class="text-4xl font-black text-brand-100">100%</h3>
+                                    <p class="text-[10px] text-brand-400 mt-2 font-bold uppercase tracking-wide">Acerto em 1ª tentativa</p>
+                                    <span class="tooltip-text"><strong>Nota Pedagógica:</strong> Quanto menos o aluno errar, maior será esta percentagem. Desincentiva a "tentativa e erro" cega.</span>
+                                </div>
+
+                                <div class="border border-surface-700 p-5 rounded-2xl bg-surface-900 relative overflow-hidden">
+                                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-warning-500/10 rounded-full blur-xl"></div>
+                                    <p class="text-[10px] uppercase font-bold tracking-widest text-surface-400 mb-1">Conquistas</p>
+                                    <div class="flex items-baseline gap-1 mt-1">
+                                        <h3 class="text-4xl font-black text-white">1</h3>
+                                        <span class="text-lg text-surface-400 font-medium">/4</span>
+                                    </div>
+                                    <div class="flex gap-2 mt-3">
+                                        <div class="w-7 h-7 rounded-full bg-blue-900/50 text-blue-400 flex justify-center items-center text-xs shadow-inner"><i class="fa-solid fa-bell"></i></div>
+                                        <div class="w-7 h-7 rounded-full bg-surface-800 text-surface-600 flex justify-center items-center text-xs opacity-50"><i class="fa-solid fa-lock"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SEÇÃO 3: MODOS DE USO -->
+                    <section class="mb-16 print-break-inside-avoid">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="bg-brand-500/20 text-brand-300 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-glow-sm border border-brand-500/30">3</div>
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-white tracking-tight">O Motor Dual de Interação</h2>
+                                <p class="text-sm text-surface-400 font-medium">Alternância entre Leitura e Teste.</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-surface-300 mb-6 leading-relaxed">No topo do <strong>Simulador de Feed</strong>, foi implementado um interruptor arquitetural (*Toggle*). Ele permite adaptar o produto a dois momentos pedagógicos:</p>
+
+                        <div class="bg-surface-800 text-white p-6 md:p-8 rounded-3xl shadow-xl border border-surface-700 mb-8 flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
+                            <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                            
+                            <div class="flex-1 relative z-10">
+                                <ul class="space-y-4">
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-book-open-reader text-brand-400 mt-1"></i>
+                                        <div><strong class="text-brand-300">Modo Estudo:</strong> As respostas abrem-se em formato de "cartão expansível" logo abaixo do post. Ideal para consulta ou revisão.</div>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <i class="fa-solid fa-crosshairs text-accent-400 mt-1"></i>
+                                        <div><strong class="text-accent-300">Modo Auditoria:</strong> A tela divide-se. O aluno realiza um teste gamificado para provar o seu letramento.</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-surface-900 p-4 rounded-2xl border border-surface-700 flex items-center gap-4 tooltip cursor-pointer relative z-10 shadow-inner">
+                                <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-danger-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none pulse-pointer whitespace-nowrap z-20">Clique simulado</div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-surface-500">Estudo</span>
+                                <div class="w-14 h-7 rounded-full bg-brand-500 relative shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
+                                    <div class="w-5 h-5 bg-white rounded-full absolute right-1 top-1 shadow-sm"></div>
+                                </div>
+                                <span class="text-xs font-bold uppercase tracking-widest text-brand-400">Auditoria</span>
+                                <span class="tooltip-text text-center">Por predefinição, o sistema arranca em <strong>Modo Auditoria</strong> para assegurar o engajamento intelectual imediato.</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SEÇÃO 4: A AUDITORIA -->
+                    <section class="mb-12 page-break">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="bg-brand-500/20 text-brand-300 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-glow-sm border border-brand-500/30">4</div>
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-white tracking-tight">O Fluxo de Auditoria e a Caixa-Preta</h2>
+                                <p class="text-sm text-surface-400 font-medium">A mecânica de Engenharia Reversa Educacional.</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-surface-300 mb-8 leading-relaxed">No <strong>Modo Auditoria</strong>, a tela é fracionada. O objetivo é que o aluno identifique qual o mecanismo sociotécnico de manipulação está ativo na publicação simulada, clicando no botão Auditar do Feed.</p>
+
+                        <div class="grid lg:grid-cols-5 gap-8">
+                            <div class="lg:col-span-3 space-y-4 print-break-inside-avoid">
+                                <h3 class="font-bold text-xs text-surface-400 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-arrow-down text-brand-500"></i> Interface de Interrogação</h3>
+                                
+                                <div class="bg-surface-800 text-white rounded-3xl p-6 shadow-2xl relative border border-surface-700">
+                                    <div class="mb-5 pb-4 border-b border-surface-700 flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center font-bold text-sm">1</div>
+                                        <h3 class="font-bold text-white text-sm tracking-wide">Teste de Letramento</h3>
+                                    </div>
+                                    <p class="text-slate-200 text-sm font-semibold mb-5 leading-relaxed">Qual é a infração primária operando nesta publicação?</p>
+                                    
+                                    <div class="space-y-3 relative tooltip cursor-pointer">
+                                        <div class="absolute -left-5 top-1/2 transform -translate-y-1/2 bg-danger-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none pulse-pointer z-10 whitespace-nowrap">Teste Lógico</div>
+                                        <div class="bg-surface-900/50 border border-surface-600 p-3.5 rounded-xl opacity-50 transition"><span class="font-bold text-sm text-white">A) Liberdade de Expressão</span></div>
+                                        
+                                        <!-- Opção Correta Selecionada -->
+                                        <div class="bg-brand-900/40 border-2 border-brand-500 p-3.5 rounded-xl shadow-[inset_0_0_15px_rgba(20,184,166,0.15)] relative overflow-hidden">
+                                            <div class="absolute right-3 top-1/2 transform -translate-y-1/2 text-brand-500"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                                            <span class="font-bold text-white text-sm relative z-10 block pr-8">B) Estrutura Lexical de Ódio</span>
+                                            <p class="text-[10px] text-brand-200/80 mt-1 relative z-10">Uso de novilíngua codificada.</p>
+                                        </div>
+                                        <span class="tooltip-text">Se errar, a janela sofre um tremor (CSS Shake). Se acertar, ganha XP e desbloqueia a teoria.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-2 space-y-4 print-break-inside-avoid">
+                                <h3 class="font-bold text-xs text-surface-400 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-arrow-down text-brand-500"></i> A Caixa-Preta</h3>
+                                
+                                <div class="bg-gradient-to-br from-brand-900/20 to-emerald-900/20 border border-brand-800/50 p-6 rounded-3xl shadow-xl relative overflow-hidden h-full">
+                                    <div class="absolute -top-6 -right-6 p-4 opacity-[0.04] text-brand-600 text-7xl pointer-events-none transform rotate-12"><i class="fa-solid fa-unlock-keyhole"></i></div>
+                                    
+                                    <div class="flex items-center gap-3 text-brand-300 mb-4 relative z-10">
+                                        <div class="w-8 h-8 rounded-full bg-brand-800 flex items-center justify-center text-sm border border-brand-700 shadow-inner"><i class="fa-solid fa-check text-brand-400"></i></div>
+                                        <span class="font-extrabold tracking-tight text-sm">+100 XP!</span>
+                                    </div>
+                                    <h4 class="font-extrabold text-white text-lg mb-2 relative z-10 tracking-tight">A Novilíngua</h4>
+                                    <p class="text-xs text-surface-300 leading-relaxed mb-4 font-medium relative z-10">
+                                        O uso de códigos ("modernetes") escapa aos filtros automatizados das Big Techs. O letramento inicia-se ao decodificar esta linguagem.
+                                    </p>
+                                    <div class="bg-surface-900/80 p-3 rounded-xl border border-surface-700 text-[10px] text-surface-300 font-bold shadow-sm flex items-start gap-2 relative z-10">
+                                        <div class="mt-0.5 text-brand-500"><i class="fa-solid fa-scale-balanced"></i></div>
+                                        <span class="leading-relaxed"><strong>Enquadramento:</strong> Lei Lola (13.642/18).</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SEÇÃO 5: RESET -->
+                    <section class="bg-surface-800 p-8 md:p-10 rounded-[2.5rem] shadow-xl border border-surface-700 page-break">
+                        <div class="max-w-2xl mx-auto text-center">
+                            <h3 class="text-2xl font-extrabold text-white mb-4 tracking-tight"><i class="fa-solid fa-rotate-left text-brand-600 mr-2"></i> Ferramenta do Professor (O Reset)</h3>
+                            <p class="text-surface-300 mb-8 leading-relaxed font-medium">Como a plataforma guarda os pontos de XP localmente no navegador, foi implementado um botão mestre para reiniciar o laboratório entre diferentes turmas.</p>
+                            
+                            <div class="flex items-center bg-surface-900 p-5 rounded-2xl border border-surface-700 gap-5 tooltip cursor-pointer relative highlight-box shadow-inner text-left">
+                                <div class="absolute -top-3 -left-3 bg-danger-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-md pointer-events-none pulse-pointer whitespace-nowrap z-10 uppercase tracking-widest">Seta no Topo</div>
+                                <div class="w-14 h-14 rounded-xl bg-surface-800 text-white flex items-center justify-center text-2xl shrink-0 shadow-sm border border-surface-700">
+                                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white text-base">Limpar Matriz Analítica</h4>
+                                    <p class="text-xs text-surface-400 mt-1 font-medium leading-relaxed">Localizado no cabeçalho superior. Ao confirmar, a pontuação regressa a Zero e os <i>posts</i> do feed ficam novamente bloqueados.</p>
+                                </div>
+                                <span class="tooltip-text">O sistema pedirá sempre confirmação (pop-up) para evitar que o aluno apague os dados acidentalmente a meio da aula.</span>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <footer class="mt-20 text-center border-t border-surface-800 pt-8 no-print">
+                        <div class="w-12 h-12 mx-auto bg-surface-800 rounded-full flex items-center justify-center text-surface-600 mb-4"><i class="fa-solid fa-book"></i></div>
+                        <p class="text-xs font-bold text-surface-400 uppercase tracking-widest">Documentação de Arquitetura Pedagógica</p>
+                        <p class="text-[10px] text-surface-500 mt-1">PPGET / CEFET-MG 2026</p>
+                    </footer>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- VISTA 2: DASHBOARD (VISÃO GERAL DO DESEMPENHO)                            -->
+            <!-- ========================================================================= -->
+            <div id="view-dashboard" class="view-section hidden h-full overflow-y-auto p-4 md:p-8 animate-fade-in">
+                <div class="max-w-5xl mx-auto pb-24">
+                    <header class="mb-8">
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">Bem-vindo ao seu <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-accent-500">Centro de Comando</span></h2>
+                        <p class="text-surface-400 mt-2 font-medium">Aqui você acompanha a sua evolução no letramento sociotécnico e a sua capacidade de auditar algoritmos predatórios.</p>
+                    </header>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="glass-card p-6 relative overflow-hidden group">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl group-hover:bg-brand-500/20 transition"></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-widest font-bold text-surface-400">Auditorias Concluídas</p>
+                                    <h3 class="text-4xl font-black text-white mt-1" id="dash-audits">0</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-brand-900/50 text-brand-400 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-list-check"></i>
+                                </div>
+                            </div>
+                            <div class="w-full bg-surface-700 rounded-full h-1.5">
+                                <div class="bg-brand-500 h-1.5 rounded-full transition-all duration-1000" id="dash-audits-bar" style="width: 0%"></div>
+                            </div>
+                            <p class="text-xs text-surface-500 mt-2 font-medium">Meta: 6 casos auditados</p>
+                        </div>
+                        
+                        <div class="glass-card p-6 relative overflow-hidden group">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-accent-500/10 rounded-full blur-2xl group-hover:bg-accent-500/20 transition"></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-widest font-bold text-surface-400">Precisão Analítica</p>
+                                    <h3 class="text-4xl font-black text-white mt-1" id="dash-accuracy">0%</h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-accent-900/50 text-accent-400 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                </div>
+                            </div>
+                            <p class="text-xs text-surface-500 font-medium">Taxa de acerto em primeira tentativa</p>
+                        </div>
+
+                        <div class="glass-card p-6 relative overflow-hidden group cursor-pointer" onclick="navTo('conquistas')">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-warning-500/10 rounded-full blur-2xl group-hover:bg-warning-500/20 transition"></div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-[10px] uppercase tracking-widest font-bold text-surface-400">Conquistas</p>
+                                    <h3 class="text-4xl font-black text-white mt-1" id="dash-badges">0<span class="text-lg text-surface-400">/4</span></h3>
+                                </div>
+                                <div class="w-10 h-10 rounded-xl bg-warning-900/50 text-warning-400 flex items-center justify-center text-lg">
+                                    <i class="fa-solid fa-trophy"></i>
+                                </div>
+                            </div>
+                            <div class="flex gap-2 mt-2" id="dash-badge-icons">
+                                <span class="text-xs text-surface-400 italic">Nenhuma ainda...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Radar Chart Simulation -->
+                    <div class="glass-card p-6 md:p-8">
+                        <h3 class="font-bold text-lg text-white mb-6 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-radar text-brand-500"></i> Matriz de Letramento Sociotécnico
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-8 items-center">
+                            <div class="space-y-5">
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-surface-300">Desconstrução Discursiva (Misoginia)</span>
+                                        <span class="text-brand-400" id="skill-1-val">0%</span>
+                                    </div>
+                                    <div class="w-full bg-surface-700 rounded-full h-2">
+                                        <div class="bg-brand-500 h-2 rounded-full transition-all duration-1000" id="skill-1-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-surface-300">Auditoria de Dark Patterns (Design)</span>
+                                        <span class="text-accent-400" id="skill-2-val">0%</span>
+                                    </div>
+                                    <div class="w-full bg-surface-700 rounded-full h-2">
+                                        <div class="bg-accent-500 h-2 rounded-full transition-all duration-1000" id="skill-2-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-surface-300">Enquadramento Legal (ECA Digital/Lola)</span>
+                                        <span class="text-warning-400" id="skill-3-val">0%</span>
+                                    </div>
+                                    <div class="w-full bg-surface-700 rounded-full h-2">
+                                        <div class="bg-warning-500 h-2 rounded-full transition-all duration-1000" id="skill-3-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm font-bold mb-1">
+                                        <span class="text-surface-300">Consciência Algorítmica (IA/Recomendação)</span>
+                                        <span class="text-blue-400" id="skill-4-val">0%</span>
+                                    </div>
+                                    <div class="w-full bg-surface-700 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full transition-all duration-1000" id="skill-4-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-surface-900 rounded-2xl p-6 border border-surface-700 shadow-sm">
+                                <h4 class="font-bold text-white mb-2">O que é isso?</h4>
+                                <p class="text-sm text-surface-400 leading-relaxed mb-4">
+                                    Sua pontuação no <strong>Simulador de Feed</strong> alimenta esta matriz automaticamente. O objetivo da Educação Tecnológica não é apenas saber usar o software, mas auditar criticamente suas dimensões jurídicas, éticas e de design.
+                                </p>
+                                <button onclick="navTo('feed')" class="w-full bg-surface-800 hover:bg-brand-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-play"></i> Ir para o Laboratório Prático
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- VIEW 3: SIMULADOR DE FEED (O CORE DO APP)                                 -->
+            <!-- ========================================================================= -->
+            <div id="view-feed" class="view-section hidden h-full flex flex-col lg:flex-row overflow-hidden animate-fade-in">
+                
+                <!-- LEFT PANEL: Feed List -->
+                <section class="w-full lg:w-1/2 xl:w-7/12 h-full overflow-y-auto p-4 md:p-6 bg-transparent border-r border-surface-800 relative z-10 scroll-smooth">
+                    <div class="max-w-xl mx-auto pb-24">
+                        
+                        <div class="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-white tracking-tight">Timeline de Interceptação</h2>
+                                <p class="text-sm text-surface-400 font-medium mt-1">Interceptamos publicações suspeitas. Escolha o seu modo de análise.</p>
+                            </div>
+                            
+                            <!-- Toggle Mode V1 vs V2 -->
+                            <div class="flex items-center gap-3 bg-surface-800 p-1.5 rounded-full border border-surface-700 shadow-sm shrink-0">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-surface-500 ml-2" id="mode-label-estudo">Estudo</span>
+                                
+                                <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                                    <input type="checkbox" name="toggle" id="mode-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-300 z-10" checked onchange="toggleInteractionMode()"/>
+                                    <label for="mode-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-600 cursor-pointer transition-colors duration-300"></label>
+                                </div>
+                                
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-brand-400 mr-2" id="mode-label-auditoria">Auditoria</span>
+                            </div>
+                        </div>
+
+                        <!-- Feed Container -->
+                        <div class="glass-card overflow-hidden" id="feed-container">
+                            <div class="bg-surface-900/90 backdrop-blur-md border-b border-surface-800 px-5 py-3 flex justify-between items-center sticky top-0 z-20">
+                                <span class="font-bold text-white tracking-tight flex items-center gap-2"><i class="fa-brands fa-x-twitter text-surface-400"></i> SocialFeed Algorítmico</span>
+                                <div class="flex gap-1.5"><div class="w-2.5 h-2.5 rounded-full bg-danger-500"></div><div class="w-2.5 h-2.5 rounded-full bg-warning-500"></div><div class="w-2.5 h-2.5 rounded-full bg-brand-500"></div></div>
+                            </div>
+
+                            <div id="posts-list" class="divide-y divide-surface-800">
+                                <!-- Posts serão injetados via JavaScript aqui -->
+                            </div>
+                            
+                            <div class="p-6 text-center bg-surface-900/50">
+                                <button onclick="loadMorePosts()" id="btn-load-more" class="text-sm font-bold text-surface-400 hover:text-brand-400 transition flex items-center justify-center gap-2 w-full">
+                                    <i class="fa-solid fa-spinner animate-spin-slow"></i> Varrendo base de dados por anomalias...
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RIGHT PANEL: Gamified Evaluation & Feedback (Modo Auditoria) -->
+                <section id="panel-auditoria" class="w-full lg:w-1/2 xl:w-5/12 h-full bg-surface-950 overflow-y-auto p-4 md:p-8 relative z-20 border-l border-surface-800 shadow-2xl lg:shadow-none hidden lg:block transition-all duration-500 transform translate-x-0">
+                    
+                    <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center max-w-sm mx-auto animate-fade-in">
+                        <div class="w-24 h-24 bg-surface-900 rounded-full flex items-center justify-center text-surface-700 text-4xl mb-6 shadow-inner border border-surface-800 pulse-glow">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Central de Auditoria</h3>
+                        <p class="text-sm text-surface-400 leading-relaxed font-medium">
+                            O Modo Auditoria está ativo. Selecione uma publicação sinalizada no <em>feed</em> ao lado para abrir a interface de teste e provar o seu letramento.
+                        </p>
+                        
+                        <div class="mt-8 bg-surface-800 p-4 rounded-xl text-left w-full">
+                            <p class="text-xs font-bold text-surface-300 mb-2 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-brand-500 mr-1"></i> Como funciona?</p>
+                            <ul class="text-xs text-surface-400 space-y-2">
+                                <li><i class="fa-solid fa-check text-brand-500 mr-1"></i> Leia a postagem cuidadosamente.</li>
+                                <li><i class="fa-solid fa-check text-brand-500 mr-1"></i> Identifique o núcleo do problema (Design, Lei ou Algoritmo).</li>
+                                <li><i class="fa-solid fa-check text-brand-500 mr-1"></i> Responda corretamente para ganhar XP e abrir a "caixa-preta".</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="mission-state" class="hidden h-full flex flex-col pb-24">
+                        <div class="mb-6 flex items-center gap-3 border-b border-surface-800 pb-4">
+                            <span class="flex items-center justify-center w-10 h-10 rounded-full bg-brand-900/50 text-brand-400 font-black text-lg shadow-inner" id="mission-id-display">?</span>
+                            <div>
+                                <h3 class="text-xl font-bold text-white tracking-tight">Análise Sociotécnica</h3>
+                                <p class="text-[10px] text-surface-400 font-mono uppercase">Caso em auditoria</p>
+                            </div>
+                            <button onclick="resetarSimulador()" class="ml-auto text-[10px] uppercase font-bold tracking-wider text-surface-400 hover:text-surface-200 bg-surface-800 px-3 py-2 rounded-lg transition"><i class="fa-solid fa-rotate-right mr-1"></i> Abortar</button>
+                        </div>
+
+                        <div id="question-area" class="flex-1 animate-fade-in">
+                            <p class="text-surface-200 font-semibold mb-6 text-lg" id="question-text">Qual é a infração primária ou o mecanismo sociotécnico central operando nesta publicação?</p>
+                            
+                            <div class="space-y-3" id="options-container">
+                                <!-- Options injected via JS -->
+                            </div>
+
+                            <div id="feedback-container" class="mt-8 hidden">
+                                <!-- Incorrect Feedback -->
+                                <div id="feedback-wrong" class="hidden bg-danger-900/20 border border-danger-800/50 p-5 rounded-2xl">
+                                    <div class="flex items-center gap-2 text-danger-400 mb-2">
+                                        <i class="fa-solid fa-triangle-exclamation text-lg"></i> <span class="font-bold text-sm uppercase tracking-wide">Desvio Analítico</span>
+                                    </div>
+                                    <p class="text-sm text-danger-200 leading-relaxed font-medium">Esta não é a raiz estrutural do problema. Lembre-se: não analise apenas o texto, analise a <strong>arquitetura</strong> da plataforma e a <strong>legislação</strong>. Tente novamente.</p>
+                                </div>
+                                
+                                <!-- Correct Feedback (Caixa Preta) -->
+                                <div id="feedback-right" class="hidden confetti-anim">
+                                    <div class="bg-gradient-to-br from-brand-900/20 to-emerald-900/20 border border-brand-800/50 p-6 sm:p-8 rounded-[2rem] shadow-lg relative overflow-hidden">
+                                        <div class="absolute -top-4 -right-4 p-4 opacity-[0.05] text-brand-600 text-9xl pointer-events-none"><i class="fa-solid fa-unlock-keyhole"></i></div>
+                                        
+                                        <div class="flex items-center gap-3 text-brand-300 mb-5 relative z-10">
+                                            <div class="w-10 h-10 rounded-full bg-brand-800 flex items-center justify-center text-xl shadow-inner"><i class="fa-solid fa-check"></i></div>
+                                            <span class="font-extrabold tracking-tight text-xl">+100 XP: Caixa-Preta Aberta!</span>
+                                        </div>
+                                        
+                                        <div id="pedagogical-explanation" class="relative z-10"></div>
+                                        
+                                        <button onclick="nextMission()" class="mt-8 w-full bg-surface-800 hover:bg-brand-500 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-md flex items-center justify-center gap-2 group">
+                                            Próxima Auditoria <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- RIGHT PANEL: Modo Estudo -->
+                <section id="panel-estudo" class="w-full lg:w-1/2 xl:w-5/12 h-full bg-surface-900/30 overflow-y-auto p-4 md:p-8 relative z-20 border-l border-surface-800 hidden items-center justify-center">
+                    <div class="text-center max-w-sm">
+                        <i class="fa-solid fa-book-open-reader text-6xl text-surface-700 mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">Modo de Estudo Ativo</h3>
+                        <p class="text-surface-400 font-medium">Neste modo, clicar em "Analisar" revelará o conteúdo acadêmico diretamente abaixo da postagem no <i>feed</i>, simulando uma leitura linear.</p>
+                        <p class="text-xs text-surface-400 mt-6 italic">Alterne o interruptor (switch) no topo do feed para regressar à gamificação.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- VIEW 4: MÓDULOS TEÓRICOS (BIBLIOTECA)                                     -->
+            <!-- ========================================================================= -->
+            <div id="view-modulos" class="view-section hidden h-full overflow-y-auto p-4 md:p-8 animate-fade-in bg-surface-950">
+                <div class="max-w-4xl mx-auto pb-24">
+                    <div class="mb-8 border-b border-surface-800 pb-6 flex items-center gap-4">
+                        <div class="w-12 h-12 bg-surface-800 rounded-xl flex items-center justify-center text-2xl text-brand-400">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-3xl font-extrabold text-white tracking-tight" id="mod-title">Carregando Módulo...</h2>
+                            <p class="text-sm text-surface-400 mt-1 font-medium">Biblioteca Acadêmica de Fundamentação</p>
+                        </div>
+                    </div>
+                    
+                    <div class="prose prose-slate prose-invert max-w-none academic-content text-[15px]" id="mod-content">
+                        <!-- Content injected via JS -->
+                    </div>
+                    
+                    <div class="mt-12 p-6 bg-surface-900 rounded-2xl border border-surface-800 text-center">
+                        <p class="text-sm font-bold text-surface-300 mb-4">Pronto para testar o conhecimento deste módulo?</p>
+                        <button onclick="navTo('feed')" class="bg-brand-600 hover:bg-brand-500 text-white px-8 py-3 rounded-xl font-bold transition shadow-lg shadow-brand-500/20">Ir para o Simulador</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- VIEW 5: CONQUISTAS (BADGES)                                               -->
+            <!-- ========================================================================= -->
+            <div id="view-conquistas" class="view-section hidden h-full overflow-y-auto p-4 md:p-8 animate-fade-in">
+                <div class="max-w-5xl mx-auto pb-24">
+                    <header class="mb-10 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-warning-900/30 text-warning-400 text-3xl mb-4 shadow-inner">
+                            <i class="fa-solid fa-medal"></i>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">Galeria de Conquistas</h2>
+                        <p class="text-surface-400 mt-2 font-medium">As suas credenciais de Letramento Sociotécnico desbloqueadas através das auditorias.</p>
+                    </header>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="badges-container">
+                        <!-- Badges injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Application Logic (Vanilla JS) -->
+    <script>
+        // --- 1. THE DATABASE (Content & Logic) ---
+        
+        const postsDb = [
+            {
+                id: 1, author: 'Sigma_Mindset', handle: '@sigma_real', avatarClass: 'from-slate-700 to-slate-900', time: '1h',
+                content: 'O mercado mudou. As modernetes na casa dos 30 já não têm valor de mercado. Estão na parede, enquanto os HVM (High Value Males) filtram por submissão. Matemática básica, não chorem. 🍷🗿',
+                likes: '14.2K', tag: null, skillArea: 1, 
+                options: [
+                    { id: 'a', text: 'A) Liberdade de Expressão', subtext: 'Opinião impopular, mas protegida por lei.' },
+                    { id: 'b', text: 'B) Estrutura Lexical de Ódio', subtext: 'Uso de "novilíngua" codificada para desumanização objetificada.' },
+                    { id: 'c', text: 'C) Falha de Interface', subtext: 'O post excede o limite de caracteres permitido.' }
+                ],
+                correct: 'b', label: 'Análise Lexical de Estruturas', icon: 'fa-language', title: 'A Novilíngua da Machosfera',
+                explanation: 'O uso de códigos ("modernetes", "HVM", "valor de mercado") não é aleatório. A plataforma permite este léxico porque ele escapa aos filtros automatizados de palavrões tradicionais. O letramento sociotécnico inicia-se ao decodificar esta linguagem que naturaliza a objetificação feminina e cria coesão no grupo radicalizado.',
+                lawText: 'Princípio Pedagógico: Desconstrução do Currículo Oculto da Linguagem.'
+            },
+            {
+                id: 2, author: 'RedCast Oficial Cortes', handle: '@redcast_cortes', avatarClass: 'from-purple-600 to-indigo-800', time: '3h',
+                content: '"A hierarquia é clara. Se ela levantar a voz ou tentar competir, o descarte tem que ser imediato. A mulher só respeita a dor do abandono." 👇 ASSISTA!',
+                media: 'video', likes: '89.4K', tag: { text: 'Sugerido pelo Algoritmo', icon: 'fa-bolt', color: 'text-warning-500' }, skillArea: 4, 
+                options: [
+                    { id: 'a', text: 'A) Prática Manipulativa Algorítmica', subtext: 'Retenção de atenção explorando indignação emocional (Rage-baiting).' },
+                    { id: 'b', text: 'B) Crime Digital Direto', subtext: 'Ameaça direta à integridade física.' },
+                    { id: 'c', text: 'C) Conteúdo Educativo', subtext: 'Classificação errônea pelo criador de conteúdo.' }
+                ],
+                correct: 'a', label: 'Arquitetura Algorítmica', icon: 'fa-code-branch', title: 'Recomendação por Indignação (Rage-baiting)',
+                explanation: 'Repare na etiqueta "Sugerido para você". O algoritmo de recomendação não avalia se o conselho é saudável; ele avalia que este vídeo gera alto tempo de retenção e comentários (geralmente por polarização e raiva). O sistema "educa" os criadores a serem cada vez mais radicais para obterem alcance.',
+                lawText: 'Enquadramento: Art. 18, ECA Digital (Dec. 12.880/26) proíbe práticas algorítmicas manipulativas focadas em engajamento compulsivo.'
+            },
+            {
+                id: 3, author: 'Anon_BR_99', handle: '@anon99_br', avatarClass: 'from-red-500 to-orange-600', time: '5m',
+                content: 'Alguém manda o link atualizado do Discord fechado? Consegui as fotos daquela mina do colégio. Vamos vazar tudo e acabar com a reputação dela hoje mesmo kkkk 🔥💀',
+                likes: '12', tag: null, skillArea: 3, 
+                options: [
+                    { id: 'a', text: 'A) Violação de Direitos Autorais', subtext: 'Uso não autorizado de imagem de terceiros.' },
+                    { id: 'b', text: 'B) Dark Pattern de Navegação', subtext: 'Incentivo a sair da plataforma.' },
+                    { id: 'c', text: 'C) Crime Digital (Lei Lola / ECA)', subtext: 'Exposição não consensual e conspiração de ataque.' }
+                ],
+                correct: 'c', label: 'Aparato Jurídico e Segurança', icon: 'fa-gavel', title: 'Cyberbullying, Doxxing e Ação Coordenada',
+                explanation: 'A articulação para exposição de material íntimo não consentido transcende a simples ofensa ou quebra de regras da comunidade. O uso do Discord visa ocultar o rastreio da ação coletiva. A escola deve educar que o anonimato digital é uma falha arquitetônica que não blinda contra as normas penais.',
+                lawText: 'Enquadramento: Lei Lola (13.642/18) confere competência à Polícia Federal para investigar misoginia coordenada.'
+            },
+            {
+                id: 4, author: 'App_Promo', handle: '@sponsored', avatarClass: 'from-brand-400 to-emerald-600', time: 'Patrocinado',
+                content: '🚨 ÚLTIMA CHANCE! As suas amigas já descobriram quem visitou o perfil delas hoje. O seu relatório expira em 04:59 minutos. Clique agora antes que seja apagado para sempre!',
+                media: 'ad', likes: '', tag: { text: 'Patrocinado', icon: 'fa-ad', color: 'text-surface-400' }, skillArea: 2, 
+                options: [
+                    { id: 'a', text: 'A) Design de Fricção', subtext: 'Pausa forçada para reflexão.' },
+                    { id: 'b', text: 'B) Dark Pattern (Falsa Urgência)', subtext: 'Manipulação de interface explorando o medo de perder algo (FOMO).' },
+                    { id: 'c', text: 'C) Funcionalidade Nativada', subtext: 'Recurso padrão de segurança da rede social.' }
+                ],
+                correct: 'b', label: 'Auditoria de Design', icon: 'fa-palette', title: 'Dark Patterns e Sequestro Cognitivo',
+                explanation: 'O cronômetro falso e o apelo à curiosidade social ("suas amigas já descobriram") são exemplos clássicos de *Deceptive Design* (Design Enganoso). Eles desativam o "Pensamento Devagar" (Sistema 2 de Kahneman) forçando um clique impulsivo que frequentemente leva à extração ilícita de dados ou extorsão financeira.',
+                lawText: 'Enquadramento: O ECA Digital veda o uso de táticas coercitivas e urgências fabricadas.'
+            },
+            {
+                id: 5, author: 'News_Truth_Bot', handle: '@truth_algo', avatarClass: 'from-blue-600 to-cyan-600', time: '12h',
+                content: 'VAZOU: Áudio do diretor da escola confessando que a política de inclusão é apenas para aprovar alunos reprovados. A IA limpou o áudio e a voz é inconfundível. Ouçam e partilhem antes que censurem!',
+                media: 'audio', likes: '230K', tag: { text: 'Alerta de Viralização', icon: 'fa-fire', color: 'text-danger-500' }, skillArea: 4, 
+                options: [
+                    { id: 'a', text: 'A) Jornalismo Cidadão', subtext: 'Uso legítimo de IA para limpeza de áudio.' },
+                    { id: 'b', text: 'B) Assédio Moral Estrutural', subtext: 'Crítica infundada à gestão escolar.' },
+                    { id: 'c', text: 'C) Deepfake / Desinformação Sintética', subtext: 'Uso de IA Generativa para clonagem de voz visando pânico moral.' }
+                ],
+                correct: 'c', label: 'Consciência Algorítmica (IA)', icon: 'fa-robot', title: 'A Pedagogia do Engano (Deepfakes)',
+                explanation: 'A citação "a IA limpou o áudio" é uma tática de Engenharia Social para dar credibilidade técnica a um conteúdo forjado (*Deepfake* de voz). A viralização rápida ("antes que censurem") explora viés de confirmação. O letramento sociotécnico moderno exige uma postura de "Zero Trust" (Confiança Zero) perante conteúdos sintéticos.',
+                lawText: 'Princípio: Responsabilidade das plataformas na moderação de conteúdos sintéticos.'
+            },
+            {
+                id: 6, author: 'Quiz_Personalidade', handle: '@fun_quizzes', avatarClass: 'from-pink-500 to-rose-600', time: 'Ontem',
+                content: 'Que tipo de ex-namorada você é? 💔 Faça o teste de 3 perguntas e descubra a sua *Red Flag*. Para ver o resultado, basta fazer login com a sua rede social principal!',
+                likes: '45K', tag: null, skillArea: 2, 
+                options: [
+                    { id: 'a', text: 'A) Extração Abusiva de Dados', subtext: 'Uso de gamificação fútil para recolha de permissões via OAuth.' },
+                    { id: 'b', text: 'B) Entretenimento Assíncrono', subtext: 'Atividade inofensiva de perfilamento psicológico.' },
+                    { id: 'c', text: 'C) Teste Psicológico Validado', subtext: 'Uso de Big Data para autoconhecimento.' }
+                ],
+                correct: 'a', label: 'Auditoria de Privacidade', icon: 'fa-user-secret', title: 'Gamificação Extrativista',
+                explanation: 'Sob a aparência inofensiva de um teste de personalidade, a exigência de "Login com a sua rede social" concede à empresa terceira acesso a listas de amigos, interesses e geolocalização. Estes dados alimentam a engrenagem do Capitalismo de Vigilância (Zuboff), servindo para micro-direcionamento de manipulação futura.',
+                lawText: 'Enquadramento: LGPD (Minimização de Dados) e o ECA Digital.'
+            }
+        ];
+
+        const modulesDb = {
+            'mod1': {
+                title: 'O Panóptico Digital e a Amplificação',
+                content: `
+                    <p>O conceito de <strong>Panóptico</strong>, idealizado por Jeremy Bentham e imortalizado por Michel Foucault na obra <em>Vigiar e Punir</em>, descrevia uma arquitetura prisional onde o vigiado se sentia constantemente observado, internalizando a disciplina. Na contemporaneidade, este modelo foi atualizado para o que Shoshana Zuboff denomina de <em>Capitalismo de Vigilância</em>.</p>
+                    <h3>A Fricção Zero (Frictionless Design)</h3>
+                    <p>As plataformas digitais são desenhadas sob o dogma da eliminação de qualquer atrito cognitivo. O objetivo é que o usuário permaneça em um estado de fluxo (Sistema 1 de Kahneman), consumindo conteúdo passivamente. Emoções de alta excitação, notadamente a <strong>indignação moral e a raiva</strong>, são os combustíveis algorítmicos mais potentes para evitar que o usuário abandone o aplicativo.</p>
+                    <blockquote>"A tecnologia não é neutra. O design de um feed infinito é uma escolha política arquitetada para expropriar o tempo de reflexão."</blockquote>
+                    <p>Na prática pedagógica, o enfrentamento desse panóptico exige a reinserção intencional da fricção: ensinar o estudante a pausar, auditar a fonte e compreender que o algoritmo não reflete o "mundo real", mas sim a versão do mundo que gera mais lucro através do engajamento.</p>`
+            },
+            'mod2': {
+                title: 'A Novilíngua da Machosfera',
+                content: `
+                    <p>O conceito de "Machosfera" refere-se a uma rede de comunidades online que operam em torno de discursos misóginos e antifeministas. Estas comunidades variam em radicalidade, desde grupos focados em "desenvolvimento pessoal masculino" até franjas extremistas como os <em>Incels</em>.</p>
+                    <h3>A Tática do Léxico Codificado</h3>
+                    <p>Para sobreviver às políticas de moderação automatizadas das Big Techs, estes grupos desenvolvem uma <strong>novilíngua</strong>. Termos aparentementes inofensivos (como "Red Pill", "Sigma", "Valor de Mercado") funcionam como *dog whistles* (apitos de cachorro): mensagens codificadas que apenas os membros da comunidade compreendem no seu sentido profundo de desumanização.</p>
+                    <p>A Educação Tecnológica, sob a luz de Álvaro Vieira Pinto, deve atuar na decodificação dessa linguagem. Não basta proibir o uso de aplicações na escola; é imperativo desenvolver a capacidade crítica dos jovens para identificar os funis de radicalização.</p>`
+            },
+            'mod3': {
+                title: 'Dark Patterns & O Design Predatório',
+                content: `
+                    <p><em>Dark Patterns</em> (Padrões Obscuros) são interfaces de usuário (UI) meticulosamente concebidas para induzir o indivíduo a tomar ações que não tomaria de forma deliberada, beneficiando financeiramente ou em termos de dados a empresa criadora do software.</p>
+                    <h3>Tipologias Comuns de Engano</h3>
+                    <ul>
+                        <li><strong>Falsa Urgência:</strong> Cronômetros que zeram mas a oferta continua, ou notificações falsas de "X pessoas estão vendo isso agora".</li>
+                        <li><strong>Misdirection (Desvio de Atenção):</strong> Destacar visualmente uma opção prejudicial à privacidade enquanto oculta a opção segura.</li>
+                        <li><strong>Roach Motel (Motel de Baratas):</strong> Uma configuração muito fácil de entrar, mas cujos passos para cancelamento são intencionalmente confusos.</li>
+                    </ul>
+                    <blockquote>A arquitetura das fraudes digitais modernas baseia-se na exploração sistemática dos vieses cognitivos humanos, uma verdadeira "Pedagogia do Engano".</blockquote>
+                    <p>O Letramento Sociotécnico propõe uma "Auditoria de Si Mesmo", restaurando a autonomia decisória perante a máquina.</p>`
+            },
+            'mod4': {
+                title: 'Aparato Legal: ECA Digital e Lei Lola',
+                content: `
+                    <p>A insuficiência da autorregulação das plataformas digitais motivou a criação de um arcabouço normativo protetivo no Brasil. A premissa central é que o espaço virtual não é um "não-lugar" imune à legislação pátria.</p>
+                    <h3>A Lei Lola (Lei nº 13.642/2018)</h3>
+                    <p>Atribui à Polícia Federal a competência para investigar crimes praticados por meio da rede mundial de computadores que difundam conteúdo misógino (propagação do ódio ou aversão às mulheres). Rompe com a ideia de que ataques em fóruns anônimos são crimes menores.</p>
+                    <h3>ECA Digital & O Decreto nº 12.880/2026</h3>
+                    <p>Este marco regulatório atualiza a proteção da criança e do adolescente para a era da Governança Algorítmica. O Decreto reconhece explicitamente o dano gerado pelas "práticas manipulativas" e pelas "arquiteturas de escolha". Ele impõe o princípio do <em>Safety by Design</em> (Segurança desde a Concepção).</p>
+                    <p>Para o educador, a apropriação pedagógica destas leis significa sair da posição de vítima da tecnologia e usar a legislação como ferramenta de cidadania ativa.</p>`
+            }
+        };
+
+        const badgesDb = [
+            { id: 'b1', title: 'Novato', desc: 'Concluiu a primeira auditoria sociotécnica.', icon: 'fa-bell', styleClass: 'badge-bronze' },
+            { id: 'b2', title: 'Especialista', desc: 'Identificou com sucesso um Dark Pattern.', icon: 'fa-palette', styleClass: 'badge-silver' },
+            { id: 'b3', title: 'Perito', desc: 'Enquadrou crimes baseados no ECA/Lei Lola.', icon: 'fa-scale-balanced', styleClass: 'badge-gold' },
+            { id: 'b4', title: 'Mestre', desc: 'Atingiu 100% de precisão na matriz.', icon: 'fa-crown', styleClass: 'badge-diamond' }
+        ];
+
+        let state = {
+            score: 0, xpTotal: 600, level: 'Iniciante', mode: 'auditoria', activeView: 'manual', activePostId: null,
+            answeredPosts: new Set(),
+            skills: { 1: { correct: 0, total: 1 }, 2: { correct: 0, total: 2 }, 3: { correct: 0, total: 1 }, 4: { correct: 0, total: 2 } },
+            unlockedBadges: new Set()
+        };
+
+        // --- 3. UI RENDERING & LOGIC ---
+
+        function toggleTheme() {
+            // Theme toggle is disabled as we are forcing dark mode for elegance
+            console.log("Tema fixado em Dark Mode para preservar a estética de cibersegurança.");
+        }
+
+        function initApp() {
+            const bootOverlay = document.getElementById('boot-overlay');
+            const progress = document.getElementById('boot-progress');
+            
+            if (progress) setTimeout(() => { progress.style.width = '100%'; }, 100);
+            
+            try {
+                renderFeed();
+                updateDashboard();
+                renderBadges();
+                // Inicializa no modo Manual (Documentação)
+                navTo('manual');
+            } catch (e) { console.error("Erro na inicialização:", e); } 
+            finally {
+                if (bootOverlay) {
+                    setTimeout(() => {
+                        bootOverlay.style.opacity = '0';
+                        setTimeout(() => { bootOverlay.remove(); }, 1000);
+                    }, 2000);
+                }
+            }
+        }
+
+        if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initApp); } 
+        else { initApp(); }
+
+        function navTo(viewId) {
+            // Hide all view sections
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.add('hidden'); el.classList.remove('block');
+            });
+            // Remove active from nav items
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+            if(viewId.startsWith('mod')) {
+                const modData = modulesDb[viewId];
+                document.getElementById('mod-title').innerText = modData.title;
+                document.getElementById('mod-content').innerHTML = modData.content;
+                const viewMod = document.getElementById('view-modulos');
+                viewMod.classList.remove('hidden'); viewMod.classList.add('block');
+            } else {
+                const targetView = document.getElementById('view-' + viewId);
+                if(targetView) { targetView.classList.remove('hidden'); targetView.classList.add('block'); }
+                if(viewId === 'feed') applyInteractionLayout();
+            }
+            
+            const navBtn = document.getElementById('nav-' + viewId);
+            if(navBtn) navBtn.classList.add('active');
+            
+            state.activeView = viewId;
+            
+            const sidebar = document.getElementById('sidebar');
+            if(window.innerWidth < 1024 && !sidebar.classList.contains('hidden')) sidebar.classList.add('hidden');
+        }
+
+        // Mobile menu toggle
+        document.querySelectorAll('.mobile-menu-btn').forEach(btn => {
+            btn.addEventListener('click', () => document.getElementById('sidebar').classList.toggle('hidden'));
+        });
+
+        function toggleInteractionMode() {
+            const isAuditoria = document.getElementById('mode-toggle').checked;
+            state.mode = isAuditoria ? 'auditoria' : 'estudo';
+            
+            const lblEstudo = document.getElementById('mode-label-estudo');
+            const lblAudit = document.getElementById('mode-label-auditoria');
+            
+            if(isAuditoria) {
+                lblAudit.classList.replace('text-surface-500', 'text-brand-400');
+                lblEstudo.classList.replace('text-brand-400', 'text-surface-500');
+            } else {
+                lblEstudo.classList.replace('text-surface-500', 'text-brand-400');
+                lblAudit.classList.replace('text-brand-400', 'text-surface-500');
+            }
+            applyInteractionLayout();
+            renderFeed(); 
+        }
+
+        function applyInteractionLayout() {
+            const panelAudit = document.getElementById('panel-auditoria');
+            const panelEstudo = document.getElementById('panel-estudo');
+            if(state.mode === 'auditoria') {
+                panelAudit.classList.remove('hidden'); panelEstudo.classList.add('hidden');
+            } else {
+                panelAudit.classList.add('hidden'); panelEstudo.classList.remove('hidden');
+                resetarSimulador();
+            }
+        }
+
+        function renderFeed() {
+            const container = document.getElementById('posts-list');
+            container.innerHTML = '';
+            
+            postsDb.forEach(post => {
+                const isAnswered = state.answeredPosts.has(post.id);
+                
+                let mediaHtml = '';
+                if(post.media === 'video') {
+                    mediaHtml = `<div class="w-full h-40 bg-surface-800 rounded-xl mt-3 flex items-center justify-center text-surface-600 border border-surface-700 shadow-inner group overflow-hidden relative"><div class="absolute inset-0 bg-surface-900/10 transition"></div><i class="fa-solid fa-play text-3xl bg-surface-900/90 text-white w-12 h-12 rounded-full flex items-center justify-center pl-1 shadow-lg group-hover:scale-110 transition z-10"></i></div>`;
+                } else if(post.media === 'ad') {
+                    mediaHtml = `<div class="w-full bg-danger-900/10 rounded-xl mt-3 border border-danger-800/50 p-4 text-center"><i class="fa-solid fa-stopwatch text-danger-500 text-3xl mb-2 animate-pulse"></i><p class="text-danger-400 font-black text-xl tracking-widest">04:59</p><button class="mt-2 w-full bg-danger-500 hover:bg-danger-600 text-white font-bold py-2 rounded-lg shadow-sm">VER RELATÓRIO AGORA</button></div>`;
+                } else if(post.media === 'audio') {
+                    mediaHtml = `<div class="w-full bg-surface-800 rounded-xl mt-3 border border-surface-700 p-3 flex items-center gap-3"><button class="w-10 h-10 rounded-full bg-brand-500 text-white flex items-center justify-center shrink-0 hover:bg-brand-600"><i class="fa-solid fa-play"></i></button><div class="flex-1"><div class="h-2 bg-surface-600 rounded-full w-full overflow-hidden"><div class="w-1/3 h-full bg-brand-400"></div></div></div><span class="text-xs text-surface-500 font-mono">0:14 / 1:02</span></div>`;
+                }
+
+                const tagHtml = post.tag ? `<p class="text-[10px] font-bold ${post.tag.color} uppercase tracking-widest mb-3 flex items-center gap-1.5"><i class="fa-solid ${post.tag.icon}"></i> ${post.tag.text}</p>` : '';
+                const btnText = state.mode === 'auditoria' ? (isAnswered ? '<i class="fa-solid fa-check text-eco-500 mr-1"></i> Auditado' : '<i class="fa-solid fa-magnifying-glass"></i> Auditar') : (isAnswered ? '<i class="fa-solid fa-eye-slash mr-1"></i> Ocultar Análise' : '<i class="fa-solid fa-book-open mr-1"></i> Analisar');
+                let cardClass = `p-5 hover:bg-surface-800/50 cursor-pointer transition-all-custom relative group `;
+                if(state.mode === 'auditoria' && isAnswered) cardClass += 'opacity-60 saturate-50 ';
+                
+                let inlineAnalysisHtml = '';
+                if(state.mode === 'estudo') {
+                    inlineAnalysisHtml = `
+                        <div id="inline-analysis-${post.id}" class="hidden mt-4 pt-4 border-t border-surface-700 animate-slide-up cursor-default">
+                            <div class="bg-surface-900 rounded-xl border-l-4 border-l-brand-500 border border-surface-700 p-5 shadow-sm">
+                                <div class="flex items-center gap-2 mb-3 text-brand-400"><i class="fa-solid ${post.icon} text-lg"></i> <span class="font-bold text-xs uppercase tracking-wider">${post.label}</span></div>
+                                <h4 class="font-bold text-white text-base mb-2">${post.title}</h4>
+                                <p class="text-sm text-surface-300 mb-4 leading-relaxed">${post.explanation}</p>
+                                <div class="bg-surface-800 p-3 rounded-lg text-xs border border-surface-700 font-medium text-surface-400">
+                                    <i class="fa-solid fa-scale-balanced text-surface-400 mr-1"></i> ${post.lawText}
+                                </div>
+                            </div>
+                        </div>`;
+                }
+
+                const postHtml = `
+                    <div id="post-${post.id}" onclick="handlePostClick(${post.id})" class="${cardClass}">
+                        <div class="absolute right-4 top-4 w-2 h-2 rounded-full bg-brand-500 animate-pulse status-indicator ${isAnswered ? 'hidden' : ''}"></div>
+                        ${tagHtml}
+                        <div class="flex gap-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br ${post.avatarClass} flex-shrink-0 border-2 border-surface-900 shadow-sm flex items-center justify-center text-white/50 text-xl"><i class="fa-solid fa-user"></i></div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-bold text-sm text-white">${post.author}</span>
+                                    <span class="text-xs text-surface-400">${post.handle} • ${post.time}</span>
+                                </div>
+                                <p class="text-[15px] text-surface-200 mt-1.5 leading-relaxed">${post.content}</p>
+                                ${mediaHtml}
+                                <div class="flex items-center gap-6 mt-4 text-surface-400 text-xs font-medium">
+                                    ${post.likes ? `<span class="hover:text-danger-500 transition"><i class="fa-regular fa-heart"></i> ${post.likes}</span>` : ''}
+                                    <span class="hover:text-brand-500 transition"><i class="fa-solid fa-share-nodes"></i></span>
+                                    <button class="text-brand-400 bg-brand-900/30 px-3 py-1 rounded-md text-[10px] font-bold ml-auto border border-brand-800/50 uppercase tracking-wide hover:bg-brand-800 transition shadow-sm" onclick="event.stopPropagation(); handlePostClick(${post.id})">${btnText}</button>
+                                </div>
+                                ${inlineAnalysisHtml}
+                            </div>
+                        </div>
+                    </div>`;
+                container.insertAdjacentHTML('beforeend', postHtml);
+            });
+        }
+
+        function handlePostClick(postId) {
+            if(state.mode === 'auditoria') loadMission(postId);
+            else toggleInlineAnalysis(postId);
+        }
+
+        function toggleInlineAnalysis(postId) {
+            const inlineEl = document.getElementById(`inline-analysis-${postId}`);
+            if(!inlineEl) return;
+            const isHidden = inlineEl.classList.contains('hidden');
+            
+            if(isHidden) {
+                inlineEl.classList.remove('hidden'); state.answeredPosts.add(postId);
+                document.querySelectorAll('[id^="post-"]').forEach(el => el.classList.remove('post-active', 'bg-surface-800/50'));
+                const postEl = document.getElementById(`post-${postId}`);
+                postEl.classList.add('bg-surface-800/50');
+                postEl.querySelector('.status-indicator')?.classList.add('hidden');
+            } else {
+                inlineEl.classList.add('hidden');
+                document.getElementById(`post-${postId}`).classList.remove('bg-surface-800/50');
+            }
+            renderFeed();
+            if(isHidden) document.getElementById(`inline-analysis-${postId}`).classList.remove('hidden');
+        }
+
+        function loadMission(postId) {
+            state.activePostId = postId;
+            const post = postsDb.find(p => p.id === postId);
+            
+            document.querySelectorAll('[id^="post-"]').forEach(el => el.classList.remove('post-active'));
+            document.getElementById(`post-${postId}`).classList.add('post-active');
+
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('mission-state').classList.remove('hidden');
+            document.getElementById('mission-id-display').innerText = postId;
+            
+            document.getElementById('feedback-container').classList.add('hidden');
+            document.getElementById('feedback-wrong').classList.add('hidden');
+            document.getElementById('feedback-right').classList.add('hidden');
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            post.options.forEach(opt => {
+                const btnHtml = `
+                    <button onclick="responder('${opt.id}')" class="w-full text-left bg-surface-900 hover:bg-surface-800 border-2 border-surface-700 hover:border-brand-500 p-4 rounded-xl transition-all-custom group flex items-center justify-between shadow-sm">
+                        <div>
+                            <span class="block font-bold text-white text-sm mb-0.5">${opt.text}</span>
+                            <span class="text-xs text-surface-400">${opt.subtext}</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-surface-600 group-hover:text-brand-500 transition-transform group-hover:translate-x-1"></i>
+                    </button>
+                `;
+                optionsContainer.insertAdjacentHTML('beforeend', btnHtml);
+            });
+            
+            if(state.answeredPosts.has(postId)) showSuccessPanel(post);
+            if(window.innerWidth < 1024) document.getElementById('panel-auditoria').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function responder(answerId) {
+            const post = postsDb.find(p => p.id === state.activePostId);
+            if(state.answeredPosts.has(post.id)) return;
+
+            const container = document.getElementById('feedback-container');
+            const wrongEl = document.getElementById('feedback-wrong');
+            container.classList.remove('hidden');
+            
+            if(post.correct === answerId) {
+                wrongEl.classList.add('hidden');
+                state.answeredPosts.add(post.id);
+                state.score += 100;
+                state.skills[post.skillArea].correct += 1;
+                
+                checkBadges(); updateDashboard(); renderFeed(); 
+                document.getElementById(`post-${post.id}`).classList.add('post-active');
+                showSuccessPanel(post);
+            } else {
+                wrongEl.classList.remove('hidden', 'shake-anim');
+                void wrongEl.offsetWidth;
+                wrongEl.classList.add('shake-anim');
+            }
+        }
+
+        function showSuccessPanel(post) {
+            const rightEl = document.getElementById('feedback-right');
+            const explEl = document.getElementById('pedagogical-explanation');
+            
+            explEl.innerHTML = `
+                <div class="mb-3 text-[10px] font-black uppercase tracking-widest text-brand-200 bg-brand-900/50 inline-block px-3 py-1 rounded-md border border-brand-700">
+                    <i class="fa-solid ${post.icon} mr-1"></i> ${post.label}
+                </div>
+                <h4 class="font-bold text-white text-xl mb-2">${post.title}</h4>
+                <p class="text-sm text-surface-200 leading-relaxed mb-5 font-medium">${post.explanation}</p>
+                <div class="bg-surface-900/80 p-4 rounded-xl border border-surface-700 text-xs text-surface-300 font-bold shadow-sm flex items-start gap-3 backdrop-blur-sm">
+                    <i class="fa-solid fa-scale-balanced text-brand-500 text-lg mt-0.5"></i>
+                    <span>${post.lawText}</span>
+                </div>
+            `;
+            rightEl.classList.remove('hidden');
+            setTimeout(() => { rightEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
+        }
+
+        function nextMission() {
+            for(let p of postsDb) {
+                if(!state.answeredPosts.has(p.id)) { loadMission(p.id); return; }
+            }
+            alert("Operação concluída! Todas as anomalias do feed foram auditadas. A sua matriz de letramento está atualizada no Centro de Comando.");
+            navTo('dashboard');
+        }
+
+        function resetarSimulador() {
+            state.activePostId = null;
+            const missionState = document.getElementById('mission-state');
+            const emptyState = document.getElementById('empty-state');
+            if(missionState) missionState.classList.add('hidden');
+            if(emptyState) emptyState.classList.remove('hidden');
+            document.querySelectorAll('[id^="post-"]').forEach(el => el.classList.remove('post-active'));
+        }
+
+        function loadMorePosts() {
+            const btn = document.getElementById('btn-load-more');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin text-brand-500"></i> Verificando servidores...';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-check text-eco-500"></i> Nenhum novo caso de risco detectado na janela atual.';
+                btn.classList.add('cursor-default', 'text-surface-400');
+                btn.disabled = true;
+            }, 1500);
+        }
+
+        function updateDashboard() {
+            let levelNum = 1;
+            if(state.score >= state.xpTotal) { state.level = 'Mestre Algorítmico'; levelNum = 4; }
+            else if(state.score >= state.xpTotal * 0.6) { state.level = 'Perito'; levelNum = 3; }
+            else if(state.score >= state.xpTotal * 0.3) { state.level = 'Especialista'; levelNum = 2; }
+            else { state.level = 'Novato'; levelNum = 1; }
+            
+            const scoreDisplay = document.getElementById('score-display');
+            if(scoreDisplay) scoreDisplay.innerText = state.score;
+            
+            const rankDisplay = document.getElementById('rank-display');
+            if(rankDisplay) rankDisplay.innerText = state.level;
+            
+            const levelMini = document.getElementById('level-display-mini');
+            if(levelMini) levelMini.innerText = levelNum;
+            
+            const pct = state.score / state.xpTotal;
+            const offset = 88 - (88 * pct);
+            const xpCircle = document.getElementById('xp-circle');
+            if(xpCircle) xpCircle.style.strokeDashoffset = offset;
+            
+            const dashAudits = document.getElementById('dash-audits');
+            if(dashAudits) dashAudits.innerText = state.answeredPosts.size;
+            
+            const dashAuditsBar = document.getElementById('dash-audits-bar');
+            if(dashAuditsBar) dashAuditsBar.style.width = `${(state.answeredPosts.size / postsDb.length) * 100}%`;
+            
+            let acc = state.answeredPosts.size === 0 ? 0 : Math.min(100, Math.round(75 + (state.score/state.xpTotal)*25));
+            const dashAccuracy = document.getElementById('dash-accuracy');
+            if(dashAccuracy) dashAccuracy.innerText = `${acc}%`;
+            
+            for(let i=1; i<=4; i++) {
+                const s = state.skills[i];
+                const skillPct = (s.correct / s.total) * 100;
+                const valEl = document.getElementById(`skill-${i}-val`);
+                const barEl = document.getElementById(`skill-${i}-bar`);
+                if(valEl) valEl.innerText = `${Math.round(skillPct)}%`;
+                if(barEl) barEl.style.width = `${skillPct}%`;
+            }
+        }
+
+        function checkBadges() {
+            if(state.answeredPosts.size >= 1) state.unlockedBadges.add('b1');
+            if(state.skills[2].correct > 0) state.unlockedBadges.add('b2');
+            if(state.skills[3].correct > 0) state.unlockedBadges.add('b3');
+            if(state.score >= state.xpTotal) state.unlockedBadges.add('b4');
+            
+            const dashBadges = document.getElementById('dash-badges');
+            if(dashBadges) dashBadges.innerHTML = `${state.unlockedBadges.size}<span class="text-lg text-surface-400 font-medium">/4</span>`;
+            
+            renderBadges();
+        }
+
+        function renderBadges() {
+            const dashContainer = document.getElementById('dash-badge-icons');
+            const fullContainer = document.getElementById('badges-container');
+            
+            if(dashContainer) dashContainer.innerHTML = '';
+            if(fullContainer) fullContainer.innerHTML = '';
+            
+            badgesDb.forEach(badge => {
+                const isUnlocked = state.unlockedBadges.has(badge.id);
+                
+                // Dash icons (mini - avatar stack style)
+                if(isUnlocked && dashContainer) {
+                    dashContainer.insertAdjacentHTML('beforeend', `<div class="w-8 h-8 rounded-full ${badge.styleClass} flex items-center justify-center text-xs shadow-md border-2 border-surface-900 -ml-2 first:ml-0 relative z-10 hover:z-20 transform hover:scale-110 transition-all" title="${badge.title}"><i class="fa-solid ${badge.icon}"></i></div>`);
+                }
+                
+                // Full cards
+                const opacity = isUnlocked ? 'opacity-100 scale-100' : 'opacity-50 scale-95 grayscale hover:grayscale-0';
+                const lockState = isUnlocked ? 
+                    `<div class="absolute top-4 right-4 bg-surface-950/50 backdrop-blur-md px-2 py-1 rounded-md text-[9px] font-bold text-brand-400 uppercase tracking-widest border border-brand-500/30 flex items-center gap-1"><i class="fa-solid fa-check"></i> Desbloqueado</div>` : 
+                    `<div class="absolute top-4 right-4 bg-surface-950/80 backdrop-blur-md px-2 py-1 rounded-md text-[9px] font-bold text-surface-400 uppercase tracking-widest border border-surface-700 flex items-center gap-1"><i class="fa-solid fa-lock"></i> Bloqueado</div>`;
+                
+                const cardBg = isUnlocked ? 'bg-gradient-to-b from-surface-800 to-surface-900 border-surface-600 shadow-[0_0_30px_rgba(20,184,166,0.15)]' : 'bg-surface-900 border-surface-800 border-dashed';
+                
+                const card = `
+                    <div class="rounded-[2rem] p-8 border ${cardBg} text-center relative ${opacity} transition-all duration-500 hover:transform hover:-translate-y-2 overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        ${lockState}
+                        
+                        <div class="w-24 h-24 mx-auto rounded-full ${isUnlocked ? badge.styleClass : 'bg-surface-800 text-surface-600 border-2 border-surface-700'} flex items-center justify-center text-4xl mb-6 shadow-2xl relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                            <i class="fa-solid ${badge.icon}"></i>
+                            ${isUnlocked ? '<div class="absolute inset-0 rounded-full shine-effect pointer-events-none"></div>' : ''}
+                        </div>
+                        <h4 class="font-extrabold text-white text-lg mb-3 relative z-10">${badge.title}</h4>
+                        <p class="text-sm text-surface-400 leading-relaxed font-medium relative z-10">${badge.desc}</p>
+                    </div>`;
+                if(fullContainer) fullContainer.insertAdjacentHTML('beforeend', card);
+            });
+            
+            if(state.unlockedBadges.size === 0 && dashContainer) {
+                dashContainer.innerHTML = '<span class="text-xs text-surface-400 italic">Nenhuma ainda...</span>';
+            }
+        }
+
+        function resetGame() {
+            if (confirm("Tem certeza que deseja reiniciar todo o seu progresso? Todas as auditorias e conquistas serão perdidas.")) {
+                state.score = 0; state.answeredPosts.clear();
+                state.skills = { 1: { correct: 0, total: 1 }, 2: { correct: 0, total: 2 }, 3: { correct: 0, total: 1 }, 4: { correct: 0, total: 2 } };
+                state.unlockedBadges.clear(); state.activePostId = null;
+
+                updateDashboard(); renderFeed(); renderBadges(); resetarSimulador();
+
+                if (state.mode === 'estudo') { document.querySelectorAll('[id^="inline-analysis-"]').forEach(el => el.classList.add('hidden')); }
+                document.querySelectorAll('[id^="post-"]').forEach(el => el.classList.remove('post-active'));
+            }
+        }
+    </script>
+</body>
+</html>
