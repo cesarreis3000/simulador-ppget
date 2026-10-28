@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <!-- Letramento.Tech v3 — protótipo autoral independente para reflexão; mantém interface e mecânica da versão enviada pelo autor, com nova curadoria acadêmica, casos fictícios e cartilha vetorial. -->
+<!-- v3.1 (out. 2026): modo estudo sem painel duplicado no desktop; feedback específico por alternativa; rótulos do painel e níveis alinhados ao projeto; leis do projeto nas fontes oficiais; abertura mais rápida; respeito a prefers-reduced-motion. -->
+<!-- v3.2 (out. 2026): revisão dos textos da cartilha (termos, coerência com o projeto, leis, rótulos alinhados aos quatro movimentos); "Painel de Casos"; ficha técnica com uso de IA no Guia. -->
 <html lang="pt-BR" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
@@ -2622,6 +2624,11 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
  .manual-print-portal .reference-links a{color:#0f766e!important}
  .manual-print-portal .manual-pill{color:#065f46!important;background:#ccfbf1!important}
 }
+/* v3.1 — ajustes */
+.force-hidden{display:none!important}
+@media (max-width:1023px){#panel-estudo{display:none!important}}
+@supports (height:100dvh){body.h-screen{height:100dvh}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 <meta name="description" content="Laboratório experimental de Educação Tecnológica: interpretação sociotécnica, casos fictícios e cartilha ilustrada com impressão em A4."></head>
 <body class="bg-mesh antialiased h-screen flex flex-col overflow-hidden selection:bg-brand-500 selection:text-white">
@@ -2634,7 +2641,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
             <i class="fa-solid fa-microchip absolute inset-0 flex items-center justify-center text-3xl text-brand-300"></i>
         </div>
         <h1 class="text-3xl font-extrabold tracking-widest uppercase mb-2">Letramento<span class="text-brand-400">.Tech</span></h1>
-        <p class="text-surface-400 font-mono text-sm mb-8 animate-pulse">Preparando cenários de interpretação sociotécnica v3.0...</p>
+        <p class="text-surface-400 font-mono text-sm mb-8 animate-pulse">Preparando cenários de interpretação sociotécnica v3.2...</p>
         <div class="w-64 bg-surface-800 rounded-full h-1.5 overflow-hidden">
             <div id="boot-progress" class="bg-gradient-to-r from-brand-600 to-brand-300 h-full w-0 transition-all duration-[2000ms] ease-out"></div>
         </div>
@@ -2680,7 +2687,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                     </div>
                     <div class="flex flex-col">
                         <span class="text-[9px] uppercase tracking-widest text-surface-400 font-bold">Percurso</span>
-                        <span id="rank-display" class="text-xs font-extrabold text-brand-400">Iniciante</span>
+                        <span id="rank-display" class="text-xs font-extrabold text-brand-400">Início</span>
                     </div>
                 </div>
                 <div class="w-px h-6 bg-surface-700"></div>
@@ -2783,7 +2790,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                     </div>
                     <div>
                         <p class="text-xs font-bold text-white">Estudo independente</p>
-                        <p class="text-[10px] text-surface-500 font-mono">v3.0 • Projeto exploratório</p>
+                        <p class="text-[10px] text-surface-500 font-mono">v3.2 • Projeto exploratório</p>
                     </div>
                 </div>
             </div>
@@ -2793,30 +2800,30 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
         <main class="flex-1 h-full overflow-hidden relative w-full bg-transparent">
             
 <div id="view-manual" class="view-section block h-full overflow-y-auto animate-fade-in"><div class="sticky top-0 z-40 bg-surface-900/90 border-b border-surface-800 p-4 flex justify-between items-center gap-4 no-print"><div><b class="text-white">Guia do educador</b><p class="text-xs text-surface-400">Orientações para o laboratório e a cartilha</p></div><div class="flex flex-wrap gap-2"><button onclick="navTo('cartilha')" class="bg-surface-800 border border-surface-600 px-4 py-2 rounded-xl text-sm font-bold text-white"><i class="fa-solid fa-book-open mr-2"></i>Ver cartilha</button><button onclick="printSection('manual')" class="bg-brand-600 px-4 py-2 rounded-xl text-sm font-bold text-white"><i class="fa-solid fa-print mr-2"></i>Imprimir guia</button></div></div>
-<article class="manual-print max-w-4xl mx-auto p-5 md:p-10 pb-24" id="manual-impressao"><div class="rounded-[2rem] bg-gradient-to-br from-brand-900/70 via-surface-900 to-indigo-950 border border-brand-800 p-8 md:p-12 mb-7 relative overflow-hidden"><div class="absolute -right-8 -top-8 text-[160px] opacity-10">◉</div><span class="text-xs font-bold uppercase tracking-[.2em] text-brand-300">Letramento.Tech • v3.0</span><h1 class="text-4xl md:text-5xl leading-tight font-extrabold text-white my-4">Educação Tecnológica<br><span class="text-brand-300">para ler, julgar e agir</span></h1><p class="text-surface-200 text-lg max-w-2xl">Guia de uso do simulador sociotécnico e da cartilha em quadrinhos. Recurso experimental complementar: sem aplicação, teste ou eficácia pedagógica alegados.</p><div class="mt-6 flex flex-wrap gap-2"><span class="manual-pill">Observação contextual</span><span class="manual-pill">Proteção de direitos</span><span class="manual-pill">Prudência interpretativa</span></div></div>
-<div class="manual-grid"><section class="manual-box"><h2>01 · Como usar o simulador</h2><p>O <b>Modo Estudo</b> permite abrir explicações sem atribuir pontos. No <b>Modo Auditoria</b>, o usuário escolhe entre três interpretações didaticamente construídas; a resposta de referência desbloqueia o comentário, acrescenta 100 XP e alimenta conquistas. Isso é <b>gamificação exploratória</b>, não medida de formação ética.</p><p>Os casos são <b>fictícios</b> e não devem ser confundidos com observações netnográficas já analisadas.</p></section><section class="manual-box"><h2>02 · Como usar a cartilha</h2><p>Abra <b>Cartilha em quadrinhos</b> no menu lateral. O comando <b>Imprimir cartilha / Salvar PDF</b> cria páginas A4 claras, com desenhos vetoriais, textos, exercícios e referências. O navegador pode exigir ativar <b>gráficos de plano de fundo</b> no diálogo de impressão.</p><p>As ilustrações são SVGs autorais embutidos no HTML. Não necessitam de imagens externas.</p></section><section class="manual-box"><h2>03 · Quatro momentos de reflexão</h2><ol><li><b>Reconhecer:</b> o que acontece, com quem e em qual interação?</li><li><b>Compreender:</b> que elementos técnicos e sociais condicionam a situação?</li><li><b>Julgar:</b> que direitos, valores, limites e evidências importam?</li><li><b>Intervir responsavelmente:</b> qual conduta evita ampliar o dano?</li></ol><p>Essas etapas traduzem, de forma propositiva, a interlocução entre Street, Feenberg, estudos de plataformas e Vallor.</p></section><section class="manual-box"><h2>04 · O que não afirmar</h2><p>Não atribua a plataformas <b>causalidade automática</b> sobre misoginia. Não presuma o algoritmo proprietário com base na postagem. Não trate o <b>PL 896/2023</b> como lei vigente; confirme a tramitação. Não transforme toda discordância em misoginia e não faça enquadramento jurídico fechado sem fatos suficientes.</p><p>Não use XP como indicador de mudança de atitude, aprendizado comprovado ou desempenho escolar validado.</p></section></div>
+<article class="manual-print max-w-4xl mx-auto p-5 md:p-10 pb-24" id="manual-impressao"><div class="rounded-[2rem] bg-gradient-to-br from-brand-900/70 via-surface-900 to-indigo-950 border border-brand-800 p-8 md:p-12 mb-7 relative overflow-hidden"><div class="absolute -right-8 -top-8 text-[160px] opacity-10">◉</div><span class="text-xs font-bold uppercase tracking-[.2em] text-brand-300">Letramento.Tech • v3.2</span><h1 class="text-4xl md:text-5xl leading-tight font-extrabold text-white my-4">Educação Tecnológica<br><span class="text-brand-300">para ler, julgar e agir</span></h1><p class="text-surface-200 text-lg max-w-2xl">Guia de uso do simulador sociotécnico e da cartilha em quadrinhos. Recurso experimental complementar: sem aplicação, teste ou eficácia pedagógica alegados.</p><div class="mt-6 flex flex-wrap gap-2"><span class="manual-pill">Observação contextual</span><span class="manual-pill">Proteção de direitos</span><span class="manual-pill">Prudência interpretativa</span></div></div>
+<div class="manual-grid"><section class="manual-box"><h2>01 · Como usar o simulador</h2><p>O <b>Modo Estudo</b> permite abrir explicações sem atribuir pontos. No <b>Modo Auditoria</b>, o usuário escolhe entre três interpretações didaticamente construídas; a resposta de referência desbloqueia o comentário, acrescenta 100 XP e alimenta conquistas. Isso é <b>gamificação exploratória</b>, não medida de formação ética.</p><p>Os casos são <b>fictícios</b> e não devem ser confundidos com observações netnográficas já analisadas.</p></section><section class="manual-box"><h2>02 · Como usar a cartilha</h2><p>Abra <b>Cartilha em quadrinhos</b> no menu lateral. O comando <b>Imprimir cartilha / Salvar PDF</b> cria páginas A4 claras, com desenhos vetoriais, textos, exercícios e referências. O navegador pode exigir ativar <b>gráficos de plano de fundo</b> no diálogo de impressão.</p><p>As ilustrações são SVGs autorais embutidos no HTML. Não necessitam de imagens externas.</p></section><section class="manual-box"><h2>03 · Quatro movimentos de reflexão</h2><ol><li><b>Reconhecer:</b> o que acontece, com quem e em qual interação?</li><li><b>Compreender:</b> que elementos técnicos e sociais condicionam a situação?</li><li><b>Julgar:</b> que direitos, valores, limites e evidências importam?</li><li><b>Agir responsavelmente:</b> qual conduta evita ampliar o dano?</li></ol><p>Essas etapas traduzem, de forma propositiva, a interlocução entre Street, Feenberg, estudos de plataformas e Vallor.</p></section><section class="manual-box"><h2>04 · O que não afirmar</h2><p>Não atribua a plataformas <b>causalidade automática</b> sobre misoginia. Não presuma o algoritmo proprietário com base na postagem. Não trate o <b>PL 896/2023</b> como lei vigente; confirme a tramitação. Não transforme toda discordância em misoginia e não faça enquadramento jurídico fechado sem fatos suficientes.</p><p>Não use XP como indicador de mudança de atitude, aprendizado comprovado ou desempenho escolar validado.</p></section></div>
 <section class="manual-panel mt-6"><h2>Referenciais e limites epistemológicos</h2><p><b>Cupani</b> abre a filosofia da tecnologia; <b>Feenberg</b> subsidia a interpretação das escolhas e valores em sistemas técnicos; <b>Van Dijck, Poell e De Waal</b> descrevem o ecossistema de plataformas; <b>Fernanda Bruno</b> aprofunda visibilidade e vigilância distribuída; <b>Manne</b> orienta o reconhecimento de misoginia como policiamento social; <b>Bates</b> contextualiza a manosfera; <b>Vallor</b> fornece fundamentos de formação ética; <b>Street</b> apoia o letramento como prática social. A categoria <b>letramento sociotécnico</b> é uma proposta de articulação da pesquisa e não uma definição atribuída a um autor isolado.</p></section>
 <section class="manual-panel mt-6"><h2>Material externo e privacidade</h2><p>Uma coletânea pública de comentários sobre misoginia foi fornecida como inspiração temática. O simulador <b>não reproduz usernames, citações literais, capturas ou perfis</b>, nem usa os comentários como resultados de campo. Seus casos são dramatizações pedagógicas independentes. A seleção, coleta e análise científica de dados dependeriam de protocolo específico e avaliação ética institucional quando aplicável.</p></section>
-<section class="manual-panel mt-6"><h2>Fontes legais de consulta oficial</h2><div class="reference-links"><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Marco Civil da Internet</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13642.htm" target="_blank" rel="noopener">Lei 13.642/2018</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15211.htm" target="_blank" rel="noopener">Lei 15.211/2025</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d12976.htm" target="_blank" rel="noopener">Decreto 12.976/2026</a><a href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2612930" target="_blank" rel="noopener">PL 896/2023 — Câmara</a></div><p class="text-sm text-surface-400 mt-3">A situação das proposições legislativas pode mudar. Verifique antes de compartilhar ou imprimir.</p></section><p class="text-xs text-surface-400 mt-8">Protótipo pedagógico autoral e independente — não constitui orientação jurídica, instrumento clínico ou material oficialmente validado pelo PPGET/CEFET-MG.</p></article></div>
-<div id="view-cartilha" class="view-section hidden h-full overflow-y-auto zine-shell"><div class="sticky top-0 z-40 bg-surface-900/95 border-b border-surface-700 px-4 py-3 flex flex-wrap gap-3 justify-between items-center no-print"><div><b class="text-white">Cartilha em quadrinhos</b><p class="text-xs text-surface-400">10 páginas • cenas fictícias • A4 claro • desenhos vetoriais</p></div><button onclick="printSection('cartilha')" class="bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl px-5 py-2 text-sm"><i class="fa-solid fa-print mr-2"></i>Imprimir cartilha / Salvar PDF</button></div><div id="cartilha-impressa" class="zine-book"><section class="zine-page zine-mint"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 01</span></div><div class="zine-label">DOSSIÊ ILUSTRADO</div><h2>Nem tudo é só um post.</h2><p class="zine-lead">Uma história para compreender a misoginia digital sem culpar automaticamente a tecnologia — e sem reduzir o problema a comportamentos individuais.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Dois jovens e uma educadora diante de uma rede social, com balões de diálogo" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotscover" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<section class="manual-panel mt-6"><h2>Fontes legais de consulta oficial</h2><div class="reference-links"><a href="https://www2.camara.leg.br/legin/fed/lei/2012/lei-12737-30-novembro-2012-774695-norma-pl.html" target="_blank" rel="noopener">Lei 12.737/2012</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm" target="_blank" rel="noopener">Marco Civil da Internet</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13642.htm" target="_blank" rel="noopener">Lei 13.642/2018</a><a href="https://www2.camara.leg.br/legin/fed/lei/2021/lei-14132-31-marco-2021-791218-norma-pl.html" target="_blank" rel="noopener">Lei 14.132/2021</a><a href="https://www2.camara.leg.br/legin/fed/lei/2021/lei-14188-28-julho-2021-791620-norma-pl.html" target="_blank" rel="noopener">Lei 14.188/2021</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15211.htm" target="_blank" rel="noopener">Lei 15.211/2025</a><a href="https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/decreto/d12976.htm" target="_blank" rel="noopener">Decreto 12.976/2026</a><a href="https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao=2612930" target="_blank" rel="noopener">PL 896/2023 — Câmara</a></div><p class="text-sm text-surface-400 mt-3">A situação das proposições legislativas pode mudar. Verifique antes de compartilhar ou imprimir.</p></section><section class="manual-panel mt-6"><h2>Ficha técnica</h2><p>Página web única, desenvolvida em HTML, CSS e JavaScript e publicada no GitHub Pages, sem coleta nem armazenamento de dados de quem a utiliza. O código foi elaborado com auxílio de ferramentas de inteligência artificial generativa, que também apoiaram a revisão dos textos; a concepção, a curadoria dos casos e a revisão final dos conteúdos são do autor.</p></section><p class="text-xs text-surface-400 mt-8">Protótipo pedagógico autoral e independente — não constitui orientação jurídica, instrumento clínico ou material oficialmente validado pelo PPGET/CEFET-MG.</p></article></div>
+<div id="view-cartilha" class="view-section hidden h-full overflow-y-auto zine-shell"><div class="sticky top-0 z-40 bg-surface-900/95 border-b border-surface-700 px-4 py-3 flex flex-wrap gap-3 justify-between items-center no-print"><div><b class="text-white">Cartilha em quadrinhos</b><p class="text-xs text-surface-400">10 páginas • cenas fictícias • A4 claro • desenhos vetoriais</p></div><button onclick="printSection('cartilha')" class="bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl px-5 py-2 text-sm"><i class="fa-solid fa-print mr-2"></i>Imprimir cartilha / Salvar PDF</button></div><div id="cartilha-impressa" class="zine-book"><section class="zine-page zine-mint"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 01</span></div><div class="zine-label">DOSSIÊ ILUSTRADO</div><h2>Nem tudo é só um post.</h2><p class="zine-lead">Uma história para compreender a misoginia digital sem culpar automaticamente a tecnologia — e sem reduzir o problema a comportamentos individuais.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Dois jovens diante de um celular com uma rede social, com balões de diálogo" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotscover" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
 <rect x="0" y="0" width="760" height="285" rx="16" fill="#c7f9e8"/><rect width="760" height="285" rx="16" fill="url(#dotscover)"/><g transform="translate(130,144) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#0d9488" stroke="#142b38" stroke-width="4"/>
 <rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#382d31" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g transform="translate(315,150) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#8b5cf6" stroke="#142b38" stroke-width="4"/>
-<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#1d293b" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="480" y="29" width="180" height="238" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="493" y="43" width="154" height="208" rx="12" fill="#f7fafc"/><rect x="538" y="35" width="64" height="7" rx="4" fill="#607186"/><circle cx="518" cy="71" r="11" fill="#14b8a6"/><rect x="540" y="66" width="95" height="8" rx="4" fill="#94a3b8"/><rect x="510" y="98" width="120" height="55" rx="9" fill="#ccfbf1"/><path d="M515 184h110m-110 17h90m-90 17h105" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><rect x="65" y="21" width="232" height="68" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M90 89 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="181.0" y="48" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="181.0" dy="0">O que está acontecendo?</tspan></text><rect x="287" y="15" width="191" height="66" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M312 81 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="382.5" y="42" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="382.5" dy="0">Vamos investigar!</tspan></text></svg><div class="zine-content"><div class="zine-callout"><strong>O que você vai praticar?</strong><p>Reconhecer situações, compreender o contexto, julgar possibilidades e intervir responsavelmente. Sem testes de eficácia, sem respostas jurídicas automáticas, sem reproduzir perfis reais.</p></div><p class="zine-caption">Cenas e personagens são fictícios. O material traduz conceitos do projeto de pesquisa; não apresenta resultados da netnografia.</p></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>01</b></div></section><section class="zine-page zine-peach"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 02</span></div><div class="zine-label">QUADRO 01 — OBSERVAR</div><h2>“Era brincadeira!”</h2><p class="zine-lead">Lia publica uma análise crítica. Um comentário diz: “Quando uma mulher fala de tecnologia, quer aparecer”. Outro usuário pergunta: “É só humor, não?”.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Jovem observa uma publicação e questiona seu contexto" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotspost" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#1d293b" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="480" y="29" width="180" height="238" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="493" y="43" width="154" height="208" rx="12" fill="#f7fafc"/><rect x="538" y="35" width="64" height="7" rx="4" fill="#607186"/><circle cx="518" cy="71" r="11" fill="#14b8a6"/><rect x="540" y="66" width="95" height="8" rx="4" fill="#94a3b8"/><rect x="510" y="98" width="120" height="55" rx="9" fill="#ccfbf1"/><path d="M515 184h110m-110 17h90m-90 17h105" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><rect x="65" y="21" width="232" height="68" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M90 89 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="181.0" y="48" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="181.0" dy="0">O que está acontecendo?</tspan></text><rect x="287" y="15" width="191" height="66" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M312 81 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="382.5" y="42" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="382.5" dy="0">Vamos investigar!</tspan></text></svg><div class="zine-content"><div class="zine-callout"><strong>O que você vai praticar?</strong><p>Reconhecer situações, compreender o contexto, julgar alternativas e agir responsavelmente. Aqui não há respostas prontas, vereditos jurídicos automáticos nem perfis reais.</p></div><p class="zine-caption">Cenas e personagens são fictícios. O material traduz conceitos do projeto de pesquisa; não apresenta resultados da netnografia.</p></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>01</b></div></section><section class="zine-page zine-peach"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 02</span></div><div class="zine-label">QUADRO 01 — RECONHECER</div><h2>“Era brincadeira!”</h2><p class="zine-lead">Lia publica uma análise sobre tecnologia. Um comentário diz: “Quando uma mulher fala de tecnologia, quer aparecer”. Outro usuário pergunta: “É só humor, não?”</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Jovem observa uma publicação e questiona seu contexto" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotspost" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
 <rect x="0" y="0" width="760" height="285" rx="16" fill="#ffead9"/><rect width="760" height="285" rx="16" fill="url(#dotspost)"/><rect x="80" y="30" width="187" height="235" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="93" y="44" width="161" height="205" rx="12" fill="#f7fafc"/><rect x="138" y="36" width="71" height="7" rx="4" fill="#607186"/><circle cx="118" cy="72" r="11" fill="#14b8a6"/><rect x="140" y="67" width="102" height="8" rx="4" fill="#94a3b8"/><rect x="110" y="99" width="127" height="55" rx="9" fill="#ccfbf1"/><path d="M115 185h117m-117 17h97m-97 17h112" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><g transform="translate(420,152) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#d97706" stroke="#142b38" stroke-width="4"/>
-<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#343041" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="415" y="18" width="300" height="82" rx="22" fill="#fffefa" stroke="#142b38" stroke-width="3"/><path d="M440 100 l13 16 l13 -16" fill="#fffefa" stroke="#142b38" stroke-width="3"/><text x="565.0" y="45" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="565.0" dy="0">É só uma piada... ou há</tspan><tspan x="565.0" dy="23">punição?</tspan></text></svg><div class="zine-content"><div class="comic-tiles"><div class="comic-tile"><b>LIA</b><p>“O comentário discorda do argumento ou tenta me diminuir por ser mulher?”</p></div><div class="comic-tile"><b>RAVI</b><p>“Precisamos olhar para o padrão, o alvo e a função. Uma frase isolada não explica tudo.”</p></div></div><p><strong>Conceito central (Manne):</strong> misoginia pode funcionar como policiamento de expectativas e posições sociais atribuídas às mulheres. Uma crítica legítima a ideias não se torna automaticamente misoginia.</p><div class="zine-prompt">Para conversar: qual seria uma discordância argumentativa respeitosa nessa situação?</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>02</b></div></section><section class="zine-page zine-lilac"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 03</span></div><div class="zine-label">QUADRO 02 — INTERPRETAR</div><h2>O contexto muda a leitura</h2><p class="zine-lead">O mesmo termo pode ser usado como citação crítica, ironia, ameaça, autoparódia ou reforço de uma hierarquia.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Três elementos conectados: conteúdo, contexto e relações" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotslens" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
-<rect x="0" y="0" width="760" height="285" rx="16" fill="#e6e6ff"/><rect width="760" height="285" rx="16" fill="url(#dotslens)"/><circle cx="150" cy="135" r="83" fill="#ede9fe" stroke="#5b21b6" stroke-width="7"/><circle cx="382" cy="135" r="83" fill="#fce7f3" stroke="#be185d" stroke-width="7"/><circle cx="615" cy="135" r="83" fill="#d1fae5" stroke="#0f766e" stroke-width="7"/><path d="M234 135 h60 M465 135 h64" stroke="#142b38" stroke-width="9" stroke-dasharray="13 10"/><text x="150" y="130" text-anchor="middle" font-size="28" font-weight="800" fill="#43388c">TEXTO</text><text x="150" y="159" text-anchor="middle" font-size="14" fill="#43388c">o que foi dito?</text><text x="382" y="130" text-anchor="middle" font-size="26" font-weight="800" fill="#831843">CONTEXTO</text><text x="382" y="159" text-anchor="middle" font-size="14" fill="#831843">onde e como?</text><text x="615" y="130" text-anchor="middle" font-size="26" font-weight="800" fill="#065f46">FUNÇÃO</text><text x="615" y="159" text-anchor="middle" font-size="14" fill="#065f46">que efeito social?</text></svg><div class="zine-content"><p><strong>Três perguntas antes de classificar:</strong> (1) O que foi dito? (2) Em que interação, para quem e em que sequência? (3) Há cobrança, punição ou desqualificação associada a expectativas de gênero?</p><div class="zine-callout"><strong>Atenção ao erro comum</strong><p>Nem toda crítica a uma mulher é misógina. Mas comentários aparentemente “neutros” podem participar de um padrão de hostilidade quando o contexto sustenta essa interpretação.</p></div><p>Kate Manne auxilia na análise da função social da hostilidade; Laura Bates contextualiza repertórios da manosfera.</p></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>03</b></div></section><section class="zine-page zine-blue"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 04</span></div><div class="zine-label">QUADRO 03 — LER A PLATAFORMA</div><h2>Por trás da tela há decisões</h2><p class="zine-lead">Ravi pergunta por que alguns comentários aparecem primeiro. A turma decide investigar o desenho da plataforma — sem alegar acesso ao algoritmo secreto.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Uma plataforma com engrenagens e camadas de governança" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotsplatform" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
-<rect x="0" y="0" width="760" height="285" rx="16" fill="#d9f2ff"/><rect width="760" height="285" rx="16" fill="url(#dotsplatform)"/><rect x="92" y="26" width="170" height="238" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="105" y="40" width="144" height="208" rx="12" fill="#f7fafc"/><rect x="150" y="32" width="54" height="7" rx="4" fill="#607186"/><circle cx="130" cy="68" r="11" fill="#14b8a6"/><rect x="152" y="63" width="85" height="8" rx="4" fill="#94a3b8"/><rect x="122" y="95" width="110" height="55" rx="9" fill="#ccfbf1"/><path d="M127 181h100m-100 17h80m-80 17h95" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><path d="M270 88 h110 l25 -36 h130 l-26 36 h120" stroke="#0f766e" stroke-width="7" fill="none"/><path d="M269 171 h100 l35 34 h122 l32 -34 h73" stroke="#7c3aed" stroke-width="7" fill="none"/><g font-family="sans-serif" font-weight="800" font-size="22" fill="#17324a"><text x="390" y="46">DATAFICAÇÃO</text><text x="400" y="145">SELEÇÃO</text><text x="401" y="237">MERCANTILIZAÇÃO</text></g><circle cx="650" cy="90" r="24" fill="#14b8a6"/><circle cx="650" cy="170" r="24" fill="#8b5cf6"/></svg><div class="zine-content"><div class="comic-tiles"><div class="comic-tile"><b>DATAFICAÇÃO</b><p>Interações tornam-se registros que podem ser processados e correlacionados.</p></div><div class="comic-tile"><b>SELEÇÃO</b><p>Critérios organizam o que fica visível, recomendado ou oculto.</p></div><div class="comic-tile"><b>MERCANTILIZAÇÃO</b><p>Dados, atenção e serviços podem ser convertidos em valor econômico.</p></div></div><p><strong>Van Dijck, Poell e De Waal</strong> descrevem mecanismos da sociedade de plataformas. <strong>Feenberg</strong> orienta a perguntar como escolhas sociotécnicas incorporam valores; <strong>Fernanda Bruno</strong> ajuda a pensar rastros, vigilância distribuída e classificação.</p><div class="zine-prompt">O que podemos observar publicamente? O que exigiria dados internos para demonstrar?</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>04</b></div></section><section class="zine-page zine-yellow"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 05</span></div><div class="zine-label">QUADRO 04 — DIREITOS</div><h2>Uma lei não é um projeto de lei</h2><p class="zine-lead">Na discussão, alguém afirma: “O PL da misoginia já tornou toda crítica crime”. Lia propõe consultar a fonte oficial antes de compartilhar.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Dois documentos, um marcado lei em vigor e outro como projeto" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotslaw" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
-<rect x="0" y="0" width="760" height="285" rx="16" fill="#fff5cc"/><rect width="760" height="285" rx="16" fill="url(#dotslaw)"/><rect x="75" y="36" width="260" height="206" rx="14" fill="white" stroke="#0f766e" stroke-width="5"/><rect x="430" y="36" width="260" height="206" rx="14" fill="white" stroke="#b45309" stroke-width="5"/><g font-family="sans-serif" text-anchor="middle" font-weight="850"><text x="205" y="93" font-size="29" fill="#065f46">LEI</text><text x="205" y="123" font-size="24" fill="#065f46">VIGENTE</text><text x="560" y="93" font-size="29" fill="#92400e">PROJETO</text><text x="560" y="123" font-size="23" fill="#92400e">EM TRAMITAÇÃO</text></g><path d="M127 161 h156 m-156 21 h156 m-156 21 h125 M480 161 h156 m-156 21 h156 m-156 21 h125" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/></svg><div class="zine-content"><p>O <strong>PL nº 896/2023</strong> é uma proposição legislativa, não devendo ser descrito como lei vigente sem confirmação de sua conversão em lei. O <strong>Marco Civil da Internet (Lei nº 12.965/2014)</strong> e outras leis podem fornecer parâmetros, conforme o caso.</p><p>A <strong>Lei nº 13.642/2018</strong> trata de atribuição investigativa da Polícia Federal; ela não cria, sozinha, um tipo penal geral de misoginia. O <strong>Decreto nº 12.976/2026</strong> estabelece diretrizes de proteção de mulheres no ambiente digital. A <strong>Lei nº 15.211/2025</strong> diz respeito à proteção de crianças e adolescentes em ambientes digitais.</p><div class="zine-callout"><b>Regra de leitura jurídica</b><p>Norma vigente, projeto em tramitação, princípios de proteção e hipótese de responsabilização são categorias diferentes. A aplicação concreta depende dos fatos e da legislação pertinente.</p></div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>05</b></div></section><section class="zine-page zine-pink"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 06</span></div><div class="zine-label">QUADRO 05 — FORMAÇÃO ÉTICA</div><h2>Não basta decorar regras</h2><p class="zine-lead">A professora propõe respostas possíveis: denunciar? preservar evidências? pedir ajuda? responder publicamente? não compartilhar? Tudo depende do risco e do contexto.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Duas pessoas debatem alternativas e consequências de maneira reflexiva" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotsethics" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#343041" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="415" y="18" width="300" height="82" rx="22" fill="#fffefa" stroke="#142b38" stroke-width="3"/><path d="M440 100 l13 16 l13 -16" fill="#fffefa" stroke="#142b38" stroke-width="3"/><text x="565.0" y="45" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="565.0" dy="0">É só uma piada…</tspan><tspan x="565.0" dy="23">ou um recado?</tspan></text></svg><div class="zine-content"><div class="comic-tiles"><div class="comic-tile"><b>LIA</b><p>“O comentário discorda do argumento ou tenta me diminuir por ser mulher?”</p></div><div class="comic-tile"><b>RAVI</b><p>“Precisamos olhar para o padrão, o alvo e a função. Uma frase isolada não explica tudo.”</p></div></div><p><strong>Conceito central (Manne):</strong> a misoginia pode funcionar como policiamento: um recado sobre o “lugar” esperado das mulheres, com sanções para quem se afasta dele. Uma crítica legítima a ideias não se torna automaticamente misoginia.</p><div class="zine-prompt">Para conversar: como seria discordar da análise da Lia discutindo os argumentos, e não a pessoa?</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>02</b></div></section><section class="zine-page zine-lilac"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 03</span></div><div class="zine-label">QUADRO 02 — COMPREENDER O CONTEXTO</div><h2>O contexto muda a leitura</h2><p class="zine-lead">O mesmo termo pode aparecer como citação crítica, ironia, brincadeira entre amigos, ameaça ou reforço de uma hierarquia.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Três elementos conectados: texto, contexto e função" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotslens" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="0" y="0" width="760" height="285" rx="16" fill="#e6e6ff"/><rect width="760" height="285" rx="16" fill="url(#dotslens)"/><circle cx="150" cy="135" r="83" fill="#ede9fe" stroke="#5b21b6" stroke-width="7"/><circle cx="382" cy="135" r="83" fill="#fce7f3" stroke="#be185d" stroke-width="7"/><circle cx="615" cy="135" r="83" fill="#d1fae5" stroke="#0f766e" stroke-width="7"/><path d="M234 135 h60 M465 135 h64" stroke="#142b38" stroke-width="9" stroke-dasharray="13 10"/><text x="150" y="130" text-anchor="middle" font-size="28" font-weight="800" fill="#43388c">TEXTO</text><text x="150" y="159" text-anchor="middle" font-size="14" fill="#43388c">o que foi dito?</text><text x="382" y="130" text-anchor="middle" font-size="26" font-weight="800" fill="#831843">CONTEXTO</text><text x="382" y="159" text-anchor="middle" font-size="14" fill="#831843">onde e como?</text><text x="615" y="130" text-anchor="middle" font-size="26" font-weight="800" fill="#065f46">FUNÇÃO</text><text x="615" y="159" text-anchor="middle" font-size="14" fill="#065f46">que efeito social?</text></svg><div class="zine-content"><p><strong>Três perguntas antes de classificar:</strong> (1) O que foi dito? (2) Em que interação, para quem e em que sequência? (3) Há cobrança, sanção ou desqualificação ligada a expectativas de gênero?</p><div class="zine-callout"><strong>Atenção ao erro comum</strong><p>Nem toda crítica a uma mulher é misógina. Mas comentários aparentemente “neutros” podem participar de um padrão de hostilidade quando o contexto sustenta essa interpretação.</p></div><p>Kate Manne auxilia na análise da função social da hostilidade; Laura Bates contextualiza repertórios da manosfera.</p></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>03</b></div></section><section class="zine-page zine-blue"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 04</span></div><div class="zine-label">QUADRO 03 — COMPREENDER A PLATAFORMA</div><h2>Por trás da tela há decisões</h2><p class="zine-lead">Ravi pergunta por que alguns comentários aparecem primeiro. A turma decide investigar o desenho da plataforma, sabendo que não tem acesso ao funcionamento interno do algoritmo.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Celular ligado a três mecanismos da plataforma: dataficação, seleção e mercantilização" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotsplatform" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="0" y="0" width="760" height="285" rx="16" fill="#d9f2ff"/><rect width="760" height="285" rx="16" fill="url(#dotsplatform)"/><rect x="92" y="26" width="170" height="238" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="105" y="40" width="144" height="208" rx="12" fill="#f7fafc"/><rect x="150" y="32" width="54" height="7" rx="4" fill="#607186"/><circle cx="130" cy="68" r="11" fill="#14b8a6"/><rect x="152" y="63" width="85" height="8" rx="4" fill="#94a3b8"/><rect x="122" y="95" width="110" height="55" rx="9" fill="#ccfbf1"/><path d="M127 181h100m-100 17h80m-80 17h95" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><path d="M270 88 h110 l25 -36 h130 l-26 36 h120" stroke="#0f766e" stroke-width="7" fill="none"/><path d="M269 171 h100 l35 34 h122 l32 -34 h73" stroke="#7c3aed" stroke-width="7" fill="none"/><g font-family="sans-serif" font-weight="800" font-size="22" fill="#17324a"><text x="390" y="46">DATAFICAÇÃO</text><text x="400" y="145">SELEÇÃO</text><text x="401" y="237">MERCANTILIZAÇÃO</text></g><circle cx="650" cy="90" r="24" fill="#14b8a6"/><circle cx="650" cy="170" r="24" fill="#8b5cf6"/></svg><div class="zine-content"><div class="comic-tiles"><div class="comic-tile"><b>DATAFICAÇÃO</b><p>Interações tornam-se registros que podem ser processados e correlacionados.</p></div><div class="comic-tile"><b>SELEÇÃO</b><p>Critérios organizam o que fica visível, recomendado ou oculto.</p></div><div class="comic-tile"><b>MERCANTILIZAÇÃO</b><p>Dados, atenção e serviços podem ser convertidos em valor econômico.</p></div></div><p><strong>Van Dijck, Poell e De Waal</strong> descrevem mecanismos da sociedade de plataformas. <strong>Feenberg</strong> orienta a perguntar como escolhas sociotécnicas incorporam valores; <strong>Fernanda Bruno</strong> ajuda a pensar rastros, vigilância distribuída e classificação.</p><div class="zine-prompt">O que podemos observar publicamente? O que exigiria dados internos para demonstrar?</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>04</b></div></section><section class="zine-page zine-yellow"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 05</span></div><div class="zine-label">QUADRO 04 — JULGAR: DIREITOS E NORMAS</div><h2>Projeto de lei ainda não é lei</h2><p class="zine-lead">Na discussão, alguém afirma: “O PL da misoginia já tornou toda crítica crime”. Lia propõe consultar a fonte oficial antes de compartilhar.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Dois documentos: um marcado como lei vigente e outro como projeto em tramitação" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotslaw" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="0" y="0" width="760" height="285" rx="16" fill="#fff5cc"/><rect width="760" height="285" rx="16" fill="url(#dotslaw)"/><rect x="75" y="36" width="260" height="206" rx="14" fill="white" stroke="#0f766e" stroke-width="5"/><rect x="430" y="36" width="260" height="206" rx="14" fill="white" stroke="#b45309" stroke-width="5"/><g font-family="sans-serif" text-anchor="middle" font-weight="850"><text x="205" y="93" font-size="29" fill="#065f46">LEI</text><text x="205" y="123" font-size="24" fill="#065f46">VIGENTE</text><text x="560" y="93" font-size="29" fill="#92400e">PROJETO</text><text x="560" y="123" font-size="23" fill="#92400e">EM TRAMITAÇÃO</text></g><path d="M127 161 h156 m-156 21 h156 m-156 21 h125 M480 161 h156 m-156 21 h156 m-156 21 h125" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/></svg><div class="zine-content"><p>O <strong>PL nº 896/2023</strong> é uma proposta: só se torna lei se for aprovado pelo Congresso e sancionado. Antes de repetir que “já é lei”, confira a tramitação no site da Câmara ou do Senado. O <strong>Marco Civil da Internet (Lei nº 12.965/2014)</strong> e outras leis podem oferecer parâmetros, conforme o caso.</p><p>A <strong>Lei nº 13.642/2018</strong> acrescentou à Polícia Federal a atribuição de investigar crimes praticados pela internet que difundam conteúdo misógino, mas não cria, sozinha, um crime de misoginia. As <strong>Leis nº 14.132/2021</strong> e <strong>nº 14.188/2021</strong> tipificaram, respectivamente, a perseguição (inclusive por meios digitais) e a violência psicológica contra a mulher. O <strong>Decreto nº 12.976/2026</strong> estabelece diretrizes de proteção de mulheres na internet, e a <strong>Lei nº 15.211/2025</strong> trata da proteção de crianças e adolescentes em ambientes digitais.</p><div class="zine-callout"><b>Regra de leitura jurídica</b><p>Lei em vigor, projeto em tramitação, princípio de proteção e possibilidade de responsabilização são coisas diferentes. Se uma norma se aplica a um caso, isso depende dos fatos e da legislação pertinente.</p></div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>05</b></div></section><section class="zine-page zine-pink"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 06</span></div><div class="zine-label">QUADRO 05 — AGIR RESPONSAVELMENTE</div><h2>Não basta decorar regras</h2><p class="zine-lead">A professora lista caminhos possíveis: denunciar, preservar evidências, pedir ajuda, responder publicamente ou simplesmente não compartilhar. A escolha depende do risco e do contexto.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Duas pessoas debatem alternativas e consequências de maneira reflexiva" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotsethics" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
 <rect x="0" y="0" width="760" height="285" rx="16" fill="#ffe4e6"/><rect width="760" height="285" rx="16" fill="url(#dotsethics)"/><g transform="translate(165,142) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#be185d" stroke="#142b38" stroke-width="4"/>
 <rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#231b32" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g transform="translate(603,142) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#0d9488" stroke="#142b38" stroke-width="4"/>
-<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#30251f" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="270" y="28" width="239" height="75" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M295 103 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="389.5" y="55" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="389.5" dy="0">Que valor está em jogo?</tspan></text><path d="M319 185 Q380 151 443 185" stroke="#be185d" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M426 170 L448 185 L427 201" fill="none" stroke="#be185d" stroke-width="9" stroke-linecap="round"/></svg><div class="zine-content"><p><strong>Vallor</strong> fundamenta o cultivo do julgamento prático, da atenção moral, da empatia e da prudência em situações tecnológicas. <strong>Street</strong> lembra que o letramento é prática social situada — não apenas uma competência individual neutra.</p><div class="comic-tiles"><div class="comic-tile"><b>SEM MORALISMO</b><p>Não transformamos um problema estrutural em “falha de caráter”.</p></div><div class="comic-tile"><b>SEM AUTOMATISMO</b><p>Não oferecemos um veredito técnico ou jurídico sem contexto.</p></div></div><div class="zine-prompt">Qual ação reduz danos sem expor novamente a pessoa atingida?</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>06</b></div></section><section class="zine-page zine-mint"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 07</span></div><div class="zine-label">QUADRO 06 — CAMINHO DIDÁTICO</div><h2>Quatro movimentos</h2><p class="zine-lead">A mesma sequência pode orientar uma aula, um debate, uma cartilha ou um simulador.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Quatro etapas para interpretar um caso" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotssteps" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
-<rect x="0" y="0" width="760" height="285" rx="16" fill="#d1fae5"/><rect width="760" height="285" rx="16" fill="url(#dotssteps)"/><g font-family="sans-serif" font-weight="850" text-anchor="middle" fill="#123243"><rect x="26" y="76" width="167" height="112" rx="23" fill="#99f6e4" stroke="#163444" stroke-width="4"/><text x="110" y="122" font-size="22">01</text><text x="110" y="151" font-size="17">RECONHECER</text><rect x="213" y="76" width="167" height="112" rx="23" fill="#ddd6fe" stroke="#163444" stroke-width="4"/><text x="297" y="122" font-size="22">02</text><text x="297" y="151" font-size="17">COMPREENDER</text><rect x="400" y="76" width="167" height="112" rx="23" fill="#fbcfe8" stroke="#163444" stroke-width="4"/><text x="484" y="122" font-size="22">03</text><text x="484" y="151" font-size="17">JULGAR</text><rect x="587" y="76" width="167" height="112" rx="23" fill="#fde68a" stroke="#163444" stroke-width="4"/><text x="671" y="122" font-size="22">04</text><text x="671" y="151" font-size="17">INTERVIR</text></g></svg><div class="zine-content"><div class="zine-steps"><p><b>1. Reconhecer:</b> identificar a prática discursiva, o alvo, o contexto e os sinais relevantes.</p><p><b>2. Compreender:</b> relacionar práticas, desenho da plataforma, convenções sociais e poder.</p><p><b>3. Julgar:</b> considerar direitos, virtudes, responsabilidades, riscos e incertezas.</p><p><b>4. Intervir responsavelmente:</b> ponderar apoio, denúncia, proteção, diálogo e não amplificação.</p></div><div class="zine-callout"><strong>O que não se deve prometer?</strong><p>Uma atividade ilustrada não comprova mudança de atitudes, redução de misoginia ou eficácia pedagógica. Sem pesquisa avaliativa própria, serve como proposta de reflexão.</p></div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>07</b></div></section><section class="zine-page zine-peach"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 08</span></div><div class="zine-label">OFICINA — QUATRO SITUAÇÕES</div><h2>O debate tem mais de uma camada</h2><p class="zine-lead">Casos originais fictícios, formulados a partir de temas recorrentes em discussões públicas. Não correspondem a pessoas, postagens ou diagnósticos reais.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Jovem observa uma publicação e questiona seu contexto" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotspost" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#30251f" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="270" y="28" width="239" height="75" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M295 103 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="389.5" y="55" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="389.5" dy="0">Que valor está em jogo?</tspan></text><path d="M319 185 Q380 151 443 185" stroke="#be185d" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M426 170 L448 185 L427 201" fill="none" stroke="#be185d" stroke-width="9" stroke-linecap="round"/></svg><div class="zine-content"><p><strong>Vallor</strong> ajuda a pensar o cultivo da atenção moral, da empatia e do julgamento prudente em situações mediadas por tecnologias. <strong>Street</strong> lembra que o letramento é prática social situada — não apenas uma competência individual neutra.</p><div class="comic-tiles"><div class="comic-tile"><b>SEM MORALISMO</b><p>Não transformamos um problema estrutural em “falha de caráter”.</p></div><div class="comic-tile"><b>SEM AUTOMATISMO</b><p>Não oferecemos um veredito técnico ou jurídico sem contexto.</p></div></div><div class="zine-prompt">Qual ação reduz danos sem expor novamente a pessoa atingida?</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>06</b></div></section><section class="zine-page zine-mint"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 07</span></div><div class="zine-label">QUADRO 06 — CAMINHO DIDÁTICO</div><h2>Quatro movimentos</h2><p class="zine-lead">A mesma sequência pode orientar uma aula, um debate, uma cartilha ou um simulador.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Quatro etapas para interpretar um caso" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotssteps" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="0" y="0" width="760" height="285" rx="16" fill="#d1fae5"/><rect width="760" height="285" rx="16" fill="url(#dotssteps)"/><g font-family="sans-serif" font-weight="850" text-anchor="middle" fill="#123243"><rect x="26" y="76" width="167" height="112" rx="23" fill="#99f6e4" stroke="#163444" stroke-width="4"/><text x="110" y="122" font-size="22">01</text><text x="110" y="151" font-size="17">RECONHECER</text><rect x="213" y="76" width="167" height="112" rx="23" fill="#ddd6fe" stroke="#163444" stroke-width="4"/><text x="297" y="122" font-size="22">02</text><text x="297" y="151" font-size="17">COMPREENDER</text><rect x="400" y="76" width="167" height="112" rx="23" fill="#fbcfe8" stroke="#163444" stroke-width="4"/><text x="484" y="122" font-size="22">03</text><text x="484" y="151" font-size="17">JULGAR</text><rect x="587" y="76" width="167" height="112" rx="23" fill="#fde68a" stroke="#163444" stroke-width="4"/><text x="671" y="122" font-size="22">04</text><text x="671" y="151" font-size="17">AGIR</text></g></svg><div class="zine-content"><div class="zine-steps"><p><b>1. Reconhecer:</b> identificar o que foi dito ou feito, quem é o alvo e que sinais chamam atenção.</p><p><b>2. Compreender:</b> relacionar a situação ao contexto, ao desenho da plataforma, às convenções sociais e às relações de poder.</p><p><b>3. Julgar:</b> avaliar as alternativas à luz de valores éticos, direitos, riscos e incertezas.</p><p><b>4. Agir responsavelmente:</b> escolher entre apoiar, denunciar, proteger, dialogar ou não amplificar, conforme o caso.</p></div><div class="zine-callout"><strong>Não é uma receita</strong><p>Os movimentos podem ir e voltar: uma informação nova pode pedir que se reconheça e se compreenda de novo antes de julgar.</p></div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>07</b></div></section><section class="zine-page zine-peach"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 08</span></div><div class="zine-label">OFICINA — QUATRO SITUAÇÕES</div><h2>O debate tem mais de uma camada</h2><p class="zine-lead">Casos fictícios, inspirados em temas recorrentes de discussões públicas. Não correspondem a pessoas nem a postagens reais.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Jovem observa uma publicação e questiona seu contexto" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotspost" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
 <rect x="0" y="0" width="760" height="285" rx="16" fill="#ffead9"/><rect width="760" height="285" rx="16" fill="url(#dotspost)"/><rect x="80" y="30" width="187" height="235" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="93" y="44" width="161" height="205" rx="12" fill="#f7fafc"/><rect x="138" y="36" width="71" height="7" rx="4" fill="#607186"/><circle cx="118" cy="72" r="11" fill="#14b8a6"/><rect x="140" y="67" width="102" height="8" rx="4" fill="#94a3b8"/><rect x="110" y="99" width="127" height="55" rx="9" fill="#ccfbf1"/><path d="M115 185h117m-117 17h97m-97 17h112" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><g transform="translate(420,152) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#d97706" stroke="#142b38" stroke-width="4"/>
-<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#343041" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="415" y="18" width="300" height="82" rx="22" fill="#fffefa" stroke="#142b38" stroke-width="3"/><path d="M440 100 l13 16 l13 -16" fill="#fffefa" stroke="#142b38" stroke-width="3"/><text x="565.0" y="45" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="565.0" dy="0">É só uma piada... ou há</tspan><tspan x="565.0" dy="23">punição?</tspan></text></svg><div class="zine-content"><div class="zine-cases"><div><b>CASO A • “É só uma piada”</b><p>Uma professora é desqualificada como “emocional demais”. Pergunte o que é crítica e o que é policiamento de gênero.</p></div><div><b>CASO B • “Lei já aprovada”</b><p>Um comentário apresenta um projeto como lei vigente. Peça fonte oficial e diferencie proposta de norma.</p></div><div><b>CASO C • “Compartilhe o print”</b><p>Alguém quer republicar um ataque com nome e foto da vítima. Discuta não revitimização e proteção.</p></div><div><b>CASO D • “O algoritmo quis isso”</b><p>Um conteúdo apareceu como sugerido. O que isso permite observar, e o que não prova?</p></div></div><div class="zine-prompt">Atividade: selecione um caso e percorra os quatro movimentos.</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>08</b></div></section><section class="zine-page zine-lilac"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 09</span></div><div class="zine-label">FICHA DE EXERCÍCIO</div><h2>Meu diário de leitura sociotécnica</h2><p class="zine-lead">Imprima esta página para um trabalho individual ou em grupo. Ela não é instrumento psicométrico de avaliação.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Caderno aberto para anotar problemas, evidências e alternativas" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotsworksheet" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
-<rect x="0" y="0" width="760" height="285" rx="16" fill="#ede9fe"/><rect width="760" height="285" rx="16" fill="url(#dotsworksheet)"/><rect x="105" y="45" width="550" height="205" rx="17" fill="#fff" stroke="#334155" stroke-width="5"/><path d="M379 53 v183" stroke="#94a3b8" stroke-width="5"/><path d="M131 94 h214 M411 94 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 123 h214 M411 123 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 152 h214 M411 152 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 181 h214 M411 181 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 210 h214 M411 210 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><text x="165" y="70" fill="#6d28d9" font-weight="800" font-size="17">MINHAS NOTAS</text></svg><div class="zine-content"><div class="zine-form"><p><b>Caso / situação:</b> ___________________________________________________________________</p><p><b>1. O que reconheci?</b> ____________________________________________________________</p><p>________________________________________________________________________________________</p><p><b>2. Que condições sociotécnicas identifiquei?</b> _____________________________________</p><p>________________________________________________________________________________________</p><p><b>3. Quais direitos, valores e incertezas importam?</b> _________________________________</p><p>________________________________________________________________________________________</p><p><b>4. Quais alternativas de ação seriam responsáveis?</b> _________________________________</p><p>________________________________________________________________________________________</p><p><b>O que ainda não sei e precisaria verificar?</b> _______________________________________</p></div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>09</b></div></section><section class="zine-page zine-yellow"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 10</span></div><div class="zine-label">NOTAS PARA EDUCADORES</div><h2>Como usar sem prometer resultados</h2><p class="zine-lead">O desenho foi concebido como material experimental de tradução pedagógica, não como produto obrigatório da dissertação.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Dois jovens e uma educadora diante de uma rede social, com balões de diálogo" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotscover" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#343041" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="415" y="18" width="300" height="82" rx="22" fill="#fffefa" stroke="#142b38" stroke-width="3"/><path d="M440 100 l13 16 l13 -16" fill="#fffefa" stroke="#142b38" stroke-width="3"/><text x="565.0" y="45" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="565.0" dy="0">É só uma piada…</tspan><tspan x="565.0" dy="23">ou um recado?</tspan></text></svg><div class="zine-content"><div class="zine-cases"><div><b>CASO A • “É só uma piada”</b><p>Em tom de brincadeira, uma professora é chamada de “emocional demais” ao discordar de um colega. O que é crítica e o que é policiamento de gênero?</p></div><div><b>CASO B • “Lei já aprovada”</b><p>Um comentário apresenta um projeto de lei como lei em vigor. Peça a fonte oficial e diferencie proposta de norma.</p></div><div><b>CASO C • “Compartilhe o print”</b><p>Alguém quer republicar um ataque com o nome e a foto da vítima. Como denunciar sem expor a pessoa de novo?</p></div><div><b>CASO D • “O algoritmo quis isso”</b><p>Um conteúdo hostil aparece como sugerido. O que isso permite observar e o que não prova?</p></div></div><div class="zine-prompt">Atividade: selecione um caso e percorra os quatro movimentos.</div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>08</b></div></section><section class="zine-page zine-lilac"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 09</span></div><div class="zine-label">FICHA DE EXERCÍCIO</div><h2>Meu diário de leitura sociotécnica</h2><p class="zine-lead">Imprima esta página para um trabalho individual ou em grupo. Não é prova nem teste: é um registro do seu raciocínio.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Caderno aberto para anotar problemas, evidências e alternativas" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotsworksheet" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
+<rect x="0" y="0" width="760" height="285" rx="16" fill="#ede9fe"/><rect width="760" height="285" rx="16" fill="url(#dotsworksheet)"/><rect x="105" y="45" width="550" height="205" rx="17" fill="#fff" stroke="#334155" stroke-width="5"/><path d="M379 53 v183" stroke="#94a3b8" stroke-width="5"/><path d="M131 94 h214 M411 94 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 123 h214 M411 123 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 152 h214 M411 152 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 181 h214 M411 181 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><path d="M131 210 h214 M411 210 h214" stroke="#cbd5e1" stroke-width="5" stroke-linecap="round"/><text x="165" y="70" fill="#6d28d9" font-weight="800" font-size="17">MINHAS NOTAS</text></svg><div class="zine-content"><div class="zine-form"><p><b>Caso / situação:</b> ___________________________________________________________________</p><p><b>1. O que reconheci?</b> ____________________________________________________________</p><p>________________________________________________________________________________________</p><p><b>2. Que condições sociotécnicas identifiquei?</b> _____________________________________</p><p>________________________________________________________________________________________</p><p><b>3. Quais direitos, valores e incertezas importam?</b> _________________________________</p><p>________________________________________________________________________________________</p><p><b>4. Quais alternativas de ação seriam responsáveis?</b> _________________________________</p><p>________________________________________________________________________________________</p><p><b>O que ainda não sei e precisaria verificar?</b> _______________________________________</p></div></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>09</b></div></section><section class="zine-page zine-yellow"><div class="zine-top"><span>LETRAMENTO.TECH / CADERNO ILUSTRADO</span><span>EDIÇÃO EXPERIMENTAL • 10</span></div><div class="zine-label">NOTAS PARA EDUCADORES</div><h2>Como usar sem prometer resultados</h2><p class="zine-lead">Este caderno é um material experimental de tradução pedagógica dos conceitos da pesquisa, não um produto obrigatório da dissertação.</p><svg class="comic-art" viewBox="0 0 760 285" role="img" aria-label="Dois jovens diante de um celular com uma rede social, com balões de diálogo" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dotscover" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#0f766e" opacity=".3"/></pattern></defs>
 <rect x="0" y="0" width="760" height="285" rx="16" fill="#c7f9e8"/><rect width="760" height="285" rx="16" fill="url(#dotscover)"/><g transform="translate(130,144) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#0d9488" stroke="#142b38" stroke-width="4"/>
 <rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#382d31" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><g transform="translate(315,150) scale(1)"><path d="M-47 94 Q-57 24 0 29 Q57 24 47 94 Z" fill="#8b5cf6" stroke="#142b38" stroke-width="4"/>
-<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#1d293b" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="480" y="29" width="180" height="238" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="493" y="43" width="154" height="208" rx="12" fill="#f7fafc"/><rect x="538" y="35" width="64" height="7" rx="4" fill="#607186"/><circle cx="518" cy="71" r="11" fill="#14b8a6"/><rect x="540" y="66" width="95" height="8" rx="4" fill="#94a3b8"/><rect x="510" y="98" width="120" height="55" rx="9" fill="#ccfbf1"/><path d="M515 184h110m-110 17h90m-90 17h105" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><rect x="65" y="21" width="232" height="68" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M90 89 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="181.0" y="48" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="181.0" dy="0">O que está acontecendo?</tspan></text><rect x="287" y="15" width="191" height="66" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M312 81 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="382.5" y="42" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="382.5" dy="0">Vamos investigar!</tspan></text></svg><div class="zine-content"><p><b>Sequência sugerida:</b> leia um quadro, apresente uma situação, escute interpretações divergentes, confronte-as com contexto e fontes, finalize com registro reflexivo. O modo estudo do simulador expõe comentários explicativos; o modo auditoria mantém a mecânica original de desafios e XP.</p><p><b>Segurança:</b> não peça que estudantes publiquem ataques reais, exponham perfis ou simulem vítimas identificáveis. Se houver relatos pessoais, priorize acolhimento e as normas institucionais.</p><p><b>Fontes teóricas:</b> Cupani (2016); Feenberg (2002; 2022); Van Dijck, Poell e De Waal (2018); Bruno (2013); Manne (2018); Bates (2020); Vallor (2016); Street (1995). Metodologia do projeto: Kozinets e Bardin.</p><p><b>Fontes legais oficiais:</b> Constituição, Marco Civil, LGPD, Leis 13.642/2018, 14.132/2021, 14.188/2021, 15.211/2025, Decreto 12.976/2026 e PL 896/2023 (proposição, situação a verificar).</p><p class="zine-caption">Estudo independente, relacionado a temática de Educação Tecnológica. Não é publicação institucional oficial nem resultado validado de pesquisa de campo.</p></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>10</b></div></section></div></div>
+<rect x="-13" y="16" width="26" height="31" rx="9" fill="#e6a57d"/><ellipse cx="0" cy="0" rx="36" ry="43" fill="#eab78f" stroke="#142b38" stroke-width="3"/><path d="M-38 -11 Q-38 -59 10 -46 Q44 -40 36 -6 Q21 -21 8 -25 Q-11 -7 -38 -11" fill="#1d293b" stroke="#142b38" stroke-width="3"/><circle cx="-13" cy="1" r="3.7" fill="#142b38"/><circle cx="13" cy="1" r="3.7" fill="#142b38"/><path d="M-12 18 Q0 30 13 18" stroke="#7c4a3f" stroke-width="3.5" fill="none" stroke-linecap="round"/></g><rect x="480" y="29" width="180" height="238" rx="23" fill="#11243b" stroke="#06121e" stroke-width="5"/><rect x="493" y="43" width="154" height="208" rx="12" fill="#f7fafc"/><rect x="538" y="35" width="64" height="7" rx="4" fill="#607186"/><circle cx="518" cy="71" r="11" fill="#14b8a6"/><rect x="540" y="66" width="95" height="8" rx="4" fill="#94a3b8"/><rect x="510" y="98" width="120" height="55" rx="9" fill="#ccfbf1"/><path d="M515 184h110m-110 17h90m-90 17h105" stroke="#94a3b8" stroke-width="8" stroke-linecap="round"/><rect x="65" y="21" width="232" height="68" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M90 89 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="181.0" y="48" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="181.0" dy="0">O que está acontecendo?</tspan></text><rect x="287" y="15" width="191" height="66" rx="22" fill="#ffffff" stroke="#142b38" stroke-width="3"/><path d="M312 81 l13 16 l13 -16" fill="#ffffff" stroke="#142b38" stroke-width="3"/><text x="382.5" y="42" font-size="18" font-family="sans-serif" fill="#14313d" text-anchor="middle" font-weight="750"><tspan x="382.5" dy="0">Vamos investigar!</tspan></text></svg><div class="zine-content"><p><b>Sequência sugerida:</b> leia um quadro, apresente uma situação, escute interpretações divergentes, confronte-as com o contexto e as fontes e finalize com um registro reflexivo. No simulador, o modo estudo mostra comentários explicativos; o modo auditoria propõe desafios com pontuação lúdica.</p><p><b>Limites:</b> sem pesquisa avaliativa própria, o material não comprova mudança de atitudes, redução da misoginia nem eficácia pedagógica; serve como proposta de reflexão.</p><p><b>Segurança:</b> não peça que estudantes publiquem ataques reais, exponham perfis ou simulem vítimas identificáveis. Se houver relatos pessoais, priorize acolhimento e as normas institucionais.</p><p><b>Fontes teóricas:</b> Cupani (2016); Feenberg (2002; 2022); Van Dijck, Poell e De Waal (2018); Bruno (2013); Manne (2018); Bates (2020); Vallor (2016); Street (1995). Metodologia do projeto: Kozinets (2019) e Bardin (1977).</p><p><b>Fontes legais oficiais:</b> Constituição, Marco Civil, LGPD, Leis 12.737/2012, 13.642/2018, 14.132/2021, 14.188/2021 e 15.211/2025, Decreto 12.976/2026 e PL 896/2023 (proposição; verificar a tramitação).</p><p class="zine-caption">Estudo independente, relacionado à temática da Educação Tecnológica e elaborado com apoio de ferramentas de inteligência artificial generativa. Não é publicação institucional nem resultado validado de pesquisa de campo.</p></div><div class="zine-bottom"><span>Formação ética • educação tecnológica • letramento sociotécnico</span><b>10</b></div></section></div></div>
 
                         <!-- ========================================================================= -->
             <!-- VISTA 2: DASHBOARD (VISÃO GERAL DO DESEMPENHO)                            -->
@@ -2880,13 +2887,13 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                     <!-- Radar Chart Simulation -->
                     <div class="glass-card p-6 md:p-8">
                         <h3 class="font-bold text-lg text-white mb-6 flex items-center gap-2">
-                            <i class="fa-solid fa-chart-pie text-brand-500"></i> Painel Lúdico de Casos
+                            <i class="fa-solid fa-chart-pie text-brand-500"></i> Painel de Casos
                         </h3>
                         <div class="grid md:grid-cols-2 gap-8 items-center">
                             <div class="space-y-5">
                                 <div>
                                     <div class="flex justify-between text-sm font-bold mb-1">
-                                        <span class="text-surface-300">Desconstrução Discursiva (Misoginia)</span>
+                                        <span class="text-surface-300">Misoginia e contexto (Manne, Bates)</span>
                                         <span class="text-brand-400" id="skill-1-val">0%</span>
                                     </div>
                                     <div class="w-full bg-surface-700 rounded-full h-2">
@@ -2895,7 +2902,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                                 </div>
                                 <div>
                                     <div class="flex justify-between text-sm font-bold mb-1">
-                                        <span class="text-surface-300">Auditoria de Dark Patterns (Design)</span>
+                                        <span class="text-surface-300">Plataformas, dados e desenho (Feenberg, Van Dijck, Bruno)</span>
                                         <span class="text-accent-400" id="skill-2-val">0%</span>
                                     </div>
                                     <div class="w-full bg-surface-700 rounded-full h-2">
@@ -2904,7 +2911,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                                 </div>
                                 <div>
                                     <div class="flex justify-between text-sm font-bold mb-1">
-                                        <span class="text-surface-300">Enquadramento Legal (ECA Digital/Lola)</span>
+                                        <span class="text-surface-300">Direitos e proteção (leitura das normas)</span>
                                         <span class="text-warning-400" id="skill-3-val">0%</span>
                                     </div>
                                     <div class="w-full bg-surface-700 rounded-full h-2">
@@ -2913,7 +2920,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                                 </div>
                                 <div>
                                     <div class="flex justify-between text-sm font-bold mb-1">
-                                        <span class="text-surface-300">Consciência Algorítmica (IA/Recomendação)</span>
+                                        <span class="text-surface-300">Circulação, verificação e ação (Street, Vallor)</span>
                                         <span class="text-blue-400" id="skill-4-val">0%</span>
                                     </div>
                                     <div class="w-full bg-surface-700 rounded-full h-2">
@@ -2976,9 +2983,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                             </div>
                             
                             <div class="p-6 text-center bg-surface-900/50">
-                                <button onclick="loadMorePosts()" id="btn-load-more" class="text-sm font-bold text-surface-400 hover:text-brand-400 transition flex items-center justify-center gap-2 w-full">
-                                    <i class="fa-solid fa-spinner animate-spin-slow"></i> Todos os cenários foram carregados
-                                </button>
+                                <p id="btn-load-more" class="text-sm font-bold text-surface-400 flex items-center justify-center gap-2 w-full"><i class="fa-solid fa-check"></i> Fim do feed: todos os cenários fictícios estão acima.</p>
                             </div>
                         </div>
                     </div>
@@ -3029,7 +3034,7 @@ html, body { font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif; }
                                     <div class="flex items-center gap-2 text-danger-400 mb-2">
                                         <i class="fa-solid fa-triangle-exclamation text-lg"></i> <span class="font-bold text-sm uppercase tracking-wide">Desvio Analítico</span>
                                     </div>
-                                    <p class="text-sm text-danger-200 leading-relaxed font-medium">Esta não é a raiz estrutural do problema. Lembre-se: não analise apenas o texto, analise a <strong>arquitetura</strong> da plataforma e a <strong>legislação</strong>. Tente novamente.</p>
+                                    <p id="feedback-wrong-text" class="text-sm text-danger-200 leading-relaxed font-medium">Essa leitura não é a mais defensável com as informações disponíveis. <strong>Tente novamente.</strong></p>
                                 </div>
                                 
                                 <!-- Correct Feedback (Caixa Preta) -->
@@ -3137,746 +3142,786 @@ function printSection(kind){
         
         const postsDb = [
             {
-                        "id": 1,
-                        "author": "Debate Relações",
-                        "handle": "@cenariodidatico01",
-                        "avatarClass": "from-purple-600 to-indigo-800",
-                        "time": "Cenário fictício",
-                        "content": "“Mulher que chega aos 30 perde valor de mercado; homem de valor escolhe obediência.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 1,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Crítica individual",
-                                                "subtext": "Contestação de uma proposta concreta."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Desqualificação por expectativa de gênero",
-                                                "subtext": "Atribui valor e submissão a um grupo."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Falha de interface",
-                                                "subtext": "O problema estaria no tamanho do texto."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Manne · policiamento",
-                        "icon": "fa-language",
-                        "title": "“Valor de mercado” e hierarquia de gênero",
-                        "explanation": "O enunciado generaliza mulheres como objetos de avaliação e apresenta submissão como expectativa. À luz de Manne, importa investigar a função social e o contexto desse policiamento. Um trecho não autoriza inferir estados psicológicos individuais ou a moderação interna da plataforma.",
-                        "lawText": "Parâmetro: dignidade, não discriminação e contexto. Não há enquadramento penal automático apenas pela classificação teórica.",
-                        "reflection": "Como contestar a ideia sem expor pessoas ou reproduzir o insulto?",
-                        "steps": [
-                                    "Reconhecer generalização",
-                                    "Compreender expectativas",
-                                    "Julgar dignidade e poder",
-                                    "Responder sem amplificar"
-                        ]
+                "id": 1,
+                "author": "Debate Relações",
+                "handle": "@cenariodidatico01",
+                "avatarClass": "from-purple-600 to-indigo-800",
+                "time": "Cenário fictício",
+                "content": "“Mulher que chega aos 30 perde valor de mercado; homem de valor escolhe obediência.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Crítica individual",
+                        "subtext": "Contestação de uma proposta concreta.",
+                        "why": "O enunciado não contesta nenhuma proposta ou argumento: atribui valor e obediência às mulheres como grupo."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Desqualificação por expectativa de gênero",
+                        "subtext": "Atribui valor e submissão a um grupo."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Falha de interface",
+                        "subtext": "O problema estaria no tamanho do texto.",
+                        "why": "Nada no caso aponta para um problema de interface; o que está em jogo é a expectativa de gênero que o texto expressa."
+                    }
+                ],
+                "correct": "b",
+                "label": "Manne · policiamento",
+                "icon": "fa-language",
+                "title": "“Valor de mercado” e hierarquia de gênero",
+                "explanation": "O enunciado generaliza mulheres como objetos de avaliação e apresenta submissão como expectativa. À luz de Manne, importa investigar a função social e o contexto desse policiamento. Um trecho não autoriza inferir estados psicológicos individuais ou a moderação interna da plataforma.",
+                "lawText": "Parâmetro: dignidade, não discriminação e contexto. Não há enquadramento penal automático apenas pela classificação teórica.",
+                "reflection": "Como contestar a ideia sem expor pessoas ou reproduzir o insulto?",
+                "steps": [
+                    "Reconhecer generalização",
+                    "Compreender expectativas",
+                    "Julgar dignidade e poder",
+                    "Responder sem amplificar"
+                ]
             },
             {
-                        "id": 2,
-                        "author": "Cortes de Debate",
-                        "handle": "@cenariodidatico02",
-                        "avatarClass": "from-red-500 to-orange-600",
-                        "time": "Cenário fictício",
-                        "content": "“Quando ela assume liderança, precisa aprender seu lugar. Compartilhem este corte!”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 4,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Policiamento e deslegitimação",
-                                                "subtext": "Hostilidade vinculada à autonomia feminina."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Prova de amplificação algorítmica",
-                                                "subtext": "A presença no feed revela o código de recomendação."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Ameaça penal comprovada",
-                                                "subtext": "O texto contém elementos suficientes para tipificação fechada."
-                                    }
-                        ],
-                        "correct": "a",
-                        "label": "Manne + Vallor",
-                        "icon": "fa-heart",
-                        "title": "Autoridade, reação e julgamento",
-                        "explanation": "O cenário sugere reação a uma mulher que ocupa posição de autoridade. O marcador “sugerido” ou a circulação do corte não demonstra sozinho como a recomendação funcionou. A leitura ética pede prudência e consideração pelas consequências de compartilhar.",
-                        "lawText": "Orientação: examine contexto e eventual reiteração; não presuma crime, intenção do algoritmo nem culpa coletiva.",
-                        "reflection": "Que outros dados precisariam ser observados antes de avaliar circulação e reação?",
-                        "steps": [
-                                    "Reconhecer alvo",
-                                    "Compreender mediação",
-                                    "Julgar com cautela",
-                                    "Evitar amplificação"
-                        ]
+                "id": 2,
+                "author": "Cortes de Debate",
+                "handle": "@cenariodidatico02",
+                "avatarClass": "from-red-500 to-orange-600",
+                "time": "Cenário fictício",
+                "content": "“Quando ela assume liderança, precisa aprender seu lugar. Compartilhem este corte!”",
+                "likes": "",
+                "tag": {
+                    "text": "Sugerido para você",
+                    "icon": "fa-arrow-trend-up",
+                    "color": "text-warning-400"
+                },
+                "skillArea": 4,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Policiamento e deslegitimação",
+                        "subtext": "Hostilidade vinculada à autonomia feminina."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Prova de amplificação algorítmica",
+                        "subtext": "A presença no feed revela o código de recomendação.",
+                        "why": "Ver o post no feed, mesmo marcado como sugerido, não revela como a recomendação funciona. Sem dados sobre o sistema, isso é hipótese, não prova."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Ameaça penal comprovada",
+                        "subtext": "O texto contém elementos suficientes para tipificação fechada.",
+                        "why": "A frase é hostil, mas não basta para afirmar um crime. O enquadramento jurídico depende de fatos, contexto e requisitos legais que o caso não traz."
+                    }
+                ],
+                "correct": "a",
+                "label": "Manne + Vallor",
+                "icon": "fa-heart",
+                "title": "Autoridade, reação e julgamento",
+                "explanation": "O cenário sugere reação a uma mulher que ocupa posição de autoridade. O marcador “sugerido” ou a circulação do corte não demonstra sozinho como a recomendação funcionou. A leitura ética pede prudência e consideração pelas consequências de compartilhar.",
+                "lawText": "Orientação: examine contexto e eventual reiteração; não presuma crime, intenção do algoritmo nem culpa coletiva.",
+                "reflection": "Que outros dados precisariam ser observados antes de avaliar circulação e reação?",
+                "steps": [
+                    "Reconhecer alvo",
+                    "Compreender mediação",
+                    "Julgar com cautela",
+                    "Evitar amplificação"
+                ]
             },
             {
-                        "id": 3,
-                        "author": "Grupo Fictício",
-                        "handle": "@cenariodidatico03",
-                        "avatarClass": "from-brand-400 to-emerald-600",
-                        "time": "Cenário fictício",
-                        "content": "“Tenho fotos privadas de uma colega. Vamos divulgar para acabar com a reputação dela.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 3,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Apenas direito autoral",
-                                                "subtext": "O único interesse protegido seria a autoria da foto."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Comentário neutro",
-                                                "subtext": "Sem possibilidade de risco pessoal."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Risco grave de exposição e violência",
-                                                "subtext": "Não compartilhar, proteger e buscar canais adequados."
-                                    }
-                        ],
-                        "correct": "c",
-                        "label": "Proteção · não revitimização",
-                        "icon": "fa-scale-balanced",
-                        "title": "Exposição não consentida",
-                        "explanation": "O convite à divulgação de conteúdo privado sugere risco grave de violação de intimidade e dano, sobretudo se houver conteúdo íntimo ou pessoa menor de idade. A avaliação jurídica depende dos fatos e das normas aplicáveis; medidas de proteção e preservação adequada de evidências são prioritárias.",
-                        "lawText": "Referência contextual: Decreto 12.976/2026, Marco Civil e disposições penais pertinentes; Lei 13.642/2018 é regra de atribuição investigativa, não tipo penal autônomo.",
-                        "reflection": "Como preservar evidências e buscar ajuda sem redistribuir imagens?",
-                        "steps": [
-                                    "Reconhecer exposição",
-                                    "Compreender dano",
-                                    "Julgar direitos",
-                                    "Acolher e denunciar com cuidado"
-                        ]
+                "id": 3,
+                "author": "Grupo Fictício",
+                "handle": "@cenariodidatico03",
+                "avatarClass": "from-brand-400 to-emerald-600",
+                "time": "Cenário fictício",
+                "content": "“Tenho fotos privadas de uma colega. Vamos divulgar para acabar com a reputação dela.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 3,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Apenas direito autoral",
+                        "subtext": "O único interesse protegido seria a autoria da foto.",
+                        "why": "Reduzir o caso à autoria da foto ignora o principal: a intimidade, a honra e a segurança da colega exposta."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Comentário neutro",
+                        "subtext": "Sem possibilidade de risco pessoal.",
+                        "why": "O post convida explicitamente a expor alguém para destruir sua reputação; não há nada de neutro nisso."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Risco grave de exposição e violência",
+                        "subtext": "Não compartilhar, proteger e buscar canais adequados."
+                    }
+                ],
+                "correct": "c",
+                "label": "Proteção · não revitimização",
+                "icon": "fa-scale-balanced",
+                "title": "Exposição não consentida",
+                "explanation": "O convite à divulgação de conteúdo privado sugere risco grave de violação de intimidade e dano, sobretudo se houver conteúdo íntimo ou pessoa menor de idade. A avaliação jurídica depende dos fatos e das normas aplicáveis; medidas de proteção e preservação adequada de evidências são prioritárias.",
+                "lawText": "Referência contextual: Decreto 12.976/2026, Marco Civil e disposições penais pertinentes; Lei 13.642/2018 é regra de atribuição investigativa, não tipo penal autônomo.",
+                "reflection": "Como preservar evidências e buscar ajuda sem redistribuir imagens?",
+                "steps": [
+                    "Reconhecer exposição",
+                    "Compreender dano",
+                    "Julgar direitos",
+                    "Acolher e denunciar com cuidado"
+                ]
             },
             {
-                        "id": 4,
-                        "author": "Anúncio Simulado",
-                        "handle": "@cenariodidatico04",
-                        "avatarClass": "from-blue-600 to-cyan-600",
-                        "time": "Cenário fictício",
-                        "content": "“ÚLTIMA CHANCE: faltam 4 minutos para descobrir quem viu seu perfil. Autorize acesso à sua conta!”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 2,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Informação suficiente",
-                                                "subtext": "A pressão de tempo confirma legitimidade."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Sinais de urgência manipulativa",
-                                                "subtext": "É prudente verificar finalidade e permissões."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Função comprovada do algoritmo",
-                                                "subtext": "O relógio revela o funcionamento interno da plataforma."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Feenberg · desenho",
-                        "icon": "fa-code-branch",
-                        "title": "Urgência e permissões",
-                        "explanation": "Há indícios de desenho persuasivo que merece exame: urgência sem comprovação, pedido de autorização e possível coleta de dados. Isso não prova por si só fraude ou violação legal; recomenda-se examinar permissões, origem do serviço e informações de privacidade.",
-                        "lawText": "Referências gerais: LGPD, proteção de dados e regras incidentes; aplicação jurídica concreta depende da oferta e do público.",
-                        "reflection": "Qual permissão é realmente necessária? O tempo mostrado é verificável?",
-                        "steps": [
-                                    "Reconhecer apelo",
-                                    "Compreender design",
-                                    "Julgar riscos",
-                                    "Verificar antes de consentir"
-                        ],
-                        "media": "ad"
+                "id": 4,
+                "author": "Anúncio Simulado",
+                "handle": "@cenariodidatico04",
+                "avatarClass": "from-blue-600 to-cyan-600",
+                "time": "Cenário fictício",
+                "content": "“ÚLTIMA CHANCE: faltam 4 minutos para descobrir quem viu seu perfil. Autorize acesso à sua conta!”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 2,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Informação suficiente",
+                        "subtext": "A pressão de tempo confirma legitimidade.",
+                        "why": "Urgência não comprova legitimidade; costuma ser justamente um recurso para apressar a decisão e reduzir a verificação."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Sinais de urgência manipulativa",
+                        "subtext": "É prudente verificar finalidade e permissões."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Função comprovada do algoritmo",
+                        "subtext": "O relógio revela o funcionamento interno da plataforma.",
+                        "why": "Um contador na tela é um elemento de interface, não uma janela para o funcionamento interno da plataforma."
+                    }
+                ],
+                "correct": "b",
+                "label": "Feenberg · desenho",
+                "icon": "fa-code-branch",
+                "title": "Urgência e permissões",
+                "explanation": "Há indícios de desenho persuasivo que merece exame: urgência sem comprovação, pedido de autorização e possível coleta de dados. Isso não prova por si só fraude ou violação legal; recomenda-se examinar permissões, origem do serviço e informações de privacidade.",
+                "lawText": "Referências gerais: LGPD, proteção de dados e regras incidentes; aplicação jurídica concreta depende da oferta e do público.",
+                "reflection": "Qual permissão é realmente necessária? O tempo mostrado é verificável?",
+                "steps": [
+                    "Reconhecer apelo",
+                    "Compreender design",
+                    "Julgar riscos",
+                    "Verificar antes de consentir"
+                ],
+                "media": "ad"
             },
             {
-                        "id": 5,
-                        "author": "Áudio Viral",
-                        "handle": "@cenariodidatico05",
-                        "avatarClass": "from-pink-500 to-rose-600",
-                        "time": "Cenário fictício",
-                        "content": "“Um áudio atribuível a uma gestora viralizou. A postagem diz que uma IA apenas limpou o som. Repassem antes da remoção!”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 2,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Áudio necessariamente verdadeiro",
-                                                "subtext": "Mencionar IA confirma a autenticidade."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Áudio necessariamente falso",
-                                                "subtext": "A mera referência à IA prova deepfake."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Autenticidade indeterminada",
-                                                "subtext": "Checar procedência, contexto e fontes independentes."
-                                    }
-                        ],
-                        "correct": "c",
-                        "label": "Street · verificação",
-                        "icon": "fa-code-branch",
-                        "title": "Não adivinhar autenticidade",
-                        "explanation": "Não há dados suficientes para saber se é montagem, gravação genuína ou material editado de outra maneira. Urgência e apelo à censura podem pressionar a circulação; o letramento sociotécnico demanda verificação contextual antes de compartilhar.",
-                        "lawText": "Cautela: evitar afirmações difamatórias e preservar direitos sem presumir autoria ou manipulação comprovadas.",
-                        "reflection": "Que fonte primária ou confirmação independente poderia resolver a dúvida?",
-                        "steps": [
-                                    "Reconhecer incerteza",
-                                    "Compreender circulação",
-                                    "Julgar evidência",
-                                    "Não propagar sem verificar"
-                        ],
-                        "media": "audio"
+                "id": 5,
+                "author": "Áudio Viral",
+                "handle": "@cenariodidatico05",
+                "avatarClass": "from-pink-500 to-rose-600",
+                "time": "Cenário fictício",
+                "content": "“Um áudio atribuível a uma gestora viralizou. A postagem diz que uma IA apenas limpou o som. Repassem antes da remoção!”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 4,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Áudio necessariamente verdadeiro",
+                        "subtext": "Mencionar IA confirma a autenticidade.",
+                        "why": "Dizer que uma IA “apenas limpou o som” não confirma nada; a autenticidade continua sem verificação."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Áudio necessariamente falso",
+                        "subtext": "A mera referência à IA prova deepfake.",
+                        "why": "Mencionar IA também não prova montagem. Sem checar procedência e fontes, qualquer conclusão é precipitada."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Autenticidade indeterminada",
+                        "subtext": "Checar procedência, contexto e fontes independentes."
+                    }
+                ],
+                "correct": "c",
+                "label": "Street · verificação",
+                "icon": "fa-code-branch",
+                "title": "Não adivinhar autenticidade",
+                "explanation": "Não há dados suficientes para saber se é montagem, gravação genuína ou material editado de outra maneira. Urgência e apelo à censura podem pressionar a circulação; o letramento sociotécnico demanda verificação contextual antes de compartilhar.",
+                "lawText": "Cautela: evitar afirmações difamatórias e preservar direitos sem presumir autoria ou manipulação comprovadas.",
+                "reflection": "Que fonte primária ou confirmação independente poderia resolver a dúvida?",
+                "steps": [
+                    "Reconhecer incerteza",
+                    "Compreender circulação",
+                    "Julgar evidência",
+                    "Não propagar sem verificar"
+                ],
+                "media": "audio"
             },
             {
-                        "id": 6,
-                        "author": "Questionário Viral",
-                        "handle": "@cenariodidatico06",
-                        "avatarClass": "from-slate-700 to-slate-900",
-                        "time": "Cenário fictício",
-                        "content": "“Para saber qual é seu perfil afetivo, clique em entrar com sua rede social e autorize acesso a contatos, fotos e localização.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 2,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Avaliar necessidade e transparência",
-                                                "subtext": "Questionar o escopo das permissões."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Acesso automaticamente lícito",
-                                                "subtext": "Autorização elimina exigências de finalidade e segurança."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Diagnóstico psicológico",
-                                                "subtext": "O formulário indica teste validado."
-                                    }
-                        ],
-                        "correct": "a",
-                        "label": "Bruno · dados",
-                        "icon": "fa-code-branch",
-                        "title": "Dados pessoais e poder",
-                        "explanation": "O cenário permite discutir dataficação, perfilização e necessidade de dados. O simples login não prova extração ilícita; é preciso observar permissões e finalidade. A decisão responsável inclui recusar autorizações não necessárias e procurar política de privacidade.",
-                        "lawText": "Referência: LGPD; para crianças e adolescentes também devem ser consideradas as exigências pertinentes da Lei 15.211/2025.",
-                        "reflection": "Quem coleta quais dados, para quê e por quanto tempo?",
-                        "steps": [
-                                    "Reconhecer pedido",
-                                    "Compreender dados",
-                                    "Julgar adequação",
-                                    "Revisar permissões"
-                        ]
+                "id": 6,
+                "author": "Questionário Viral",
+                "handle": "@cenariodidatico06",
+                "avatarClass": "from-slate-700 to-slate-900",
+                "time": "Cenário fictício",
+                "content": "“Para saber qual é seu perfil afetivo, clique em entrar com sua rede social e autorize acesso a contatos, fotos e localização.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 2,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Avaliar necessidade e transparência",
+                        "subtext": "Questionar o escopo das permissões."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Acesso automaticamente lícito",
+                        "subtext": "Autorização elimina exigências de finalidade e segurança.",
+                        "why": "Consentir não elimina as exigências de finalidade, necessidade e segurança no tratamento de dados pessoais."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Diagnóstico psicológico",
+                        "subtext": "O formulário indica teste validado.",
+                        "why": "Nada indica que o questionário seja um teste validado; o que ele pede, na prática, são dados pessoais."
+                    }
+                ],
+                "correct": "a",
+                "label": "Bruno · dados",
+                "icon": "fa-code-branch",
+                "title": "Dados pessoais e poder",
+                "explanation": "O cenário permite discutir dataficação, perfilização e necessidade de dados. O simples login não prova extração ilícita; é preciso observar permissões e finalidade. A decisão responsável inclui recusar autorizações não necessárias e procurar política de privacidade.",
+                "lawText": "Referência: LGPD; para crianças e adolescentes também devem ser consideradas as exigências pertinentes da Lei 15.211/2025.",
+                "reflection": "Quem coleta quais dados, para quê e por quanto tempo?",
+                "steps": [
+                    "Reconhecer pedido",
+                    "Compreender dados",
+                    "Julgar adequação",
+                    "Revisar permissões"
+                ]
             },
             {
-                        "id": 7,
-                        "author": "Debate Público",
-                        "handle": "@cenariodidatico07",
-                        "avatarClass": "from-purple-600 to-indigo-800",
-                        "time": "Cenário fictício",
-                        "content": "“Se eu discordar de uma mulher numa reunião, então toda crítica é misoginia?”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 1,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Sim, sempre",
-                                                "subtext": "Discordar de mulher basta para concluir misoginia."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Não, a interpretação é contextual",
-                                                "subtext": "Criticar argumento não equivale automaticamente a punição de gênero."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Nunca há misoginia em reuniões",
-                                                "subtext": "Ambientes profissionais são neutros por definição."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Manne · distinções",
-                        "icon": "fa-language",
-                        "title": "Discordância x punição de gênero",
-                        "explanation": "A crítica dirigida a uma ideia pode ser legítima. Para investigar misoginia, avalie se há deslegitimação ou sanção associada à posição de mulher, repetição de padrões, expectativas invocadas e contexto. A categoria não deve ser usada como rótulo automático.",
-                        "lawText": "Parâmetro: interpretação social e respeito à liberdade de expressão, com atenção a limites legais concretos.",
-                        "reflection": "Como distinguir crítica ao conteúdo de ataque à legitimidade de falar?",
-                        "steps": [
-                                    "Reconhecer argumento",
-                                    "Compreender contexto",
-                                    "Julgar padrão",
-                                    "Debater respeitosamente"
-                        ]
+                "id": 7,
+                "author": "Debate Público",
+                "handle": "@cenariodidatico07",
+                "avatarClass": "from-purple-600 to-indigo-800",
+                "time": "Cenário fictício",
+                "content": "“Se eu discordar de uma mulher numa reunião, então toda crítica é misoginia?”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Sim, sempre",
+                        "subtext": "Discordar de mulher basta para concluir misoginia.",
+                        "why": "Discordar de uma mulher não é, por si só, misoginia. A análise depende de contexto, função e padrão."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Não, a interpretação é contextual",
+                        "subtext": "Criticar argumento não equivale automaticamente a punição de gênero."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Nunca há misoginia em reuniões",
+                        "subtext": "Ambientes profissionais são neutros por definição.",
+                        "why": "Ambientes profissionais não são neutros por definição; a misoginia também pode operar neles."
+                    }
+                ],
+                "correct": "b",
+                "label": "Manne · distinções",
+                "icon": "fa-language",
+                "title": "Discordância x punição de gênero",
+                "explanation": "A crítica dirigida a uma ideia pode ser legítima. Para investigar misoginia, avalie se há deslegitimação ou sanção associada à posição de mulher, repetição de padrões, expectativas invocadas e contexto. A categoria não deve ser usada como rótulo automático.",
+                "lawText": "Parâmetro: interpretação social e respeito à liberdade de expressão, com atenção a limites legais concretos.",
+                "reflection": "Como distinguir crítica ao conteúdo de ataque à legitimidade de falar?",
+                "steps": [
+                    "Reconhecer argumento",
+                    "Compreender contexto",
+                    "Julgar padrão",
+                    "Debater respeitosamente"
+                ]
             },
             {
-                        "id": 8,
-                        "author": "Conversa em Sala",
-                        "handle": "@cenariodidatico08",
-                        "avatarClass": "from-red-500 to-orange-600",
-                        "time": "Cenário fictício",
-                        "content": "“Era uma piada: mulher entendida de computador é ficção. Não pode nem brincar?”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 1,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Sempre irrelevante",
-                                                "subtext": "Toda piada é neutra independentemente de contexto."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Sempre crime",
-                                                "subtext": "Qualquer estereótipo equivale a tipo penal."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Examinar reprodução de estereótipo",
-                                                "subtext": "Pode desqualificar competências, conforme contexto e padrão."
-                                    }
-                        ],
-                        "correct": "c",
-                        "label": "Manne + ética",
-                        "icon": "fa-language",
-                        "title": "Humor, contexto e autoridade",
-                        "explanation": "O humor não impede análise de estereótipos ou de efeitos de deslegitimação. Tampouco uma piada isolada, sem contexto, autoriza sentença moral ou jurídica automática. O trabalho educativo investiga a função social, possíveis danos e maneiras respeitosas de discordar.",
-                        "lawText": "Não confundir análise educacional de estereótipos com enquadramento criminal automático.",
-                        "reflection": "Que alternativas de humor evitariam inferiorizar um grupo?",
-                        "steps": [
-                                    "Reconhecer estereótipo",
-                                    "Compreender situação",
-                                    "Julgar consequências",
-                                    "Propor reformulação"
-                        ]
+                "id": 8,
+                "author": "Conversa em Sala",
+                "handle": "@cenariodidatico08",
+                "avatarClass": "from-red-500 to-orange-600",
+                "time": "Cenário fictício",
+                "content": "“Era uma piada: mulher entendida de computador é ficção. Não pode nem brincar?”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Sempre irrelevante",
+                        "subtext": "Toda piada é neutra independentemente de contexto.",
+                        "why": "O formato de piada não torna o conteúdo neutro: o estereótipo sobre competência continua presente."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Sempre crime",
+                        "subtext": "Qualquer estereótipo equivale a tipo penal.",
+                        "why": "Nem todo estereótipo é crime. A análise educacional não se confunde com enquadramento penal."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Examinar reprodução de estereótipo",
+                        "subtext": "Pode desqualificar competências, conforme contexto e padrão."
+                    }
+                ],
+                "correct": "c",
+                "label": "Manne + ética",
+                "icon": "fa-language",
+                "title": "Humor, contexto e autoridade",
+                "explanation": "O humor não impede análise de estereótipos ou de efeitos de deslegitimação. Tampouco uma piada isolada, sem contexto, autoriza sentença moral ou jurídica automática. O trabalho educativo investiga a função social, possíveis danos e maneiras respeitosas de discordar.",
+                "lawText": "Não confundir análise educacional de estereótipos com enquadramento criminal automático.",
+                "reflection": "Que alternativas de humor evitariam inferiorizar um grupo?",
+                "steps": [
+                    "Reconhecer estereótipo",
+                    "Compreender situação",
+                    "Julgar consequências",
+                    "Propor reformulação"
+                ]
             },
             {
-                        "id": 9,
-                        "author": "Notícia Replicada",
-                        "handle": "@cenariodidatico09",
-                        "avatarClass": "from-brand-400 to-emerald-600",
-                        "time": "Cenário fictício",
-                        "content": "“O PL 896/2023 já virou lei: qualquer fala sobre mulheres rende prisão e é imprescritível.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 3,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Conferir tramitação e alcance",
-                                                "subtext": "Projeto não é lei por existir; verificar fontes oficiais."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Confirmar sem consulta",
-                                                "subtext": "A frase basta para demonstrar norma vigente."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Desconsiderar direitos",
-                                                "subtext": "Debater direito digital não cabe na escola."
-                                    }
-                        ],
-                        "correct": "a",
-                        "label": "Letramento jurídico-digital",
-                        "icon": "fa-scale-balanced",
-                        "title": "Projeto de lei não é lei",
-                        "explanation": "Até a referência de elaboração deste protótipo, o PL 896/2023 constava como proposição na Câmara dos Deputados, após aprovação no Senado. Não substitua a consulta atualizada à tramitação. Evite afirmar imprescritibilidade ou tipificação como fato vigente sem base legal.",
-                        "lawText": "Verifique a ficha oficial de tramitação da Câmara e o texto normativo efetivamente vigente.",
-                        "reflection": "Que diferença há entre projeto, parecer, aprovação em uma Casa, sanção e vigência?",
-                        "steps": [
-                                    "Reconhecer alegação",
-                                    "Compreender rito",
-                                    "Julgar fonte",
-                                    "Consultar registro oficial"
-                        ]
+                "id": 9,
+                "author": "Notícia Replicada",
+                "handle": "@cenariodidatico09",
+                "avatarClass": "from-brand-400 to-emerald-600",
+                "time": "Cenário fictício",
+                "content": "“O PL 896/2023 já virou lei: qualquer fala sobre mulheres rende prisão e é imprescritível.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 3,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Conferir tramitação e alcance",
+                        "subtext": "Projeto não é lei por existir; verificar fontes oficiais."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Confirmar sem consulta",
+                        "subtext": "A frase basta para demonstrar norma vigente.",
+                        "why": "Uma afirmação em rede social não demonstra que uma norma está em vigor; é preciso consultar a fonte oficial."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Desconsiderar direitos",
+                        "subtext": "Debater direito digital não cabe na escola.",
+                        "why": "Discutir direitos digitais faz parte do letramento sociotécnico; ignorar o tema não ajuda a lidar com a desinformação."
+                    }
+                ],
+                "correct": "a",
+                "label": "Letramento jurídico-digital",
+                "icon": "fa-scale-balanced",
+                "title": "Projeto de lei não é lei",
+                "explanation": "Até a referência de elaboração deste protótipo, o PL 896/2023 constava como proposição na Câmara dos Deputados, após aprovação no Senado. Não substitua a consulta atualizada à tramitação. Evite afirmar imprescritibilidade ou tipificação como fato vigente sem base legal.",
+                "lawText": "Verifique a ficha oficial de tramitação da Câmara e o texto normativo efetivamente vigente.",
+                "reflection": "Que diferença há entre projeto, parecer, aprovação em uma Casa, sanção e vigência?",
+                "steps": [
+                    "Reconhecer alegação",
+                    "Compreender rito",
+                    "Julgar fonte",
+                    "Consultar registro oficial"
+                ]
             },
             {
-                        "id": 10,
-                        "author": "Equipe de Trabalho",
-                        "handle": "@cenariodidatico10",
-                        "avatarClass": "from-blue-600 to-cyan-600",
-                        "time": "Cenário fictício",
-                        "content": "“A diretora recebeu críticas fundamentadas ao orçamento, mas também mensagens dizendo que mulheres deveriam abandonar a chefia.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 1,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Misturar todas as mensagens",
-                                                "subtext": "Toda crítica à gestão teria a mesma função."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Distinguir argumento e policiamento",
-                                                "subtext": "Separar críticas administrativas de sanções de gênero."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Pressupor algoritmo culpado",
-                                                "subtext": "A origem estaria comprovadamente no sistema de recomendação."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Manne · padrões",
-                        "icon": "fa-language",
-                        "title": "Diferenciar discurso e função",
-                        "explanation": "Criticar políticas ou orçamentos pode ser legítimo. A frase que exclui mulheres da liderança introduz um critério de gênero distinto da crítica substantiva. A análise deve separar repertórios e examinar a função de cada manifestação.",
-                        "lawText": "Parâmetro: respeito aos direitos; nenhum enquadramento fechado sem análise dos fatos.",
-                        "reflection": "Como codificar esses tipos de comentários em uma análise qualitativa?",
-                        "steps": [
-                                    "Reconhecer tipos",
-                                    "Compreender função",
-                                    "Julgar contexto",
-                                    "Responder a ideias"
-                        ]
+                "id": 10,
+                "author": "Equipe de Trabalho",
+                "handle": "@cenariodidatico10",
+                "avatarClass": "from-blue-600 to-cyan-600",
+                "time": "Cenário fictício",
+                "content": "“A diretora recebeu críticas fundamentadas ao orçamento, mas também mensagens dizendo que mulheres deveriam abandonar a chefia.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Misturar todas as mensagens",
+                        "subtext": "Toda crítica à gestão teria a mesma função.",
+                        "why": "As mensagens têm funções diferentes: criticar o orçamento é discutir a gestão; dizer que mulheres não devem chefiar é outra coisa."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Distinguir argumento e policiamento",
+                        "subtext": "Separar críticas administrativas de sanções de gênero."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Pressupor algoritmo culpado",
+                        "subtext": "A origem estaria comprovadamente no sistema de recomendação.",
+                        "why": "O caso não traz nenhum dado sobre recomendação; atribuir a origem ao algoritmo seria pura suposição."
+                    }
+                ],
+                "correct": "b",
+                "label": "Manne · padrões",
+                "icon": "fa-language",
+                "title": "Diferenciar discurso e função",
+                "explanation": "Criticar políticas ou orçamentos pode ser legítimo. A frase que exclui mulheres da liderança introduz um critério de gênero distinto da crítica substantiva. A análise deve separar repertórios e examinar a função de cada manifestação.",
+                "lawText": "Parâmetro: respeito aos direitos; nenhum enquadramento fechado sem análise dos fatos.",
+                "reflection": "Como codificar esses tipos de comentários em uma análise qualitativa?",
+                "steps": [
+                    "Reconhecer tipos",
+                    "Compreender função",
+                    "Julgar contexto",
+                    "Responder a ideias"
+                ]
             },
             {
-                        "id": 11,
-                        "author": "Comentário de Debate",
-                        "handle": "@cenariodidatico11",
-                        "avatarClass": "from-pink-500 to-rose-600",
-                        "time": "Cenário fictício",
-                        "content": "“Se ela recusou um convite, foi injusta comigo: mulheres me devem atenção.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 1,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Expectativa de entitlement",
-                                                "subtext": "Percepção de que atenção e deferência são devidas."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Direito reconhecido",
-                                                "subtext": "A autonomia da pessoa depende da aceitação do convite."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Lei do algoritmo",
-                                                "subtext": "A recusa resulta de recomendação automática."
-                                    }
-                        ],
-                        "correct": "a",
-                        "label": "Manne · entitlement",
-                        "icon": "fa-language",
-                        "title": "Atenção não é obrigação",
-                        "explanation": "A formulação traz expectativa de acesso à atenção feminina como algo devido. Pode servir para discutir entitlement em Manne, evitando reduzir o fenômeno a diagnóstico psicológico individual. A autonomia e o consentimento devem ser preservados.",
-                        "lawText": "Parâmetro: autonomia e dignidade; análise social não equivale a decisão judicial.",
-                        "reflection": "Que diferença há entre frustração afetiva e reivindicar controle sobre outra pessoa?",
-                        "steps": [
-                                    "Reconhecer expectativa",
-                                    "Compreender assimetria",
-                                    "Julgar autonomia",
-                                    "Respeitar limites"
-                        ]
+                "id": 11,
+                "author": "Comentário de Debate",
+                "handle": "@cenariodidatico11",
+                "avatarClass": "from-pink-500 to-rose-600",
+                "time": "Cenário fictício",
+                "content": "“Se ela recusou um convite, foi injusta comigo: mulheres me devem atenção.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Expectativa de entitlement",
+                        "subtext": "Percepção de que atenção e deferência são devidas."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Direito reconhecido",
+                        "subtext": "A autonomia da pessoa depende da aceitação do convite.",
+                        "why": "Ninguém tem direito à atenção de outra pessoa; recusar um convite é exercício de autonomia."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Lei do algoritmo",
+                        "subtext": "A recusa resulta de recomendação automática.",
+                        "why": "A recusa foi decisão de uma pessoa, não resultado de um sistema de recomendação."
+                    }
+                ],
+                "correct": "a",
+                "label": "Manne · entitlement",
+                "icon": "fa-language",
+                "title": "Atenção não é obrigação",
+                "explanation": "A formulação traz expectativa de acesso à atenção feminina como algo devido. Pode servir para discutir entitlement em Manne, evitando reduzir o fenômeno a diagnóstico psicológico individual. A autonomia e o consentimento devem ser preservados.",
+                "lawText": "Parâmetro: autonomia e dignidade; análise social não equivale a decisão judicial.",
+                "reflection": "Que diferença há entre frustração afetiva e reivindicar controle sobre outra pessoa?",
+                "steps": [
+                    "Reconhecer expectativa",
+                    "Compreender assimetria",
+                    "Julgar autonomia",
+                    "Respeitar limites"
+                ]
             },
             {
-                        "id": 12,
-                        "author": "Painel de Plataforma",
-                        "handle": "@cenariodidatico12",
-                        "avatarClass": "from-slate-700 to-slate-900",
-                        "time": "Cenário fictício",
-                        "content": "“Uma postagem hostil aparece como recomendada. Isso prova que a empresa quer produzir misoginia.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 2,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Sim, prova intenção",
-                                                "subtext": "Uma ocorrência revela finalidade empresarial concreta."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Não pode haver discussão",
-                                                "subtext": "A recomendação é sempre tecnicamente neutra."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Há uma pergunta empírica a investigar",
-                                                "subtext": "Visibilidade não demonstra intenção nem causalidade."
-                                    }
-                        ],
-                        "correct": "c",
-                        "label": "Feenberg + Van Dijck",
-                        "icon": "fa-code-branch",
-                        "title": "Visibilidade e limites da inferência",
-                        "explanation": "Plataformas incorporam escolhas sociotécnicas e mecanismos de seleção. Porém uma postagem vista por um usuário não permite inferir por si só a intenção da empresa, critérios completos de recomendação ou efeitos causais sobre atitudes. Estudos adicionais seriam necessários.",
-                        "lawText": "Sem tipificação: trata-se de cautela metodológica sobre inferência e responsabilidade.",
-                        "reflection": "Que tipo de dado seria necessário para analisar a hipótese de amplificação?",
-                        "steps": [
-                                    "Reconhecer exposição",
-                                    "Compreender seleção",
-                                    "Julgar inferência",
-                                    "Pesquisar com limites"
-                        ]
+                "id": 12,
+                "author": "Painel de Plataforma",
+                "handle": "@cenariodidatico12",
+                "avatarClass": "from-slate-700 to-slate-900",
+                "time": "Cenário fictício",
+                "content": "“Uma postagem hostil aparece como recomendada. Isso prova que a empresa quer produzir misoginia.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 2,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Sim, prova intenção",
+                        "subtext": "Uma ocorrência revela finalidade empresarial concreta.",
+                        "why": "Uma única ocorrência não revela a intenção da empresa nem os critérios completos da recomendação."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Não pode haver discussão",
+                        "subtext": "A recomendação é sempre tecnicamente neutra.",
+                        "why": "Recomendação não é neutra: incorpora escolhas e prioridades. Por isso a questão pede investigação, não veredito."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Há uma pergunta empírica a investigar",
+                        "subtext": "Visibilidade não demonstra intenção nem causalidade."
+                    }
+                ],
+                "correct": "c",
+                "label": "Feenberg + Van Dijck",
+                "icon": "fa-code-branch",
+                "title": "Visibilidade e limites da inferência",
+                "explanation": "Plataformas incorporam escolhas sociotécnicas e mecanismos de seleção. Porém uma postagem vista por um usuário não permite inferir por si só a intenção da empresa, critérios completos de recomendação ou efeitos causais sobre atitudes. Estudos adicionais seriam necessários.",
+                "lawText": "Sem tipificação: trata-se de cautela metodológica sobre inferência e responsabilidade.",
+                "reflection": "Que tipo de dado seria necessário para analisar a hipótese de amplificação?",
+                "steps": [
+                    "Reconhecer exposição",
+                    "Compreender seleção",
+                    "Julgar inferência",
+                    "Pesquisar com limites"
+                ]
             },
             {
-                        "id": 13,
-                        "author": "Debate sobre Proteção",
-                        "handle": "@cenariodidatico13",
-                        "avatarClass": "from-purple-600 to-indigo-800",
-                        "time": "Cenário fictício",
-                        "content": "“O comentário chama mais atenção para a carreira do acusado do que para a mulher que relatou o dano.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 4,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Sentença de culpabilidade",
-                                                "subtext": "A descrição, sozinha, prova todos os fatos."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Possível foco diferencial de empatia",
-                                                "subtext": "Uma hipótese de leitura com Manne, sem concluir culpa."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Ausência automática de dano",
-                                                "subtext": "Falar do acusado torna a situação neutra."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Manne · himpathy",
-                        "icon": "fa-heart",
-                        "title": "Como a empatia se distribui",
-                        "explanation": "A categoria himpathy ajuda a examinar situações em que se privilegia indevidamente o sofrimento ou a reputação do homem acusado e se obscurece a pessoa atingida. A análise não dispensa a presunção de inocência nem autoriza decidir fatos sem evidência.",
-                        "lawText": "Princípios de não revitimização e proteção podem orientar a discussão sem antecipar resultado de processo.",
-                        "reflection": "Como reconhecer necessidades de cuidado sem prejulgar fatos?",
-                        "steps": [
-                                    "Reconhecer ênfase",
-                                    "Compreender enquadramento",
-                                    "Julgar direitos",
-                                    "Evitar revitimização"
-                        ]
+                "id": 13,
+                "author": "Debate sobre Proteção",
+                "handle": "@cenariodidatico13",
+                "avatarClass": "from-purple-600 to-indigo-800",
+                "time": "Cenário fictício",
+                "content": "“O comentário chama mais atenção para a carreira do acusado do que para a mulher que relatou o dano.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Sentença de culpabilidade",
+                        "subtext": "A descrição, sozinha, prova todos os fatos.",
+                        "why": "A descrição de um comentário não prova os fatos do caso nem a culpa de ninguém."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Possível foco diferencial de empatia",
+                        "subtext": "Uma hipótese de leitura com Manne, sem concluir culpa."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Ausência automática de dano",
+                        "subtext": "Falar do acusado torna a situação neutra.",
+                        "why": "Deslocar a atenção para o acusado não torna a situação neutra; pode obscurecer quem relatou o dano."
+                    }
+                ],
+                "correct": "b",
+                "label": "Manne · himpathy",
+                "icon": "fa-heart",
+                "title": "Como a empatia se distribui",
+                "explanation": "A categoria himpathy ajuda a examinar situações em que se privilegia indevidamente o sofrimento ou a reputação do homem acusado e se obscurece a pessoa atingida. A análise não dispensa a presunção de inocência nem autoriza decidir fatos sem evidência.",
+                "lawText": "Princípios de não revitimização e proteção podem orientar a discussão sem antecipar resultado de processo.",
+                "reflection": "Como reconhecer necessidades de cuidado sem prejulgar fatos?",
+                "steps": [
+                    "Reconhecer ênfase",
+                    "Compreender enquadramento",
+                    "Julgar direitos",
+                    "Evitar revitimização"
+                ]
             },
             {
-                        "id": 14,
-                        "author": "Discussão sobre Denúncia",
-                        "handle": "@cenariodidatico14",
-                        "avatarClass": "from-red-500 to-orange-600",
-                        "time": "Cenário fictício",
-                        "content": "“Para denunciar ataques, uma colega quer publicar novamente todas as mensagens com nome, foto e endereço da pessoa atingida.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 3,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Republicar integralmente",
-                                                "subtext": "A exposição repetida é sempre necessária."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Ignorar e não registrar",
-                                                "subtext": "Não há medidas possíveis."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Preservar sem ampliar circulação",
-                                                "subtext": "Documentar com cuidado e usar canais adequados."
-                                    }
-                        ],
-                        "correct": "c",
-                        "label": "Decreto 12.976 · cuidado",
-                        "icon": "fa-scale-balanced",
-                        "title": "Proteção sem revitimização",
-                        "explanation": "A prevenção de dano inclui preservar elementos relevantes sem redistribuir identificadores ou conteúdo íntimo. A pessoa atingida deve ser ouvida e orientada sobre canais adequados, conforme a situação e as exigências legais e institucionais.",
-                        "lawText": "O Decreto 12.976/2026 contempla centralidade da vítima, privacidade e não revitimização; medidas específicas variam conforme o caso.",
-                        "reflection": "É necessário publicar a evidência para preservá-la?",
-                        "steps": [
-                                    "Reconhecer risco",
-                                    "Compreender exposição",
-                                    "Julgar privacidade",
-                                    "Encaminhar com segurança"
-                        ]
+                "id": 14,
+                "author": "Discussão sobre Denúncia",
+                "handle": "@cenariodidatico14",
+                "avatarClass": "from-red-500 to-orange-600",
+                "time": "Cenário fictício",
+                "content": "“Para denunciar ataques, uma colega quer publicar novamente todas as mensagens com nome, foto e endereço da pessoa atingida.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 3,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Republicar integralmente",
+                        "subtext": "A exposição repetida é sempre necessária.",
+                        "why": "Republicar nome, foto e endereço expõe de novo a pessoa atingida e pode ampliar o dano."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Ignorar e não registrar",
+                        "subtext": "Não há medidas possíveis.",
+                        "why": "Há medidas possíveis: registrar com cuidado, preservar evidências e buscar canais adequados."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Preservar sem ampliar circulação",
+                        "subtext": "Documentar com cuidado e usar canais adequados."
+                    }
+                ],
+                "correct": "c",
+                "label": "Decreto 12.976 · cuidado",
+                "icon": "fa-scale-balanced",
+                "title": "Proteção sem revitimização",
+                "explanation": "A prevenção de dano inclui preservar elementos relevantes sem redistribuir identificadores ou conteúdo íntimo. A pessoa atingida deve ser ouvida e orientada sobre canais adequados, conforme a situação e as exigências legais e institucionais.",
+                "lawText": "O Decreto 12.976/2026 contempla centralidade da vítima, privacidade e não revitimização; medidas específicas variam conforme o caso.",
+                "reflection": "É necessário publicar a evidência para preservá-la?",
+                "steps": [
+                    "Reconhecer risco",
+                    "Compreender exposição",
+                    "Julgar privacidade",
+                    "Encaminhar com segurança"
+                ]
             },
             {
-                        "id": 15,
-                        "author": "Assembleia Estudantil",
-                        "handle": "@cenariodidatico15",
-                        "avatarClass": "from-brand-400 to-emerald-600",
-                        "time": "Cenário fictício",
-                        "content": "“O aplicativo oferece apenas denúncia genérica; estudantes solicitam uma categoria mais adequada a assédio coordenado.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 4,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Democracia técnica e participação",
-                                                "subtext": "Experiências de grupos afetados podem fundamentar mudanças de design."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Neutralidade absoluta da interface",
-                                                "subtext": "Opções de denúncia nunca incorporam prioridades."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Solução automática",
-                                                "subtext": "Acrescentar botão garante eliminação da violência."
-                                    }
-                        ],
-                        "correct": "a",
-                        "label": "Feenberg · participação",
-                        "icon": "fa-heart",
-                        "title": "Design é também uma escolha pública",
-                        "explanation": "A crítica tecnológica pode tornar o desenho discutível: categorias de denúncia, acessibilidade, resposta institucional e proteção refletem prioridades e limites. A participação pode abrir possibilidades de alteração; não garante, por si só, solução definitiva.",
-                        "lawText": "Parâmetro: direitos, deveres e mecanismos específicos de plataformas devem ser analisados caso a caso.",
-                        "reflection": "Como formular uma demanda de melhoria com base em experiências documentadas?",
-                        "steps": [
-                                    "Reconhecer limite",
-                                    "Compreender decisão",
-                                    "Julgar alternativas",
-                                    "Propor melhoria"
-                        ]
+                "id": 15,
+                "author": "Assembleia Estudantil",
+                "handle": "@cenariodidatico15",
+                "avatarClass": "from-brand-400 to-emerald-600",
+                "time": "Cenário fictício",
+                "content": "“O aplicativo oferece apenas denúncia genérica; estudantes solicitam uma categoria mais adequada a assédio coordenado.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 2,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Democracia técnica e participação",
+                        "subtext": "Experiências de grupos afetados podem fundamentar mudanças de design."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Neutralidade absoluta da interface",
+                        "subtext": "Opções de denúncia nunca incorporam prioridades.",
+                        "why": "As opções de denúncia refletem escolhas de desenho; não são neutras por natureza."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Solução automática",
+                        "subtext": "Acrescentar botão garante eliminação da violência.",
+                        "why": "Uma nova categoria de denúncia pode ajudar, mas não garante, sozinha, o fim da violência."
+                    }
+                ],
+                "correct": "a",
+                "label": "Feenberg · participação",
+                "icon": "fa-heart",
+                "title": "Design é também uma escolha pública",
+                "explanation": "A crítica tecnológica pode tornar o desenho discutível: categorias de denúncia, acessibilidade, resposta institucional e proteção refletem prioridades e limites. A participação pode abrir possibilidades de alteração; não garante, por si só, solução definitiva.",
+                "lawText": "Parâmetro: direitos, deveres e mecanismos específicos de plataformas devem ser analisados caso a caso.",
+                "reflection": "Como formular uma demanda de melhoria com base em experiências documentadas?",
+                "steps": [
+                    "Reconhecer limite",
+                    "Compreender decisão",
+                    "Julgar alternativas",
+                    "Propor melhoria"
+                ]
             },
             {
-                        "id": 16,
-                        "author": "Rede Escolar",
-                        "handle": "@cenariodidatico16",
-                        "avatarClass": "from-blue-600 to-cyan-600",
-                        "time": "Cenário fictício",
-                        "content": "“Um perfil adulto estimula colegas a expor dados pessoais de uma estudante menor de idade.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 3,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Fazer captura e divulgar ao grupo",
-                                                "subtext": "Mais exposição garantiria segurança."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Priorizar proteção e canais",
-                                                "subtext": "Considerar idade, privacidade, evidências e apoio responsável."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) É só brincadeira",
-                                                "subtext": "A idade e o contexto não importam."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Proteção da infância",
-                        "icon": "fa-scale-balanced",
-                        "title": "Proteção de crianças e adolescentes",
-                        "explanation": "O cenário exige cuidado redobrado com dados, segurança e encaminhamento. A Lei 15.211/2025 estabelece deveres de proteção em ambientes digitais; a aplicação a uma situação concreta depende do contexto e da legislação correlata. Evite publicar informações identificadoras.",
-                        "lawText": "Consultar Lei 15.211/2025, ECA e demais normas pertinentes, sem presumir tipificação a partir de descrição incompleta.",
-                        "reflection": "Que adultos ou instituições podem oferecer apoio sem expor a estudante?",
-                        "steps": [
-                                    "Reconhecer vulnerabilidade",
-                                    "Compreender risco",
-                                    "Julgar proteção",
-                                    "Buscar ajuda"
-                        ]
+                "id": 16,
+                "author": "Rede Escolar",
+                "handle": "@cenariodidatico16",
+                "avatarClass": "from-blue-600 to-cyan-600",
+                "time": "Cenário fictício",
+                "content": "“Um perfil adulto estimula colegas a expor dados pessoais de uma estudante menor de idade.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 3,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Fazer captura e divulgar ao grupo",
+                        "subtext": "Mais exposição garantiria segurança.",
+                        "why": "Divulgar a captura expõe ainda mais a estudante; proteger não passa por ampliar a circulação."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Priorizar proteção e canais",
+                        "subtext": "Considerar idade, privacidade, evidências e apoio responsável."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) É só brincadeira",
+                        "subtext": "A idade e o contexto não importam.",
+                        "why": "Idade e contexto importam muito: trata-se de uma pessoa menor de idade e de um adulto incentivando a exposição."
+                    }
+                ],
+                "correct": "b",
+                "label": "Proteção da infância",
+                "icon": "fa-scale-balanced",
+                "title": "Proteção de crianças e adolescentes",
+                "explanation": "O cenário exige cuidado redobrado com dados, segurança e encaminhamento. A Lei 15.211/2025 estabelece deveres de proteção em ambientes digitais; a aplicação a uma situação concreta depende do contexto e da legislação correlata. Evite publicar informações identificadoras.",
+                "lawText": "Consultar Lei 15.211/2025, ECA e demais normas pertinentes, sem presumir tipificação a partir de descrição incompleta.",
+                "reflection": "Que adultos ou instituições podem oferecer apoio sem expor a estudante?",
+                "steps": [
+                    "Reconhecer vulnerabilidade",
+                    "Compreender risco",
+                    "Julgar proteção",
+                    "Buscar ajuda"
+                ]
             },
             {
-                        "id": 17,
-                        "author": "Comunidade de Estudos",
-                        "handle": "@cenariodidatico17",
-                        "avatarClass": "from-pink-500 to-rose-600",
-                        "time": "Cenário fictício",
-                        "content": "“Um grupo usa os termos red pill, incel e alfa em um comentário. Isso basta para afirmar que cada participante é misógino?”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 1,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Sim, basta uma palavra",
-                                                "subtext": "A identidade pessoal decorre de um marcador lexical isolado."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Não, é preciso contexto e função",
-                                                "subtext": "Léxico é pista, não laudo de identidade."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Esses termos nunca importam",
-                                                "subtext": "Vocabulário não participa de repertórios sociais."
-                                    }
-                        ],
-                        "correct": "b",
-                        "label": "Bates + Manne",
-                        "icon": "fa-language",
-                        "title": "Vocabulário não substitui análise",
-                        "explanation": "Bates contextualiza repertórios e comunidades da manosfera. A presença de termos pode orientar exploração, mas o contexto, o uso, as relações e a função discursiva precisam ser considerados para evitar classificação automática de indivíduos.",
-                        "lawText": "Análise acadêmica de repertórios não é perícia de identidade, de risco ou de intenção individual.",
-                        "reflection": "Um uso irônico, crítico ou descritivo muda a interpretação?",
-                        "steps": [
-                                    "Reconhecer termos",
-                                    "Compreender contexto",
-                                    "Julgar limites",
-                                    "Evitar rotulação"
-                        ]
+                "id": 17,
+                "author": "Comunidade de Estudos",
+                "handle": "@cenariodidatico17",
+                "avatarClass": "from-pink-500 to-rose-600",
+                "time": "Cenário fictício",
+                "content": "“Um grupo usa os termos red pill, incel e alfa em um comentário. Isso basta para afirmar que cada participante é misógino?”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 1,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Sim, basta uma palavra",
+                        "subtext": "A identidade pessoal decorre de um marcador lexical isolado.",
+                        "why": "Uma palavra isolada não define quem a usa; o uso pode ser descritivo, crítico ou irônico."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Não, é preciso contexto e função",
+                        "subtext": "Léxico é pista, não laudo de identidade."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Esses termos nunca importam",
+                        "subtext": "Vocabulário não participa de repertórios sociais.",
+                        "why": "Os termos importam como pistas de repertórios sociais, mas precisam ser lidos no contexto."
+                    }
+                ],
+                "correct": "b",
+                "label": "Bates + Manne",
+                "icon": "fa-language",
+                "title": "Vocabulário não substitui análise",
+                "explanation": "Bates contextualiza repertórios e comunidades da manosfera. A presença de termos pode orientar exploração, mas o contexto, o uso, as relações e a função discursiva precisam ser considerados para evitar classificação automática de indivíduos.",
+                "lawText": "Análise acadêmica de repertórios não é perícia de identidade, de risco ou de intenção individual.",
+                "reflection": "Um uso irônico, crítico ou descritivo muda a interpretação?",
+                "steps": [
+                    "Reconhecer termos",
+                    "Compreender contexto",
+                    "Julgar limites",
+                    "Evitar rotulação"
+                ]
             },
             {
-                        "id": 18,
-                        "author": "Observatório Fictício",
-                        "handle": "@cenariodidatico18",
-                        "avatarClass": "from-slate-700 to-slate-900",
-                        "time": "Cenário fictício",
-                        "content": "“Uma publicação reúne muitos comentários. Um estudante conclui: ‘Isso prova que todos os leitores concordam e serão radicalizados’.”",
-                        "likes": "",
-                        "tag": null,
-                        "skillArea": 2,
-                        "options": [
-                                    {
-                                                "id": "a",
-                                                "text": "A) Correto, alcance mede adesão",
-                                                "subtext": "Interação demonstra efeitos comportamentais."
-                                    },
-                                    {
-                                                "id": "b",
-                                                "text": "B) Correto, recomendação é causal",
-                                                "subtext": "O número de comentários prova radicalização."
-                                    },
-                                    {
-                                                "id": "c",
-                                                "text": "C) Não; circulação não equivale a impacto",
-                                                "subtext": "Diferenciar visibilidade, interpretação e efeitos."
-                                    }
-                        ],
-                        "correct": "c",
-                        "label": "Kozinets · limites",
-                        "icon": "fa-code-branch",
-                        "title": "Circulação não é adesão",
-                        "explanation": "A presença ou circulação de uma mensagem não comprova concordância de todos, mudança de atitudes ou radicalização. Uma pesquisa qualitativa pode interpretar repertórios e relações observáveis, preservando limites inferenciais e contexto.",
-                        "lawText": "Princípio metodológico: não inferir automaticamente consequências psicológicas ou comportamento de terceiros.",
-                        "reflection": "Qual evidência seria necessária para investigar efeitos ao longo do tempo?",
-                        "steps": [
-                                    "Reconhecer dado",
-                                    "Compreender limites",
-                                    "Julgar inferência",
-                                    "Registrar incerteza"
-                        ]
+                "id": 18,
+                "author": "Observatório Fictício",
+                "handle": "@cenariodidatico18",
+                "avatarClass": "from-slate-700 to-slate-900",
+                "time": "Cenário fictício",
+                "content": "“Uma publicação reúne muitos comentários. Um estudante conclui: ‘Isso prova que todos os leitores concordam e serão radicalizados’.”",
+                "likes": "",
+                "tag": null,
+                "skillArea": 4,
+                "options": [
+                    {
+                        "id": "a",
+                        "text": "A) Correto, alcance mede adesão",
+                        "subtext": "Interação demonstra efeitos comportamentais.",
+                        "why": "Comentar não é concordar, e interação não demonstra efeitos sobre o comportamento."
+                    },
+                    {
+                        "id": "b",
+                        "text": "B) Correto, recomendação é causal",
+                        "subtext": "O número de comentários prova radicalização.",
+                        "why": "O número de comentários não prova radicalização nem mostra como a recomendação atuou."
+                    },
+                    {
+                        "id": "c",
+                        "text": "C) Não; circulação não equivale a impacto",
+                        "subtext": "Diferenciar visibilidade, interpretação e efeitos."
+                    }
+                ],
+                "correct": "c",
+                "label": "Kozinets · limites",
+                "icon": "fa-code-branch",
+                "title": "Circulação não é adesão",
+                "explanation": "A presença ou circulação de uma mensagem não comprova concordância de todos, mudança de atitudes ou radicalização. Uma pesquisa qualitativa pode interpretar repertórios e relações observáveis, preservando limites inferenciais e contexto.",
+                "lawText": "Princípio metodológico: não inferir automaticamente consequências psicológicas ou comportamento de terceiros.",
+                "reflection": "Qual evidência seria necessária para investigar efeitos ao longo do tempo?",
+                "steps": [
+                    "Reconhecer dado",
+                    "Compreender limites",
+                    "Julgar inferência",
+                    "Registrar incerteza"
+                ]
             }
-];
+        ];
 
         const modulesDb = {
             "mod1": {
@@ -3893,7 +3938,7 @@ function printSection(kind){
             },
             "mod4": {
                         "title": "Virtudes tecnomorais e letramento como prática social",
-                        "content": "<p><strong>Vallor (2016)</strong> fornece fundamentos de formação ética voltados ao julgamento prudencial, à percepção moral, à empatia e à responsabilidade em contextos tecnológicos. Essa abordagem não explica a origem estrutural da misoginia e não a reduz à ausência de virtudes.</p><p><strong>Street (1995)</strong> entende letramento como prática social historicamente situada e atravessada por instituições, culturas e poder, recusando tratá-lo como competência neutra universal.</p><h3>Proposta de articulação do projeto</h3><p><strong>Letramento sociotécnico</strong> é uma categoria de trabalho construída na pesquisa a partir de Street, Feenberg, Van Dijck e Vallor; não é uma definição que pertença integralmente a um desses autores.</p><blockquote>Reconhecer → compreender → julgar → intervir responsavelmente.</blockquote>"
+                        "content": "<p><strong>Vallor (2016)</strong> fornece fundamentos de formação ética voltados ao julgamento prudencial, à percepção moral, à empatia e à responsabilidade em contextos tecnológicos. Essa abordagem não explica a origem estrutural da misoginia e não a reduz à ausência de virtudes.</p><p><strong>Street (1995)</strong> entende letramento como prática social historicamente situada e atravessada por instituições, culturas e poder, recusando tratá-lo como competência neutra universal.</p><h3>Proposta de articulação do projeto</h3><p><strong>Letramento sociotécnico</strong> é uma categoria de trabalho construída na pesquisa a partir de Street, Feenberg, Van Dijck e Vallor; não é uma definição que pertença integralmente a um desses autores.</p><blockquote>Reconhecer → compreender → julgar → agir responsavelmente.</blockquote>"
             },
             "mod5": {
                         "title": "Vigilância distribuída, rastros e classificação",
@@ -3901,7 +3946,7 @@ function printSection(kind){
             },
             "mod6": {
                         "title": "Proteção digital e leitura cuidadosa das normas",
-                        "content": "<p>O aparato normativo é dimensão <strong>documental e formativa</strong> da pesquisa, não solução suficiente para a misoginia nem substituto do trabalho educacional.</p><h3>Funções diferentes</h3><ul><li><strong>Lei 12.965/2014:</strong> princípios e direitos ligados ao uso da internet.</li><li><strong>Lei 13.642/2018:</strong> atribuição investigativa da Polícia Federal em hipóteses de crimes praticados pela internet que difundam conteúdo misógino.</li><li><strong>Leis 14.132/2021 e 14.188/2021:</strong> perseguição e violência psicológica contra a mulher, respectivamente, observados os requisitos legais.</li><li><strong>Lei 15.211/2025:</strong> proteção de crianças e adolescentes no ambiente digital.</li><li><strong>Decreto 12.976/2026:</strong> diretrizes para proteção de mulheres na internet e enfrentamento da violência digital.</li><li><strong>PL 896/2023:</strong> projeto legislativo. Consultar tramitação atual; não descrevê-lo como lei.</li></ul><h3>Fontes oficiais</h3><p>Veja os links do <b>Guia do Educador</b>. Um comentário no feed nunca autoriza, por si só, condenação, diagnóstico ou conclusão jurídica fechada.</p>"
+                        "content": "<p>O aparato normativo é dimensão <strong>documental e formativa</strong> da pesquisa, não solução suficiente para a misoginia nem substituto do trabalho educacional.</p><h3>Funções diferentes</h3><ul><li><strong>Lei 12.737/2012:</strong> tipificação de delitos informáticos, como a invasão de dispositivo informático.</li><li><strong>Lei 12.965/2014:</strong> princípios e direitos ligados ao uso da internet.</li><li><strong>Lei 13.642/2018:</strong> atribuição investigativa da Polícia Federal em hipóteses de crimes praticados pela internet que difundam conteúdo misógino.</li><li><strong>Leis 14.132/2021 e 14.188/2021:</strong> perseguição e violência psicológica contra a mulher, respectivamente, observados os requisitos legais.</li><li><strong>Lei 15.211/2025:</strong> proteção de crianças e adolescentes no ambiente digital.</li><li><strong>Decreto 12.976/2026:</strong> diretrizes para proteção de mulheres na internet e enfrentamento da violência digital.</li><li><strong>PL 896/2023:</strong> projeto legislativo. Consultar tramitação atual; não descrevê-lo como lei.</li></ul><h3>Fontes oficiais</h3><p>Veja os links do <b>Guia do Educador</b>. Um comentário no feed nunca autoriza, por si só, condenação, diagnóstico ou conclusão jurídica fechada.</p>"
             },
             "mod7": {
                         "title": "Bates, manosfera e repertórios socioculturais",
@@ -3952,7 +3997,7 @@ function printSection(kind){
         function safeHtml(value) { const x=document.createElement('span');x.textContent=String(value??'');return x.innerHTML; }
 
         let state = {
-            score: 0, xpTotal: postsDb.length * 100, wrongAttempts: 0, firstTrySuccess: new Set(), attempted: new Set(), level: 'Iniciante', mode: 'auditoria', activeView: 'manual', activePostId: null,
+            score: 0, xpTotal: postsDb.length * 100, wrongAttempts: 0, firstTrySuccess: new Set(), attempted: new Set(), level: 'Início', mode: 'auditoria', activeView: 'manual', activePostId: null, openStudyPost: null,
             answeredPosts: new Set(),
             skills: buildSkills(),
             unlockedBadges: new Set()
@@ -3969,7 +4014,7 @@ function printSection(kind){
             const bootOverlay = document.getElementById('boot-overlay');
             const progress = document.getElementById('boot-progress');
             
-            if (progress) setTimeout(() => { progress.style.width = '100%'; }, 100);
+            if (progress) { progress.style.transitionDuration = '600ms'; setTimeout(() => { progress.style.width = '100%'; }, 50); }
             
             try {
                 renderFeed();
@@ -3982,10 +4027,12 @@ function printSection(kind){
             } catch (e) { console.error("Erro na inicialização:", e); } 
             finally {
                 if (bootOverlay) {
+                    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    bootOverlay.style.transitionDuration = '350ms';
                     setTimeout(() => {
                         bootOverlay.style.opacity = '0';
-                        setTimeout(() => { bootOverlay.remove(); }, 1000);
-                    }, 2000);
+                        setTimeout(() => { bootOverlay.remove(); }, 380);
+                    }, reduce ? 0 : 650);
                 }
             }
         }
@@ -4030,6 +4077,7 @@ function printSection(kind){
         function toggleInteractionMode() {
             const isAuditoria = document.getElementById('mode-toggle').checked;
             state.mode = isAuditoria ? 'auditoria' : 'estudo';
+            state.openStudyPost = null;
             
             const lblEstudo = document.getElementById('mode-label-estudo');
             const lblAudit = document.getElementById('mode-label-auditoria');
@@ -4049,9 +4097,9 @@ function printSection(kind){
             const panelAudit = document.getElementById('panel-auditoria');
             const panelEstudo = document.getElementById('panel-estudo');
             if(state.mode === 'auditoria') {
-                panelAudit.classList.remove('hidden'); panelEstudo.classList.add('hidden');
+                panelAudit.classList.remove('hidden', 'force-hidden'); panelEstudo.classList.add('hidden'); panelEstudo.classList.remove('flex');
             } else {
-                panelAudit.classList.add('hidden'); panelEstudo.classList.remove('hidden');
+                panelAudit.classList.add('hidden', 'force-hidden'); panelEstudo.classList.remove('hidden'); panelEstudo.classList.add('flex');
                 resetarSimulador();
             }
         }
@@ -4062,6 +4110,7 @@ function printSection(kind){
             
             postsDb.forEach(post => {
                 const isAnswered = state.answeredPosts.has(post.id);
+                const isOpen = state.mode === 'estudo' && state.openStudyPost === post.id;
                 
                 let mediaHtml = '';
                 if(post.media === 'video') {
@@ -4073,14 +4122,15 @@ function printSection(kind){
                 }
 
                 const tagHtml = post.tag ? `<p class="text-[10px] font-bold ${post.tag.color} uppercase tracking-widest mb-3 flex items-center gap-1.5"><i class="fa-solid ${post.tag.icon}"></i> ${post.tag.text}</p>` : '';
-                const btnText = state.mode === 'auditoria' ? (isAnswered ? '<i class="fa-solid fa-check text-eco-500 mr-1"></i> Auditado' : '<i class="fa-solid fa-magnifying-glass"></i> Auditar') : (isAnswered ? '<i class="fa-solid fa-eye-slash mr-1"></i> Ocultar Análise' : '<i class="fa-solid fa-book-open mr-1"></i> Analisar');
+                const btnText = state.mode === 'auditoria' ? (isAnswered ? '<i class="fa-solid fa-check text-eco-500 mr-1"></i> Auditado' : '<i class="fa-solid fa-magnifying-glass"></i> Auditar') : (isOpen ? '<i class="fa-solid fa-eye-slash mr-1"></i> Ocultar análise' : '<i class="fa-solid fa-book-open mr-1"></i> Analisar');
                 let cardClass = `p-5 hover:bg-surface-800/50 cursor-pointer transition-all-custom relative group `;
                 if(state.mode === 'auditoria' && isAnswered) cardClass += 'opacity-60 saturate-50 ';
+                if(isOpen) cardClass += 'bg-surface-800/50 ';
                 
                 let inlineAnalysisHtml = '';
                 if(state.mode === 'estudo') {
                     inlineAnalysisHtml = `
-                        <div id="inline-analysis-${post.id}" class="hidden mt-4 pt-4 border-t border-surface-700 animate-slide-up cursor-default">
+                        <div id="inline-analysis-${post.id}" class="${isOpen ? '' : 'hidden '}mt-4 pt-4 border-t border-surface-700 animate-slide-up cursor-default" onclick="event.stopPropagation()">
                             <div class="bg-surface-900 rounded-xl border-l-4 border-l-brand-500 border border-surface-700 p-5 shadow-sm">
                                 <div class="flex items-center gap-2 mb-3 text-brand-400"><i class="fa-solid ${post.icon} text-lg"></i> <span class="font-bold text-xs uppercase tracking-wider">${post.label}</span></div>
                                 <h4 class="font-bold text-white text-base mb-2">${post.title}</h4>
@@ -4126,22 +4176,9 @@ function printSection(kind){
         }
 
         function toggleInlineAnalysis(postId) {
-            const inlineEl = document.getElementById(`inline-analysis-${postId}`);
-            if(!inlineEl) return;
-            const isHidden = inlineEl.classList.contains('hidden');
-            
-            if(isHidden) {
-                inlineEl.classList.remove('hidden');
-                document.querySelectorAll('[id^="post-"]').forEach(el => el.classList.remove('post-active', 'bg-surface-800/50'));
-                const postEl = document.getElementById(`post-${postId}`);
-                postEl.classList.add('bg-surface-800/50');
-                postEl.querySelector('.status-indicator')?.classList.add('hidden');
-            } else {
-                inlineEl.classList.add('hidden');
-                document.getElementById(`post-${postId}`).classList.remove('bg-surface-800/50');
-            }
+            // v3.1: o estado de abertura fica em state.openStudyPost; o rótulo do botão acompanha.
+            state.openStudyPost = (state.openStudyPost === postId) ? null : postId;
             renderFeed();
-            if(isHidden) document.getElementById(`inline-analysis-${postId}`).classList.remove('hidden');
         }
 
         function loadMission(postId) {
@@ -4200,6 +4237,8 @@ function printSection(kind){
                 showSuccessPanel(post);
             } else {
                 state.wrongAttempts += 1;
+                const chosen = post.options.find(o => o.id === answerId);
+                document.getElementById('feedback-wrong-text').innerHTML = safeHtml((chosen && chosen.why) ? chosen.why : 'Essa leitura não é a mais defensável com as informações disponíveis.') + ' <strong>Tente novamente.</strong>';
                 state.attempted.add(post.id);
                 wrongEl.classList.remove('hidden', 'shake-anim');
                 void wrongEl.offsetWidth;
@@ -4245,22 +4284,14 @@ function printSection(kind){
             document.querySelectorAll('[id^="post-"]').forEach(el => el.classList.remove('post-active'));
         }
 
-        function loadMorePosts() {
-            const btn = document.getElementById('btn-load-more');
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin text-brand-500"></i> Verificando servidores...';
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fa-solid fa-check text-brand-500"></i> Todos os cenários didáticos estão disponíveis acima.';
-                btn.classList.add('cursor-default', 'text-surface-400');
-                btn.disabled = true;
-            }, 1500);
-        }
+        function loadMorePosts() { /* v3.1: sem carregamento simulado; todos os cenários já estão no feed. */ }
 
         function updateDashboard() {
             let levelNum = 1;
-            if(state.score >= state.xpTotal) { state.level = 'Leitor Sociotécnico'; levelNum = 4; }
-            else if(state.score >= state.xpTotal * 0.6) { state.level = 'Perito'; levelNum = 3; }
-            else if(state.score >= state.xpTotal * 0.3) { state.level = 'Especialista'; levelNum = 2; }
-            else { state.level = 'Novato'; levelNum = 1; }
+            if(state.score >= state.xpTotal) { state.level = 'Percurso concluído'; levelNum = 4; }
+            else if(state.score >= state.xpTotal * 0.6) { state.level = 'Percurso avançado'; levelNum = 3; }
+            else if(state.score >= state.xpTotal * 0.3) { state.level = 'Em percurso'; levelNum = 2; }
+            else { state.level = 'Início'; levelNum = 1; }
             
             const scoreDisplay = document.getElementById('score-display');
             if(scoreDisplay) scoreDisplay.innerText = state.score;
